@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceYa.Android", "RaceYa\RaceYa.Android\RaceYa.Android.csproj", "{EE336F0F-756E-48B6-A5AD-D1E523F08563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceYa", "RaceYa\RaceYa\RaceYa.csproj", "{C57749DB-7145-48E0-BC1D-8F8BF2EAA631}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE336F0F-756E-48B6-A5AD-D1E523F08563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE336F0F-756E-48B6-A5AD-D1E523F08563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE336F0F-756E-48B6-A5AD-D1E523F08563}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{EE336F0F-756E-48B6-A5AD-D1E523F08563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE336F0F-756E-48B6-A5AD-D1E523F08563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE336F0F-756E-48B6-A5AD-D1E523F08563}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C57749DB-7145-48E0-BC1D-8F8BF2EAA631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C57749DB-7145-48E0-BC1D-8F8BF2EAA631}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C57749DB-7145-48E0-BC1D-8F8BF2EAA631}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C57749DB-7145-48E0-BC1D-8F8BF2EAA631}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C57749DB-7145-48E0-BC1D-8F8BF2EAA631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C57749DB-7145-48E0-BC1D-8F8BF2EAA631}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1864B57E-C496-4937-AB0E-FF95825FDA38}
+	EndGlobalSection
+EndGlobal

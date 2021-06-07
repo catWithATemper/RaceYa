@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RaceYa.Views.RaceResultPage"
+             Title="Race result">
+
+    <ContentPage.Content>
+        <StackLayout  Margin="20"
+                      Spacing="10">
+            <Grid ColumnDefinitions="*,*">
+                <Label Text="Total distance"
+                       FontAttributes="Bold"/>
+                
+                <Label Grid.Column="1"
+                       Text="{Binding Distance}"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,*">
+                <Label Text="Average speed"
+                       FontAttributes="Bold"/>
+                <Label Grid.Column="1"
+                       Text="{Binding AverageSpeed}"/>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
