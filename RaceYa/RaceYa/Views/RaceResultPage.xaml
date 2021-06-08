@@ -8,17 +8,21 @@
         <StackLayout  Margin="20"
                       Spacing="10">
             <Grid ColumnDefinitions="*,*">
-                <Label Text="Total distance"
+                <Label Text="Total distance (m)"
+                       FontSize="16"
                        FontAttributes="Bold"/>
                 
                 <Label Grid.Column="1"
-                       Text="{Binding Distance}"/>
+                       FontSize="16"
+                       Text="{Binding Distance, StringFormat=\{0:#\}}}"/>
             </Grid>
             <Grid ColumnDefinitions="*,*">
-                <Label Text="Average speed"
+                <Label Text="Average speed (m/s)"
+                       FontSize="16"
                        FontAttributes="Bold"/>
                 <Label Grid.Column="1"
-                       Text="{Binding AverageSpeed}"/>
+                       FontSize="16"
+                       Text="{Binding AverageSpeed, StringFormat=\{0:#.##\}}"/>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

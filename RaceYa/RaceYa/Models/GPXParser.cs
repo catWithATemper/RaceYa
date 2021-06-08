@@ -21,7 +21,7 @@ namespace RaceYa.Models
             List<TrackPoint> Readings = new List<TrackPoint>();
 
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(GPXParser)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("RaceYa.20210526_173957.gpx");
+            Stream stream = assembly.GetManifestResourceStream("RaceYa.Sample_Data.20210526_173957.gpx");
             using (var reader = new System.IO.StreamReader(stream))
             {
                 XDocument gpxFile = XDocument.Load(reader);
@@ -42,6 +42,7 @@ namespace RaceYa.Models
                         Readings.Add(LocationReading);
                     }
                 }
+                Console.WriteLine(Readings.Count);
                 return Readings;
             }
         }

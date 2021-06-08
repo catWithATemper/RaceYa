@@ -38,7 +38,7 @@ namespace RaceYa.Models
             Distance = CalculateDistance();
             DateTime StartTime = LocationReadings[0].Timestamp.DateTime;
             DateTime EndTime = LocationReadings[n - 1].Timestamp.DateTime;
-            TimeSpan NetTime = EndTime - StartTime;
+            TimeSpan NetTime = EndTime.Subtract(StartTime);
             double speed = Distance / NetTime.TotalSeconds;
 
             return speed;
