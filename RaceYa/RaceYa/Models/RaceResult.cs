@@ -1,60 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace RaceYa.Models
 {
     class RaceResult
     {
-        List<Location> LocationReadings = new List<Location>();
+        int RouteLength { get; }
+
+        public List<Location> LocationReadings = new List<Location>();
+
+        //Tracker ResultTracker = new Tracker();
+
         public double Distance { get; set; }
         public double AverageSpeed { get; set; }
 
-        GPXParser LocationProvider = new GPXParser();
+        CancellationTokenSource cts;
 
         public RaceResult()
         {
-            LocationReadings = GetLocationReadings();
-            Distance = CalculateDistance();
-            AverageSpeed = CalculateAverageSpeed();
+            RouteLength = 100;
+
+            Distance = 0;
+
+            //CalculateRaceResult();
         }
 
-        
-        double CalculateDistance()
+        public async Task CalculateRaceResult()
         {
-            LocationReadings = GetLocationReadings();
-            double distance = 0;
-            for (int i = 0; i < LocationReadings.Count - 1; i++)
+            Location currentLocation = await GetCurrentLocation();
+
+            Location startingPoint = currentLocation;
+            DateTime StartTime = startingPoint.Timestamp.DateTime;
+
+            Location previousLocation;
+
+            while (Distance <= RouteLength)
             {
-                distance += Location.CalculateDistance(LocationReadings[i], LocationReadings[i + 1], DistanceUnits.Kilometers) *1000;
+                previousLocation = currentLocation;
+                //await Task.Delay(1000);
+                currentLocation = await GetCurrentLocation();
+                Distance += Location.CalculateDistance(currentLocation, previousLocation, DistanceUnits.Kilometers) * 1000;
+
+                TimeSpan timeSinceStart = currentLocation.Timestamp.DateTime - StartTime;
+
+                AverageSpeed = Distance / timeSinceStart.TotalSeconds;
+                Console.WriteLine("Distance " + Distance + " Speed " + AverageSpeed);
             }
-            return distance;
         }
 
-        double CalculateAverageSpeed()
+        public async Task<Location> GetCurrentLocation()
         {
-            int n = LocationReadings.Count;
-            Distance = CalculateDistance();
-            DateTime StartTime = LocationReadings[0].Timestamp.DateTime;
-            DateTime EndTime = LocationReadings[n - 1].Timestamp.DateTime;
-            TimeSpan NetTime = EndTime.Subtract(StartTime);
-            double speed = Distance / NetTime.TotalSeconds;
+            var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
+            cts = new CancellationTokenSource();
+            var location = await Geolocation.GetLocationAsync(request, cts.Token);
 
-            return speed;
+            return location;
         }
-
-        List<Location> GetLocationReadings()
-        {
-            List<Location> LocationReadings = new List<Location>();
-
-            foreach (TrackPoint Reading in LocationProvider.LocationReadings)
-            {
-                Location Location = new Location(Reading.latitude, Reading.longitude, Reading.TimeStamp);
-                LocationReadings.Add(Location);     
-            }
-            return LocationReadings;
-        }
-        
     }
 }

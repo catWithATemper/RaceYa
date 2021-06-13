@@ -11,19 +11,27 @@
                 <Label Text="Total distance (m)"
                        FontSize="16"
                        FontAttributes="Bold"/>
-                
-                <Label Grid.Column="1"
-                       FontSize="16"
-                       Text="{Binding Distance, StringFormat=\{0:#\}}}"/>
+
+                <Label x:Name="distanceLabel"
+                       Grid.Column="1"
+                       FontSize="16"/>
+                <!--
+                       Text="{Binding Distance, StringFormat=\{0:#\}}"
+                -->
             </Grid>
             <Grid ColumnDefinitions="*,*">
                 <Label Text="Average speed (m/s)"
                        FontSize="16"
                        FontAttributes="Bold"/>
-                <Label Grid.Column="1"
-                       FontSize="16"
-                       Text="{Binding AverageSpeed, StringFormat=\{0:#.##\}}"/>
+                <Label x:Name="avgSpeedLabel"
+                       Grid.Column="1"
+                       FontSize="16"/>
+                <!--
+                       Text="{Binding AverageSpeed, StringFormat=\{0:#.##\}}"
+                -->
             </Grid>
+            <Button Text="Click me" 
+                    Clicked="OnButtonClicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
