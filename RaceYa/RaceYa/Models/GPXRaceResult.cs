@@ -14,24 +14,24 @@ namespace RaceYa.Models
 
         GPXParser LocationProvider = new GPXParser();
 
-        //Tracker ResultTracker = new Tracker();
-
-
-
         public GPXRaceResult()
         {
             LocationReadings = GetLocationReadings();
             Distance = CalculateDistance();
             AverageSpeed = CalculateAverageSpeed();
-            //TestLocation();
         }
 
-        /*
-        public async void TestLocation()
+        List<Location> GetLocationReadings()
         {
-            await ResultTracker.GetCurrentLocation();
+            List<Location> LocationReadings = new List<Location>();
+
+            foreach (TrackPoint Reading in LocationProvider.LocationReadings)
+            {
+                Location Location = new Location(Reading.latitude, Reading.longitude, Reading.TimeStamp);
+                LocationReadings.Add(Location);
+            }
+            return LocationReadings;
         }
-        */
 
         double CalculateDistance()
         {
@@ -44,7 +44,6 @@ namespace RaceYa.Models
             return distance;
         }
 
-
         double CalculateAverageSpeed()
         {
             int n = LocationReadings.Count;
@@ -56,18 +55,5 @@ namespace RaceYa.Models
 
             return speed;
         }
-
-        List<Location> GetLocationReadings()
-        {
-            List<Location> LocationReadings = new List<Location>();
-
-            foreach (TrackPoint Reading in LocationProvider.LocationReadings)
-            {
-                Location Location = new Location(Reading.latitude, Reading.longitude, Reading.TimeStamp);
-                LocationReadings.Add(Location);     
-            }
-            return LocationReadings;
-        }
-        
     }
 }

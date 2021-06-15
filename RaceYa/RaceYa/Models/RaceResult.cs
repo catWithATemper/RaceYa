@@ -9,56 +9,55 @@ namespace RaceYa.Models
 {
     class RaceResult
     {
-        int RouteLength { get; }
-
-        public List<Location> LocationReadings = new List<Location>();
-
-        //Tracker ResultTracker = new Tracker();
-
+        public int RouteLength { get; }
+        public Location CurrentLocation { get; set; }
+        Location PreviousLocation { get; set; }
         public double Distance { get; set; }
         public double AverageSpeed { get; set; }
 
-        CancellationTokenSource cts;
+        Location startingPoint;
+
+        DateTime startTime;
+
+        TimeSpan timeSinceStart;
 
         public RaceResult()
         {
             RouteLength = 100;
-
             Distance = 0;
-
-            //CalculateRaceResult();
         }
 
-        public async Task CalculateRaceResult()
+        public void SetCurrentLocation(Location newReading)
         {
-            Location currentLocation = await GetCurrentLocation();
-
-            Location startingPoint = currentLocation;
-            DateTime StartTime = startingPoint.Timestamp.DateTime;
-
-            Location previousLocation;
-
-            while (Distance <= RouteLength)
-            {
-                previousLocation = currentLocation;
-                //await Task.Delay(1000);
-                currentLocation = await GetCurrentLocation();
-                Distance += Location.CalculateDistance(currentLocation, previousLocation, DistanceUnits.Kilometers) * 1000;
-
-                TimeSpan timeSinceStart = currentLocation.Timestamp.DateTime - StartTime;
-
-                AverageSpeed = Distance / timeSinceStart.TotalSeconds;
-                Console.WriteLine("Distance " + Distance + " Speed " + AverageSpeed);
-            }
+            PreviousLocation = CurrentLocation;
+            CurrentLocation = newReading;
         }
 
-        public async Task<Location> GetCurrentLocation()
+        public void SetStartingPoint()
         {
-            var request = new GeolocationRequest(GeolocationAccuracy.Medium, TimeSpan.FromSeconds(10));
-            cts = new CancellationTokenSource();
-            var location = await Geolocation.GetLocationAsync(request, cts.Token);
+            startingPoint = CurrentLocation;
+        }
 
-            return location;
+        public void SetStartTime()
+        {
+            startTime = startingPoint.Timestamp.DateTime;
+        }
+
+        public void SetTimeSinceStart()
+        {
+            timeSinceStart = CurrentLocation.Timestamp.DateTime - startTime;
+        }
+
+        public double CalculateDistance()
+        {
+            Distance += Location.CalculateDistance(CurrentLocation, PreviousLocation, DistanceUnits.Kilometers) * 1000;
+            return Distance;
+        }
+
+        public double CalculateAverageSpeed()
+        {
+            AverageSpeed = Distance / timeSinceStart.TotalSeconds;
+            return AverageSpeed;
         }
     }
 }

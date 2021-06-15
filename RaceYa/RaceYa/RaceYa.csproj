@@ -6,22 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="20210526_173957.gpx" />
-    <None Remove="Sample Data\20190829_181304.gpx" />
-    <None Remove="Sample Data\20200601_174558.gpx" />
-    <None Remove="Sample Data\20201009_175328.gpx" />
-    <None Remove="Sample Data\20210526_173957.gpx" />
-    <None Remove="Sample Data\20210530_143238.gpx" />
-    <None Remove="Sample Data\20210602_183136.gpx" />
+    <Compile Remove="Sample Data\**" />
+    <EmbeddedResource Remove="Sample Data\**" />
+    <None Remove="Sample Data\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Sample Data\20190829_181304.gpx" />
-    <EmbeddedResource Include="Sample Data\20200601_174558.gpx" />
-    <EmbeddedResource Include="Sample Data\20201009_175328.gpx" />
-    <EmbeddedResource Include="Sample Data\20210526_173957.gpx" />
-    <EmbeddedResource Include="Sample Data\20210530_143238.gpx" />
-    <EmbeddedResource Include="Sample Data\20210602_183136.gpx" />
+    <Compile Remove="Models\GPXParser.cs" />
+    <Compile Remove="Models\GPXRaceResult.cs" />
+    <Compile Remove="Models\TrackPoint.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="20210526_173957.gpx" />
   </ItemGroup>
 
   <ItemGroup>

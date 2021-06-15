@@ -3,35 +3,50 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RaceYa.Views.RaceResultPage"
              Title="Race result">
-
-    <ContentPage.Content>
-        <StackLayout  Margin="20"
-                      Spacing="10">
-            <Grid ColumnDefinitions="*,*">
-                <Label Text="Total distance (m)"
-                       FontSize="16"
-                       FontAttributes="Bold"/>
-
-                <Label x:Name="distanceLabel"
-                       Grid.Column="1"
-                       FontSize="16"/>
-                <!--
-                       Text="{Binding Distance, StringFormat=\{0:#\}}"
-                -->
-            </Grid>
-            <Grid ColumnDefinitions="*,*">
-                <Label Text="Average speed (m/s)"
-                       FontSize="16"
-                       FontAttributes="Bold"/>
-                <Label x:Name="avgSpeedLabel"
-                       Grid.Column="1"
-                       FontSize="16"/>
-                <!--
-                       Text="{Binding AverageSpeed, StringFormat=\{0:#.##\}}"
-                -->
-            </Grid>
-            <Button Text="Click me" 
-                    Clicked="OnButtonClicked"/>
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout  Margin="20"
+                  Spacing="10">
+        <Grid ColumnDefinitions="*,*">
+            <Label Text="Total distance (m)"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+            <Label x:Name="distanceLabel"
+                   Grid.Column="1"
+                   FontSize="16"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Label Text="Average speed (m/s)"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+            <Label x:Name="avgSpeedLabel"
+                   Grid.Column="1"
+                   FontSize="16"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Label Text=""/>
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Label Text="Your position"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Label Text="Latitude:"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+            <Label x:Name="latitudeLabel"
+                   Grid.Column="1"
+                   FontSize="16"/>
+        </Grid>
+        <Grid ColumnDefinitions="*,*">
+            <Label Text="Longitude:"
+                   FontSize="16"
+                   FontAttributes="Bold"/>
+            <Label x:Name="longitudeLabel"
+                   Grid.Column="1"
+                   FontSize="16"/>
+        </Grid>
+        <Button Text="Start running" 
+                Clicked="OnButtonClicked"
+                WidthRequest="300"/>
+    </StackLayout>
 </ContentPage>

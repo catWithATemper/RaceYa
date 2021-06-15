@@ -22,7 +22,7 @@ namespace RaceYa.Models
 
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(GPXParser)).Assembly;
             Stream stream = assembly.GetManifestResourceStream("RaceYa.Sample_Data.20210526_173957.gpx");
-            using (var reader = new System.IO.StreamReader(stream))
+            using (var reader = new StreamReader(stream))
             {
                 XDocument gpxFile = XDocument.Load(reader);
                 XNamespace ns = "http://www.topografix.com/GPX/1/1";
