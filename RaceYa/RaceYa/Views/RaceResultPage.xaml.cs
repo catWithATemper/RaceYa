@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -30,8 +27,8 @@ namespace RaceYa.Views
             base.OnAppearing();
 
             BindingContext = result;
-            distanceLabel.Text = result.Distance.ToString();
-            avgSpeedLabel.Text = result.AverageSpeed.ToString();
+            distanceLabel.Text = "0";
+            avgSpeedLabel.Text = "0";
             latitudeLabel.Text = "";
             longitudeLabel.Text = "";
         }
@@ -40,17 +37,26 @@ namespace RaceYa.Views
          {
             (sender as Button).BackgroundColor = Color.FromRgb(211, 211, 211);
 
-            await CalculateRaceResult();
+            try
+            {
+                await CalculateRaceResult();
 
-            distanceLabel.SetValue(Label.TextProperty, String.Format("{0:#}", result.Distance));
-            avgSpeedLabel.SetValue(Label.TextProperty, String.Format("{0:#.##}", result.AverageSpeed));
-            latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude);
-            longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude);
-         }
+                distanceLabel.SetValue(Label.TextProperty, result.Distance.ToString("F0"));
+                avgSpeedLabel.SetValue(Label.TextProperty, result.AverageSpeed.ToString("F2"));
+                latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("F8"));
+                longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Exception", "Unable to get location", "OK");
+                StartButton.BackgroundColor = Color.FromHex("#2196F3");
+            }
+        }
 
         public async Task CalculateRaceResult()
         {
             Location currentLocation = await GetCurrentLocation();
+            
             result.SetCurrentLocation(currentLocation);
             result.SetStartingPoint();
             result.SetStartTime();
@@ -61,17 +67,24 @@ namespace RaceYa.Views
                 currentLocation = await GetCurrentLocation();
                 result.SetCurrentLocation(currentLocation);
 
-                latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude);
-                longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude);
+                latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("f8"));
+                longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
 
                 result.Distance = result.CalculateDistance();
 
-                distanceLabel.SetValue(Label.TextProperty, String.Format("{0:#}", result.Distance));
+                distanceLabel.SetValue(Label.TextProperty, result.Distance.ToString("F0"));
 
                 result.SetTimeSinceStart();
-                result.AverageSpeed = result.CalculateAverageSpeed();
 
-                avgSpeedLabel.SetValue(Label.TextProperty, String.Format("{0:#.##}", result.AverageSpeed));
+                if (result.Distance != 0)
+                {
+                    result.AverageSpeed = result.CalculateAverageSpeed();
+
+                    //Debug
+                    Console.WriteLine("Debug Speed: " + result.CalculateAverageSpeed());
+
+                    avgSpeedLabel.SetValue(Label.TextProperty, result.AverageSpeed.ToString("F2"));
+                }
             }
         }
 
@@ -79,8 +92,12 @@ namespace RaceYa.Views
         {
             var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
             cts = new CancellationTokenSource();
-            var location = await Geolocation.GetLocationAsync(request, cts.Token);
 
+            Location location = null;
+            while (location == null)
+            {
+                location = await Geolocation.GetLocationAsync(request, cts.Token);
+            }
             return location;
         }
 

@@ -45,7 +45,8 @@
                    Grid.Column="1"
                    FontSize="16"/>
         </Grid>
-        <Button Text="Start running" 
+        <Button x:Name="StartButton"
+                Text="Start running" 
                 Clicked="OnButtonClicked"
                 WidthRequest="300"/>
     </StackLayout>
