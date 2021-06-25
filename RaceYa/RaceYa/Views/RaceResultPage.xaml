@@ -46,8 +46,9 @@
                    FontSize="16"/>
         </Grid>
         <Button x:Name="StartButton"
-                Text="Start running" 
+                Text="Start" 
                 Clicked="OnButtonClicked"
                 WidthRequest="300"/>
+
     </StackLayout>
 </ContentPage>

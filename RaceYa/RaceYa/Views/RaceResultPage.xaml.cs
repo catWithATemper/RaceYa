@@ -17,6 +17,7 @@ namespace RaceYa.Views
         RaceResult result = new RaceResult();
 
         CancellationTokenSource cts;
+
         public RaceResultPage()
         {
             InitializeComponent();
@@ -35,21 +36,62 @@ namespace RaceYa.Views
 
          async void OnButtonClicked(object sender, EventArgs e)
          {
-            (sender as Button).BackgroundColor = Color.FromRgb(211, 211, 211);
+            Location locationTest;
+
+            StartButton.IsEnabled = false;
+            StartButton.Text = "Searching for GPS... ";
+            StartButton.TextColor = Color.Red;
 
             try
             {
-                await CalculateRaceResult();
+                locationTest = await GetCurrentLocation();
 
-                distanceLabel.SetValue(Label.TextProperty, result.Distance.ToString("F0"));
-                avgSpeedLabel.SetValue(Label.TextProperty, result.AverageSpeed.ToString("F2"));
-                latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("F8"));
-                longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
+                if (locationTest != null)
+                {
+                    bool answer = await DisplayAlert("Start race?", "Tap \"OK\" to start the countdown", "OK", "Cancel");
+
+                    if (!answer)
+                    {
+                        StartButton.IsEnabled = true;
+                        StartButton.Text = "START";
+                        StartButton.TextColor = Color.White ;
+                        return;
+                    }
+                    else
+                    {
+                        StartButton.TextColor = Color.Black;
+                        for (int times = 5; times > 0; times--)
+                        {
+                            StartButton.Text = times.ToString();
+                            await Task.Delay(1000);
+                        }
+
+                        StartButton.Text = "Run!";
+
+                        //Debug
+                        result.SetCurrentLocation(locationTest);
+                        latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("F8"));
+                        longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
+
+                        //The gist
+                        await CalculateRaceResult();
+
+                        /*
+                        distanceLabel.SetValue(Label.TextProperty, result.Distance.ToString("F0"));
+                        avgSpeedLabel.SetValue(Label.TextProperty, result.AverageSpeed.ToString("F2"));
+                        latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("F8"));
+                        longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
+                        */
+
+               
+                    }
+                }
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Exception", "Unable to get location", "OK");
-                StartButton.BackgroundColor = Color.FromHex("#2196F3");
+                StartButton.IsEnabled = true;
+                StartButton.Text = "START";
             }
         }
 
