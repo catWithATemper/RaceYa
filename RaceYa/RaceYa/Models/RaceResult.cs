@@ -1,26 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Essentials;
 
 namespace RaceYa.Models
 {
-    class RaceResult
+    public class RaceResult
     {
-        public int RouteLength { get; }
         public Location CurrentLocation { get; set; }
         Location PreviousLocation { get; set; }
 
-        Location startingPoint;
+        Location StartingPoint;
 
-        DateTime startTime;
+        DateTime StartTime;
 
-        TimeSpan timeSinceStart;
-        public double Distance { get; set; }
+        TimeSpan TimeSinceStart;
+        public double CoveredDistance { get; set; }
         public double AverageSpeed { get; set; }
+
+        public Dictionary<TimeSpan, double> RaceTimes;
 
         public RaceResult()
         {
-            RouteLength = 100;
-            Distance = 0;
+            CoveredDistance = 0;
             AverageSpeed = 0;
         }
 
@@ -33,29 +34,32 @@ namespace RaceYa.Models
 
         public void SetStartingPoint()
         {
-            startingPoint = CurrentLocation;
+            StartingPoint = CurrentLocation;
         }
         
 
         public void SetStartTime()
         {
-            startTime = startingPoint.Timestamp.DateTime;
+            StartTime = StartingPoint.Timestamp.DateTime;
         }
 
-        public void SetTimeSinceStart()
+        public void CalculateTimeSinceStart()
         {
-            timeSinceStart = CurrentLocation.Timestamp.DateTime - startTime;
+            TimeSinceStart = CurrentLocation.Timestamp.DateTime - StartTime;
         }
 
-        public double CalculateDistance()
+        public double CalculateCoveredDistance()
         {
-            Distance += Location.CalculateDistance(CurrentLocation, PreviousLocation, DistanceUnits.Kilometers) * 1000;
-            return Distance;
+            CoveredDistance += Location.CalculateDistance(CurrentLocation, PreviousLocation, DistanceUnits.Kilometers) * 1000;
+
+            RaceTimes.Add(TimeSinceStart, CoveredDistance);
+
+            return CoveredDistance;
         }
 
         public double CalculateAverageSpeed()
         {
-            AverageSpeed = Distance / timeSinceStart.TotalSeconds;
+            AverageSpeed = CoveredDistance / TimeSinceStart.TotalSeconds;
             return AverageSpeed;
         }
     }

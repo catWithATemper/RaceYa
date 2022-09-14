@@ -8,13 +8,15 @@ using RaceYa.Models;
 using System.Threading;
 using Xamarin.Essentials;
 
+using RaceYa.Models;
+
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RaceResultPage : ContentPage
     {
-
-        RaceResult result = new RaceResult();
+        public DataExchangeService Service = new DataExchangeService();
+        RaceResult Result = new RaceResult();
 
         CancellationTokenSource cts;
 
@@ -27,7 +29,7 @@ namespace RaceYa.Views
         {
             base.OnAppearing();
 
-            BindingContext = result;
+            BindingContext = Result;
             distanceLabel.Text = "0";
             avgSpeedLabel.Text = "0";
             latitudeLabel.Text = "";
@@ -36,7 +38,7 @@ namespace RaceYa.Views
 
          async void OnButtonClicked(object sender, EventArgs e)
          {
-            Location locationTest;
+            Location LocationTest;
 
             StartButton.IsEnabled = false;
             StartButton.Text = "Searching for GPS... ";
@@ -44,13 +46,13 @@ namespace RaceYa.Views
 
             try
             {
-                locationTest = await GetCurrentLocation();
+                LocationTest = await GetCurrentLocation();
 
-                if (locationTest != null)
+                if (LocationTest != null)
                 {
-                    bool answer = await DisplayAlert("Start race?", "Tap \"OK\" to start the countdown", "OK", "Cancel");
-
-                    if (!answer)
+                    bool Answer = await DisplayAlert("Start race?", "Tap \"OK\" to start the countdown", "OK", "Cancel");
+                    //Check again for location availability at regular intervals here. 
+                    if (!Answer)
                     {
                         StartButton.IsEnabled = true;
                         StartButton.Text = "START";
@@ -69,21 +71,11 @@ namespace RaceYa.Views
                         StartButton.Text = "Run!";
 
                         //Debug
-                        result.SetCurrentLocation(locationTest);
-                        latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("F8"));
-                        longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
+                        Result.SetCurrentLocation(LocationTest);
+                        latitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Latitude.ToString("F8"));
+                        longitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Longitude.ToString("F8"));
 
-                        //The gist
                         await CalculateRaceResult();
-
-                        /*
-                        distanceLabel.SetValue(Label.TextProperty, result.Distance.ToString("F0"));
-                        avgSpeedLabel.SetValue(Label.TextProperty, result.AverageSpeed.ToString("F2"));
-                        latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("F8"));
-                        longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
-                        */
-
-               
                     }
                 }
             }
@@ -92,6 +84,7 @@ namespace RaceYa.Views
                 await DisplayAlert("Exception", "Unable to get location", "OK");
                 StartButton.IsEnabled = true;
                 StartButton.Text = "START";
+                //Textcolor?
             }
         }
 
@@ -99,33 +92,31 @@ namespace RaceYa.Views
         {
             Location currentLocation = await GetCurrentLocation();
             
-            result.SetCurrentLocation(currentLocation);
-            result.SetStartingPoint();
-            result.SetStartTime();
+            Result.SetCurrentLocation(currentLocation);
+            Result.SetStartingPoint();
+            Result.SetStartTime();
 
-            while (result.Distance <= result.RouteLength)
+            while (Result.CoveredDistance <= Service.CurrentRace.RouteLength)
             {
                 await Task.Delay(1000);
                 currentLocation = await GetCurrentLocation();
-                result.SetCurrentLocation(currentLocation);
+                Result.SetCurrentLocation(currentLocation);
 
-                latitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Latitude.ToString("f8"));
-                longitudeLabel.SetValue(Label.TextProperty, result.CurrentLocation.Longitude.ToString("F8"));
+                latitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Latitude.ToString("f8"));
+                longitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Longitude.ToString("F8"));
 
-                result.Distance = result.CalculateDistance();
+                Result.CoveredDistance = Result.CalculateCoveredDistance();
 
-                distanceLabel.SetValue(Label.TextProperty, result.Distance.ToString("F0"));
+                distanceLabel.SetValue(Label.TextProperty, Result.CoveredDistance.ToString("F0"));
+ 
+                Result.CalculateTimeSinceStart();
 
-                result.SetTimeSinceStart();
-
-                if (result.Distance != 0)
+                //Should check timeSinceStart > 0 
+                if (Result.CoveredDistance != 0)
                 {
-                    result.AverageSpeed = result.CalculateAverageSpeed();
+                    Result.AverageSpeed = Result.CalculateAverageSpeed();
 
-                    //Debug
-                    Console.WriteLine("Debug Speed: " + result.CalculateAverageSpeed());
-
-                    avgSpeedLabel.SetValue(Label.TextProperty, result.AverageSpeed.ToString("F2"));
+                    avgSpeedLabel.SetValue(Label.TextProperty, Result.AverageSpeed.ToString("F2"));
                 }
             }
         }
@@ -142,9 +133,5 @@ namespace RaceYa.Views
             }
             return location;
         }
-
-
-
     }
-
 }
