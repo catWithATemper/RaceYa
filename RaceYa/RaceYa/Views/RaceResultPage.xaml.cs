@@ -8,21 +8,24 @@ using RaceYa.Models;
 using System.Threading;
 using Xamarin.Essentials;
 
-using RaceYa.Models;
-
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RaceResultPage : ContentPage
     {
-        public DataExchangeService Service = new DataExchangeService();
-        RaceResult Result = new RaceResult();
+        public static DataExchangeService Service = DataExchangeService.Instance();
+
+        public static User CurrentUser = new User("CurrentUser");
+        public static Participant CurrentParticipant = new Participant(CurrentUser, Service.CurrentRace);
+
+        RaceResult Result = new RaceResult(CurrentParticipant);
 
         CancellationTokenSource cts;
 
         public RaceResultPage()
         {
             InitializeComponent();
+            CurrentParticipant.AddToLeaderboard();
         }
 
         protected override void OnAppearing()
@@ -81,10 +84,11 @@ namespace RaceYa.Views
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Source + ex.Message + ex.StackTrace + ex.InnerException);
                 await DisplayAlert("Exception", "Unable to get location", "OK");
                 StartButton.IsEnabled = true;
                 StartButton.Text = "START";
-                //Textcolor?
+                StartButton.TextColor = Color.White;
             }
         }
 
@@ -94,7 +98,6 @@ namespace RaceYa.Views
             
             Result.SetCurrentLocation(currentLocation);
             Result.SetStartingPoint();
-            Result.SetStartTime();
 
             while (Result.CoveredDistance <= Service.CurrentRace.RouteLength)
             {
@@ -111,7 +114,6 @@ namespace RaceYa.Views
  
                 Result.CalculateTimeSinceStart();
 
-                //Should check timeSinceStart > 0 
                 if (Result.CoveredDistance != 0)
                 {
                     Result.AverageSpeed = Result.CalculateAverageSpeed();

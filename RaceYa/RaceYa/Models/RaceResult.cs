@@ -6,26 +6,29 @@ namespace RaceYa.Models
 {
     public class RaceResult
     {
+
+        public Participant Participant {get; set;}
         public Location CurrentLocation { get; set; }
         Location PreviousLocation { get; set; }
 
         Location StartingPoint;
 
         DateTime StartTime;
-
-        TimeSpan TimeSinceStart;
+        public TimeSpan TimeSinceStart { get; set; }
         public double CoveredDistance { get; set; }
         public double AverageSpeed { get; set; }
 
         public Dictionary<TimeSpan, double> RaceTimes;
 
-        public RaceResult()
+        public RaceResult(Participant participant)
         {
+            Participant = participant;
+            
             CoveredDistance = 0;
             AverageSpeed = 0;
+            RaceTimes = new Dictionary<TimeSpan, double>();
         }
 
-        
         public void SetCurrentLocation(Location newReading)
         {
             PreviousLocation = CurrentLocation;
@@ -35,11 +38,6 @@ namespace RaceYa.Models
         public void SetStartingPoint()
         {
             StartingPoint = CurrentLocation;
-        }
-        
-
-        public void SetStartTime()
-        {
             StartTime = StartingPoint.Timestamp.DateTime;
         }
 
@@ -52,7 +50,9 @@ namespace RaceYa.Models
         {
             CoveredDistance += Location.CalculateDistance(CurrentLocation, PreviousLocation, DistanceUnits.Kilometers) * 1000;
 
-            RaceTimes.Add(TimeSinceStart, CoveredDistance);
+            if (!RaceTimes.ContainsKey(TimeSinceStart))
+
+                RaceTimes.Add(TimeSinceStart, CoveredDistance);
 
             return CoveredDistance;
         }

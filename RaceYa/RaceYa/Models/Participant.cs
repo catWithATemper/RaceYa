@@ -6,14 +6,22 @@ namespace RaceYa.Models
 {
     public class Participant
     {
-        public User user { get; set; }
-        public Race race { get; set; }
+        public User User { get; set; }
+        public Race Race { get; set; }
 
         public RaceResult Result;
 
-        public Participant()
+        public Participant(User user, Race race)
         {
-            //Result.RouteLength = CurrentRace.RouteLength;
+            User = user;
+            Race = race;
+            
+            //Result = new RaceResult();
+        }
+
+        public void AddToLeaderboard()
+        {
+            Race.Leaderboard.Add(this);
         }
     }
 }

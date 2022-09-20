@@ -13,6 +13,7 @@ namespace RaceYa.Models
         public Race()
         {
             RouteLength = 5000;
+            Leaderboard = new List<Participant>();
         }
     }
 }
