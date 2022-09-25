@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RaceYa.Models
+﻿namespace RaceYa.Models
 {
     public class Participant
     {
@@ -15,13 +11,9 @@ namespace RaceYa.Models
         {
             User = user;
             Race = race;
-            
-            //Result = new RaceResult();
-        }
-
-        public void AddToLeaderboard()
-        {
-            Race.Leaderboard.Add(this);
+            Result = new RaceResult();
+            Race.Participants.Add(this);
+            Race.LeaerBoard.Add(this, 0);
         }
     }
 }

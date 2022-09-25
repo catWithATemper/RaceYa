@@ -17,66 +17,64 @@ namespace RaceYa.Views
 
         public static User CurrentUser = new User("CurrentUser");
         public static Participant CurrentParticipant = new Participant(CurrentUser, Service.CurrentRace);
-
-        RaceResult Result = new RaceResult(CurrentParticipant);
+        //readonly RaceResult Result = new RaceResult();
 
         CancellationTokenSource cts;
 
         public RaceResultPage()
         {
             InitializeComponent();
-            CurrentParticipant.AddToLeaderboard();
+            Service.CurrentRace.CurrentParticipant = CurrentParticipant;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            BindingContext = Result;
+            BindingContext = CurrentParticipant.Result;
             distanceLabel.Text = "0";
             avgSpeedLabel.Text = "0";
             latitudeLabel.Text = "";
             longitudeLabel.Text = "";
         }
 
-         async void OnButtonClicked(object sender, EventArgs e)
+         async void OnStartButtonClicked(object sender, EventArgs e)
          {
-            Location LocationTest;
+            Location locationTest;
 
-            StartButton.IsEnabled = false;
-            StartButton.Text = "Searching for GPS... ";
-            StartButton.TextColor = Color.Red;
+            startButton.IsEnabled = false;
+            startButton.Text = "Searching for GPS... ";
+            startButton.TextColor = Color.Red;
 
             try
             {
-                LocationTest = await GetCurrentLocation();
+                locationTest = await GetCurrentLocation();
 
-                if (LocationTest != null)
+                if (locationTest != null)
                 {
-                    bool Answer = await DisplayAlert("Start race?", "Tap \"OK\" to start the countdown", "OK", "Cancel");
-                    //Check again for location availability at regular intervals here. 
-                    if (!Answer)
+                    bool answer = await DisplayAlert("Start race?", "Tap \"OK\" to start the countdown", "OK", "Cancel");
+                    //TODO Check again for location availability at regular intervals here. 
+                    if (!answer)
                     {
-                        StartButton.IsEnabled = true;
-                        StartButton.Text = "START";
-                        StartButton.TextColor = Color.White ;
+                        startButton.IsEnabled = true;
+                        startButton.Text = "START";
+                        startButton.TextColor = Color.White ;
                         return;
                     }
                     else
                     {
-                        StartButton.TextColor = Color.Black;
+                        startButton.TextColor = Color.Black;
                         for (int times = 5; times > 0; times--)
                         {
-                            StartButton.Text = times.ToString();
+                            startButton.Text = times.ToString();
                             await Task.Delay(1000);
                         }
 
-                        StartButton.Text = "Run!";
+                        startButton.Text = "Run!";
 
-                        //Debug
-                        Result.SetCurrentLocation(LocationTest);
-                        latitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Latitude.ToString("F8"));
-                        longitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Longitude.ToString("F8"));
+                        CurrentParticipant.Result.SetCurrentLocation(locationTest);
+                        latitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Latitude.ToString("F8"));
+                        longitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Longitude.ToString("F8"));
 
                         await CalculateRaceResult();
                     }
@@ -86,39 +84,41 @@ namespace RaceYa.Views
             {
                 Console.WriteLine(ex.Source + ex.Message + ex.StackTrace + ex.InnerException);
                 await DisplayAlert("Exception", "Unable to get location", "OK");
-                StartButton.IsEnabled = true;
-                StartButton.Text = "START";
-                StartButton.TextColor = Color.White;
+                startButton.IsEnabled = true;
+                startButton.Text = "START";
+                startButton.TextColor = Color.White;
             }
         }
 
         public async Task CalculateRaceResult()
         {
             Location currentLocation = await GetCurrentLocation();
-            
-            Result.SetCurrentLocation(currentLocation);
-            Result.SetStartingPoint();
 
-            while (Result.CoveredDistance <= Service.CurrentRace.RouteLength)
+            CurrentParticipant.Result.SetCurrentLocation(currentLocation);
+            CurrentParticipant.Result.SetStartingPoint();
+
+            while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength)
             {
                 await Task.Delay(1000);
                 currentLocation = await GetCurrentLocation();
-                Result.SetCurrentLocation(currentLocation);
+                CurrentParticipant.Result.SetCurrentLocation(currentLocation);
 
-                latitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Latitude.ToString("f8"));
-                longitudeLabel.SetValue(Label.TextProperty, Result.CurrentLocation.Longitude.ToString("F8"));
+                latitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Latitude.ToString("f8"));
+                longitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Longitude.ToString("F8"));
 
-                Result.CoveredDistance = Result.CalculateCoveredDistance();
+                CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
 
-                distanceLabel.SetValue(Label.TextProperty, Result.CoveredDistance.ToString("F0"));
- 
-                Result.CalculateTimeSinceStart();
+                distanceLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CoveredDistance.ToString("F0"));
 
-                if (Result.CoveredDistance != 0)
+                CurrentParticipant.Result.CalculateTimeSinceStart();
+
+                if (CurrentParticipant.Result.CoveredDistance != 0)
                 {
-                    Result.AverageSpeed = Result.CalculateAverageSpeed();
+                    Service.CurrentRace.UpdateLeaderBoard();
 
-                    avgSpeedLabel.SetValue(Label.TextProperty, Result.AverageSpeed.ToString("F2"));
+                    CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
+
+                    avgSpeedLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.AverageSpeed.ToString("F2"));
                 }
             }
         }
@@ -134,6 +134,11 @@ namespace RaceYa.Views
                 location = await Geolocation.GetLocationAsync(request, cts.Token);
             }
             return location;
+        }
+
+        private async void syncButton_Clicked(object sender, EventArgs e)
+        {
+            await Task.Factory.StartNew(() => { Service.SyncData(); });
         }
     }
 }

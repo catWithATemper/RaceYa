@@ -45,10 +45,13 @@
                    Grid.Column="1"
                    FontSize="16"/>
         </Grid>
-        <Button x:Name="StartButton"
-                Text="Start" 
-                Clicked="OnButtonClicked"
+        <Button x:Name="syncButton"
+                Text="Sync Race Data" 
+                Clicked="syncButton_Clicked"
                 WidthRequest="300"/>
-
+        <Button x:Name="startButton"
+                Text="Start Race" 
+                Clicked="OnStartButtonClicked"
+                WidthRequest="300"/>
     </StackLayout>
 </ContentPage>

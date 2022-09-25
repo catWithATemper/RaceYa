@@ -6,8 +6,7 @@ namespace RaceYa.Models
 {
     public class RaceResult
     {
-
-        public Participant Participant {get; set;}
+        //public Participant Participant {get; set;}
         public Location CurrentLocation { get; set; }
         Location PreviousLocation { get; set; }
 
@@ -18,15 +17,22 @@ namespace RaceYa.Models
         public double CoveredDistance { get; set; }
         public double AverageSpeed { get; set; }
 
-        public Dictionary<TimeSpan, double> RaceTimes;
+        public SortedDictionary<TimeSpan, double> RaceTimes;
 
-        public RaceResult(Participant participant)
+        public KeyValuePair<TimeSpan, double> NewestRaceTime;
+
+        public int RaceTimeIndex { get; set; }
+
+        public RaceResult()
         {
-            Participant = participant;
+            //Participant = participant;
+            //Participant.Result = this;
             
             CoveredDistance = 0;
             AverageSpeed = 0;
-            RaceTimes = new Dictionary<TimeSpan, double>();
+            RaceTimes = new SortedDictionary<TimeSpan, double>();
+            NewestRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
+            RaceTimeIndex = 0;
         }
 
         public void SetCurrentLocation(Location newReading)
@@ -59,8 +65,15 @@ namespace RaceYa.Models
 
         public double CalculateAverageSpeed()
         {
-            AverageSpeed = CoveredDistance / TimeSinceStart.TotalSeconds;
-            return AverageSpeed;
+            if (TimeSinceStart.TotalSeconds != 0)
+            {
+                AverageSpeed = CoveredDistance / TimeSinceStart.TotalSeconds;
+                return AverageSpeed;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }
