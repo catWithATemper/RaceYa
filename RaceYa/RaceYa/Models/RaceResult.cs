@@ -19,8 +19,7 @@ namespace RaceYa.Models
 
         public SortedDictionary<TimeSpan, double> RaceTimes;
 
-        public KeyValuePair<TimeSpan, double> NewestRaceTime;
-
+        public KeyValuePair<TimeSpan, double> CurrentRaceTime;
         public int RaceTimeIndex { get; set; }
 
         public RaceResult()
@@ -31,7 +30,7 @@ namespace RaceYa.Models
             CoveredDistance = 0;
             AverageSpeed = 0;
             RaceTimes = new SortedDictionary<TimeSpan, double>();
-            NewestRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
+            CurrentRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
             RaceTimeIndex = 0;
         }
 

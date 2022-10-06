@@ -79,6 +79,7 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="Race result">
+        <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}"/>
         <ShellContent Route="RaceResultPage" ContentTemplate="{DataTemplate local:RaceResultPage}" />
     </FlyoutItem>
     <!-- 
@@ -87,7 +88,7 @@
     </FlyoutItem>
     -->
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
-    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnLogoutClicked">
     </MenuItem>
 
     <!--
@@ -97,12 +98,11 @@
         content you can do so by calling 
         await Shell.Current.GoToAsync("//LoginPage");
     -->
-    
-    <!--
+
+
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
-    -->
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
@@ -137,4 +137,9 @@
 
     -->
 
+    <!--
+    <ShellContent Route="login"
+              ContentTemplate="{DataTemplate local:LoginPage}">
+    </ShellContent>
+    -->
 </Shell>

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RaceYa.Views.HomePage">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <BoxView Color="Lavender" 
+                     Margin="10" 
+                     AbsoluteLayout.LayoutBounds="0, 0, 1, 0.3"
+                     AbsoluteLayout.LayoutFlags="All"/>
+            <StackLayout Margin="20"
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 0.3"
+                         AbsoluteLayout.LayoutFlags="All"
+                         VerticalOptions="FillAndExpand"
+                         HorizontalOptions="Center">
+                <Label TextColor="#33343a"
+                       FontSize="20"
+                       Text="NEXT RACE"
+                       FontAttributes="Bold, Italic"/>
+                <StackLayout HorizontalOptions="Center">
+                    <Grid ColumnDefinitions="*,*"
+                          HorizontalOptions="Center">
+                        <Label Text="Distance"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"/>
+                        <Label x:Name="distanceLabel"
+                               Grid.Column="1"
+                               FontSize="16"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*"
+                          HorizontalOptions="Center">
+                        <Label Text="Open until"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"/>
+                        <Label x:Name="endDateLabel"
+                               Grid.Column="1"
+                               FontSize="16"/>
+                    </Grid>
+                </StackLayout>
+                <Button Text="Go to race"
+                        HeightRequest="40"
+                        WidthRequest="160"
+                        HorizontalOptions="End"/>
+            </StackLayout>
+            <BoxView Color="Lavender" 
+                     Margin="10" 
+                     AbsoluteLayout.LayoutBounds="0, 0.4, 1, 0.3"
+                     AbsoluteLayout.LayoutFlags="All"/>
+            <StackLayout Margin="20"
+                         AbsoluteLayout.LayoutBounds="0, 0.4, 1, 0.3"
+                         AbsoluteLayout.LayoutFlags="All"
+                         VerticalOptions="FillAndExpand">
+                <Label TextColor="#33343a"
+                       FontSize="20"
+                       Text="SIGN UP FOR A RACE"
+                       FontAttributes="Bold, Italic"/>
+                <StackLayout HorizontalOptions="Center"
+                             Orientation="Horizontal">
+                    <Button Text="Browse races"/>
+                    <Button Text="Create new race"/>
+                </StackLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

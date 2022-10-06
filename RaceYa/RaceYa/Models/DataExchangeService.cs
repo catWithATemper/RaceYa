@@ -40,6 +40,7 @@ namespace RaceYa.Models
                 Location initialLocation = new Location(initialLat, initialLon, startTime);
 
                 result.SetCurrentLocation(initialLocation);
+                result.SetStartingPoint();
 
                 //Then read the whole file and calculate distance and speed for each location reading
                 foreach (XElement trkseg in trk.Elements())
@@ -53,7 +54,7 @@ namespace RaceYa.Models
                         Location currentLocation = new Location(lat, lon, Time);
 
                         result.SetCurrentLocation(currentLocation);
-                        result.SetStartingPoint();
+                        //result.SetStartingPoint();
                         result.CoveredDistance = result.CalculateCoveredDistance();
                         result.CalculateTimeSinceStart();
                         if (result.CoveredDistance != 0)

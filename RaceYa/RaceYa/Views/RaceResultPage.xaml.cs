@@ -15,9 +15,10 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static User CurrentUser = new User("CurrentUser");
-        public static Participant CurrentParticipant = new Participant(CurrentUser, Service.CurrentRace);
-        //readonly RaceResult Result = new RaceResult();
+        //public static User CurrentUser = new User("CurrentUser");
+        public static Participant CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
+
+        public static bool UserIsAuthenticated = false;
 
         CancellationTokenSource cts;
 
@@ -29,13 +30,21 @@ namespace RaceYa.Views
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
+            if (UserIsAuthenticated)
+            {
+                base.OnAppearing();
 
-            BindingContext = CurrentParticipant.Result;
-            distanceLabel.Text = "0";
-            avgSpeedLabel.Text = "0";
-            latitudeLabel.Text = "";
-            longitudeLabel.Text = "";
+                BindingContext = CurrentParticipant.Result;
+                distanceLabel.Text = "0";
+                avgSpeedLabel.Text = "0";
+                latitudeLabel.Text = "";
+                longitudeLabel.Text = "";
+            }
+            else
+            {
+                Navigation.PushAsync(new LoginPage());
+            }
+
         }
 
          async void OnStartButtonClicked(object sender, EventArgs e)
@@ -56,9 +65,7 @@ namespace RaceYa.Views
                     //TODO Check again for location availability at regular intervals here. 
                     if (!answer)
                     {
-                        startButton.IsEnabled = true;
-                        startButton.Text = "START";
-                        startButton.TextColor = Color.White ;
+                        ResetStartButton();
                         return;
                     }
                     else
@@ -84,9 +91,7 @@ namespace RaceYa.Views
             {
                 Console.WriteLine(ex.Source + ex.Message + ex.StackTrace + ex.InnerException);
                 await DisplayAlert("Exception", "Unable to get location", "OK");
-                startButton.IsEnabled = true;
-                startButton.Text = "START";
-                startButton.TextColor = Color.White;
+                ResetStartButton();
             }
         }
 
@@ -102,6 +107,7 @@ namespace RaceYa.Views
                 await Task.Delay(1000);
                 currentLocation = await GetCurrentLocation();
                 CurrentParticipant.Result.SetCurrentLocation(currentLocation);
+                CurrentParticipant.Result.CalculateTimeSinceStart();
 
                 latitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Latitude.ToString("f8"));
                 longitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Longitude.ToString("F8"));
@@ -110,7 +116,7 @@ namespace RaceYa.Views
 
                 distanceLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CoveredDistance.ToString("F0"));
 
-                CurrentParticipant.Result.CalculateTimeSinceStart();
+                //CurrentParticipant.Result.CalculateTimeSinceStart();
 
                 if (CurrentParticipant.Result.CoveredDistance != 0)
                 {
@@ -139,6 +145,18 @@ namespace RaceYa.Views
         private async void syncButton_Clicked(object sender, EventArgs e)
         {
             await Task.Factory.StartNew(() => { Service.SyncData(); });
+        }
+
+        private void ResetStartButton()
+        {
+            startButton.IsEnabled = true;
+            startButton.Text = "START";
+            startButton.TextColor = Color.White;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

@@ -7,9 +7,12 @@ namespace RaceYa.Models
     public class Race
     {
         public DateTime EndDate { get; set; }
-        public float RouteLength { get; set; } //in km
+        public DateTime StartDate { get; set; }
+        public float RouteLength { get; set; } //in meters
         public Participant CurrentParticipant { get; set; }
         public static List<Participant> Participants { get; set; }
+
+        //Each pair contains a participant and the distance covered by the participant at the current time
         public static SortedDictionary<Participant, double> LeaerBoard {get; set;}
 
         public Race()
@@ -29,12 +32,18 @@ namespace RaceYa.Models
                     {
                         if (participant.Result.RaceTimes.ElementAt(index).Key > CurrentParticipant.Result.TimeSinceStart)
                         {
-                            participant.Result.NewestRaceTime = participant.Result.RaceTimes.ElementAt(index - 1);
+                            //Add logic for adjusting to current participant's current time
+                            participant.Result.CurrentRaceTime = participant.Result.RaceTimes.ElementAt(index - 1);
                             participant.Result.RaceTimeIndex = index - 1;
 
+
+                            LeaerBoard[participant] = participant.Result.CurrentRaceTime.Value;
+
+                            /*
                             LeaerBoard.Remove(participant);
-                            LeaerBoard.Add(participant, participant.Result.NewestRaceTime.Value);
-                            //LeaerBoard[participant] = participant.Result.NewestRaceTime.Value;
+                            LeaerBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
+                            */
+
                         }
                     }
                 }

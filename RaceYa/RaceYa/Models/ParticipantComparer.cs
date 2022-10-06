@@ -6,13 +6,15 @@ namespace RaceYa.Models
     {
         public int Compare(Participant part1, Participant part2)
         {
-            if (part1.Result.NewestRaceTime.Value.CompareTo(part2.Result.NewestRaceTime.Value) != 0)
+            if (part1.Result.CurrentRaceTime.Value.CompareTo(part2.Result.CurrentRaceTime.Value) != 0)
             {
-                return - part1.Result.NewestRaceTime.Value.CompareTo(part2.Result.NewestRaceTime.Value);
+                //The result is negated, because a particpant with a larger covered distance should be higher in rank
+                // in the leaderboard
+                return - part1.Result.CurrentRaceTime.Value.CompareTo(part2.Result.CurrentRaceTime.Value);
             }
-            else if (part1.Result.NewestRaceTime.Key.CompareTo(part2.Result.NewestRaceTime.Key) != 0)
+            else if (part1.Result.CurrentRaceTime.Key.CompareTo(part2.Result.CurrentRaceTime.Key) != 0)
             {
-                return part1.Result.NewestRaceTime.Key.CompareTo(part2.Result.NewestRaceTime.Key);
+                return part1.Result.CurrentRaceTime.Key.CompareTo(part2.Result.CurrentRaceTime.Key);
             }
             else if (part1.User.Name.CompareTo(part2.User.Name) != 0)
             {

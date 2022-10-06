@@ -12,9 +12,12 @@ namespace RaceYa
             InitializeComponent();
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        
+        private async void OnLogoutClicked(object sender, EventArgs e)
         {
+            RaceResultPage.UserIsAuthenticated = false;
             await Shell.Current.GoToAsync("//LoginPage");
         }
+        
     }
 }
