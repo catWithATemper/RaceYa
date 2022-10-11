@@ -15,7 +15,7 @@ namespace RaceYa
         
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            RaceResultPage.UserIsAuthenticated = false;
+            HomePage.UserIsAuthenticated = false;
             await Shell.Current.GoToAsync("//LoginPage");
         }
         

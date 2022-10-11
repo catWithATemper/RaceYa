@@ -21,16 +21,16 @@ namespace RaceYa.Views
         public LoginPage()
         {
             InitializeComponent();
-    }
+        }
 
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(userNameEntry.Text))
             {
                 CurrentUser = new User(userNameEntry.Text);
-                RaceResultPage.UserIsAuthenticated = true;
+                HomePage.UserIsAuthenticated = true;
                 //Navigation.PushAsync(new RaceResultPage());
-                await Shell.Current.GoToAsync("//RaceResultPage");
+                await Shell.Current.GoToAsync("//HomePage");
             }
         }
     }

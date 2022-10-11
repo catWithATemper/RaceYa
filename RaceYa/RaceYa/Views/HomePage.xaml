@@ -20,49 +20,131 @@
                 <StackLayout HorizontalOptions="Center">
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
-                        <Label Text="Distance"
+                        <Label Text="Distance:"
                                FontSize="16"
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"/>
-                        <Label x:Name="distanceLabel"
+                        <Label x:Name="nextRaceDistanceLbl"
                                Grid.Column="1"
                                FontSize="16"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
-                        <Label Text="Open until"
+                        <Label Text="Open until:"
                                FontSize="16"
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"/>
-                        <Label x:Name="endDateLabel"
+                        <Label x:Name="nextRaceEndDateLbl"
                                Grid.Column="1"
                                FontSize="16"/>
                     </Grid>
                 </StackLayout>
-                <Button Text="Go to race"
+                <Button x:Name="nextRaceButton"
+                        Text="Go to race"
+                        HeightRequest="40"
+                        WidthRequest="160"
+                        HorizontalOptions="End"
+                        Clicked="nextRaceButton_Clicked"/>
+            </StackLayout>
+            <BoxView Color="Lavender" 
+                     Margin="10" 
+                     AbsoluteLayout.LayoutBounds="0, 0.35, 1, 0.2"
+                     AbsoluteLayout.LayoutFlags="All"/>
+            <StackLayout Margin="20"
+                         AbsoluteLayout.LayoutBounds="0, 0.35, 1, 0.2"
+                         AbsoluteLayout.LayoutFlags="All"
+                         VerticalOptions="FillAndExpand">
+                <Label TextColor="#33343a"
+                       FontSize="20"
+                       Text="SIGN UP FOR A RACE"
+                       FontAttributes="Bold, Italic"
+                       HorizontalOptions="Start"/>
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="EndAndExpand">
+                    <Button Text="Browse races"
+                            HeightRequest="40"
+                            WidthRequest="160"
+                            HorizontalOptions="End"/>
+                    <Button Text="Create new race"
+                            HeightRequest="40"
+                            WidthRequest="160"
+                            HorizontalOptions="End"/>
+                </StackLayout>
+            </StackLayout>
+            <BoxView Color="Lavender" 
+                     Margin="10" 
+                     AbsoluteLayout.LayoutBounds="0, 0.66, 1, 0.3"
+                     AbsoluteLayout.LayoutFlags="All"/>
+            <StackLayout Margin="20"
+                         AbsoluteLayout.LayoutBounds="0, 0.66, 1, 0.3"
+                         AbsoluteLayout.LayoutFlags="All"
+                         VerticalOptions="FillAndExpand"
+                         HorizontalOptions="Center">
+                <Label TextColor="#33343a"
+                       FontSize="20"
+                       Text="LATEST RACE"
+                       FontAttributes="Bold, Italic"/>
+                <StackLayout HorizontalOptions="Center">
+                    <Grid ColumnDefinitions="*,*"
+                          HorizontalOptions="Center">
+                        <Label Text="Distance run:"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"/>
+                        <Label x:Name="latestRaceDistanceLbl"
+                               Grid.Column="1"
+                               FontSize="16"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*"
+                          HorizontalOptions="Center">
+                        <Label Text="Date - Time:"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"/>
+                        <Label x:Name="latestRaceDateLbl"
+                               Grid.Column="1"
+                               FontSize="16"/>
+                    </Grid>
+                    <Grid ColumnDefinitions="*,*"
+                          HorizontalOptions="Center">
+                        <Label Text="Lederboard position:"
+                               FontSize="16"
+                               FontAttributes="Bold"
+                               HorizontalOptions="End"
+                               HorizontalTextAlignment="End"/>
+                        <Label x:Name="LeaderboardLbl"
+                               Grid.Column="1"
+                               FontSize="16"/>
+                    </Grid>
+                </StackLayout>
+                <Button 
+                        Text="See result"
                         HeightRequest="40"
                         WidthRequest="160"
                         HorizontalOptions="End"/>
             </StackLayout>
             <BoxView Color="Lavender" 
                      Margin="10" 
-                     AbsoluteLayout.LayoutBounds="0, 0.4, 1, 0.3"
+                     AbsoluteLayout.LayoutBounds="0, 0.93, 1, 0.2"
                      AbsoluteLayout.LayoutFlags="All"/>
             <StackLayout Margin="20"
-                         AbsoluteLayout.LayoutBounds="0, 0.4, 1, 0.3"
+                         AbsoluteLayout.LayoutBounds="0, 0.93, 1, 0.2"
                          AbsoluteLayout.LayoutFlags="All"
                          VerticalOptions="FillAndExpand">
                 <Label TextColor="#33343a"
                        FontSize="20"
-                       Text="SIGN UP FOR A RACE"
+                       Text="OPTIONS"
                        FontAttributes="Bold, Italic"/>
-                <StackLayout HorizontalOptions="Center"
-                             Orientation="Horizontal">
-                    <Button Text="Browse races"/>
-                    <Button Text="Create new race"/>
-                </StackLayout>
+                <Button x:Name="syncButton"
+                        Text="Sync data"
+                        HeightRequest="40"
+                        WidthRequest="160"
+                        HorizontalOptions="End"
+                        Clicked="syncButton_Clicked"/>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

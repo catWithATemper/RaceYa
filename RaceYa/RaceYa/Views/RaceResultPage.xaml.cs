@@ -15,10 +15,7 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        //public static User CurrentUser = new User("CurrentUser");
         public static Participant CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
-
-        public static bool UserIsAuthenticated = false;
 
         CancellationTokenSource cts;
 
@@ -30,21 +27,15 @@ namespace RaceYa.Views
 
         protected override void OnAppearing()
         {
-            if (UserIsAuthenticated)
-            {
-                base.OnAppearing();
+            base.OnAppearing();
 
-                BindingContext = CurrentParticipant.Result;
-                distanceLabel.Text = "0";
-                avgSpeedLabel.Text = "0";
-                latitudeLabel.Text = "";
-                longitudeLabel.Text = "";
-            }
-            else
-            {
-                Navigation.PushAsync(new LoginPage());
-            }
+            BindingContext = CurrentParticipant.Result;
+            distanceLabel.Text = "0";
+            avgSpeedLabel.Text = "0";
+            latitudeLabel.Text = "";
+            longitudeLabel.Text = "";
 
+            Navigation.PushAsync(new LoginPage());
         }
 
          async void OnStartButtonClicked(object sender, EventArgs e)
@@ -154,9 +145,11 @@ namespace RaceYa.Views
             startButton.TextColor = Color.White;
         }
 
+        /*
         protected override bool OnBackButtonPressed()
         {
             return true;
         }
+        */
     }
 }
