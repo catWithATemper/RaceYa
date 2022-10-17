@@ -3,10 +3,13 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
+using RaceYa.Models;
+
 namespace RaceYa
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
+        public static DataExchangeService Service = DataExchangeService.Instance();
         public AppShell()
         {
             InitializeComponent();
@@ -15,7 +18,7 @@ namespace RaceYa
         
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            HomePage.UserIsAuthenticated = false;
+            Service.UserIsAuthenticated = false;
             await Shell.Current.GoToAsync("//LoginPage");
         }
         

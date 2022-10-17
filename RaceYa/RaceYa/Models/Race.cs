@@ -15,18 +15,27 @@ namespace RaceYa.Models
         //Each pair contains a participant and the distance covered by the participant at the current time
         public static SortedDictionary<Participant, double> LeaerBoard {get; set;}
 
+        //Each pair contains a participant and their average speed
+        public static SortedDictionary<Participant, double> FinalLeaerBoard { get; set; }
+
         public Race()
         {
+            //Hardcoded values
             RouteLength = 5000;
+            EndDate = DateTime.Parse("October 30, 2022");
+
             Participants = new List<Participant>();
             LeaerBoard = new SortedDictionary<Participant, double>(new ParticipantComparer());
         }
+
+        //TODO: Add method to adjust for any extra distance run and save a final leaderboard
+        //based on average speed
 
         public void UpdateLeaderBoard()
         {
             foreach (Participant participant in Participants)
             {
-                if (!(participant.Result.RaceTimes == null))
+                if (participant.Result.RaceTimes != null)
                 {
                     for (int index = participant.Result.RaceTimeIndex; index < participant.Result.RaceTimes.Count; index++)
                     {
@@ -36,14 +45,7 @@ namespace RaceYa.Models
                             participant.Result.CurrentRaceTime = participant.Result.RaceTimes.ElementAt(index - 1);
                             participant.Result.RaceTimeIndex = index - 1;
 
-
                             LeaerBoard[participant] = participant.Result.CurrentRaceTime.Value;
-
-                            /*
-                            LeaerBoard.Remove(participant);
-                            LeaerBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
-                            */
-
                         }
                     }
                 }

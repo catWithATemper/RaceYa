@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RaceYa.Views.RaceResultPage"
-             Title="Race result">
+             x:Class="RaceYa.Views.RaceInProgressPage">
     <StackLayout  Margin="20"
                   Spacing="10">
         <Grid ColumnDefinitions="*,*">
@@ -45,10 +44,6 @@
                    Grid.Column="1"
                    FontSize="16"/>
         </Grid>
-        <Button x:Name="syncButton"
-                Text="Sync Race Data" 
-                Clicked="syncButton_Clicked"
-                WidthRequest="300"/>
         <Button x:Name="startButton"
                 Text="Start Race" 
                 Clicked="OnStartButtonClicked"

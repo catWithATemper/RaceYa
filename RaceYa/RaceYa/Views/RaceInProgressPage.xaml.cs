@@ -11,31 +11,29 @@ using Xamarin.Essentials;
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RaceResultPage : ContentPage
+    public partial class RaceInProgressPage : ContentPage
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static Participant CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
+        public static Participant CurrentParticipant;
 
         CancellationTokenSource cts;
 
-        public RaceResultPage()
+        public RaceInProgressPage()
         {
             InitializeComponent();
-            Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+            CurrentParticipant = Service.CurrentRace.CurrentParticipant;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            BindingContext = CurrentParticipant.Result;
+            BindingContext = Service.CurrentRace.CurrentParticipant.Result;
             distanceLabel.Text = "0";
             avgSpeedLabel.Text = "0";
             latitudeLabel.Text = "";
             longitudeLabel.Text = "";
-
-            Navigation.PushAsync(new LoginPage());
         }
 
          async void OnStartButtonClicked(object sender, EventArgs e)
@@ -122,7 +120,7 @@ namespace RaceYa.Views
 
         public async Task<Location> GetCurrentLocation()
         {
-            var request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
+            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
             cts = new CancellationTokenSource();
 
             Location location = null;
@@ -133,23 +131,11 @@ namespace RaceYa.Views
             return location;
         }
 
-        private async void syncButton_Clicked(object sender, EventArgs e)
-        {
-            await Task.Factory.StartNew(() => { Service.SyncData(); });
-        }
-
         private void ResetStartButton()
         {
             startButton.IsEnabled = true;
             startButton.Text = "START";
             startButton.TextColor = Color.White;
         }
-
-        /*
-        protected override bool OnBackButtonPressed()
-        {
-            return true;
-        }
-        */
     }
 }

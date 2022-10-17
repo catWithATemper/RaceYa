@@ -6,7 +6,6 @@ namespace RaceYa.Models
 {
     public class RaceResult
     {
-        //public Participant Participant {get; set;}
         public Location CurrentLocation { get; set; }
         Location PreviousLocation { get; set; }
 
@@ -23,10 +22,7 @@ namespace RaceYa.Models
         public int RaceTimeIndex { get; set; }
 
         public RaceResult()
-        {
-            //Participant = participant;
-            //Participant.Result = this;
-            
+        {   
             CoveredDistance = 0;
             AverageSpeed = 0;
             RaceTimes = new SortedDictionary<TimeSpan, double>();

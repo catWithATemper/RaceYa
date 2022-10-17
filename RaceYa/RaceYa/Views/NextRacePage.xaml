@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RaceYa.Views.NextRacePage"
+             Title="Next race">
+    <ContentPage.Content>
+        <StackLayout Margin="30"
+                     Spacing="10">
+            <Grid ColumnDefinitions="*,*">
+                <Label Text="RACE DISTANCE"
+                       TextColor="#33343a"
+                       FontSize="20"
+                       FontAttributes="Bold, italic"/>
+                <Label x:Name="distanceLabel"
+                       Grid.Column="1"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,*">
+                <Label Text="OPEN UNTIL"
+                       TextColor="#33343a"
+                       FontSize="20"
+                       FontAttributes="Bold, italic"/>
+                <Label x:Name="endDateLabel"
+                       Grid.Column="1"
+                       FontSize="16"
+                       FontAttributes="Bold"/>
+            </Grid>
+            <Button x:Name="startButton"
+                    Text="Start Race" 
+                    Clicked="startButton_Clicked"
+                    HeightRequest="40"
+                    WidthRequest="320"
+                    HorizontalOptions="Center"
+                    Margin="20"/>
+            <Label x:Name="searchingForGPSLabel"
+                   Margin="20"
+                   FontSize="20"
+                   FontAttributes="Bold, italic"
+                   HorizontalOptions="Center"
+                   TextColor="#33343a"/>
+            <Label x:Name="countDownLabel"
+                   Margin="60"
+                   FontSize="120"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

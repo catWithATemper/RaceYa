@@ -12,19 +12,19 @@ using RaceYa.Models;
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class MainPage : ContentPage
     {
-        public static bool UserIsAuthenticated = false;
+        //public static bool UserIsAuthenticated = false;
 
         public static DataExchangeService Service = DataExchangeService.Instance();
-        public HomePage()
+        public MainPage()
         {
             InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
-            if (UserIsAuthenticated)
+            if (Service.UserIsAuthenticated)
             {
                 base.OnAppearing();
             }
@@ -43,7 +43,7 @@ namespace RaceYa.Views
 
         private async void nextRaceButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//RaceResultPage");
+            await Shell.Current.GoToAsync("//NextRacePage");
         }
     }
 }
