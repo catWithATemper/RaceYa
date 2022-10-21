@@ -14,8 +14,6 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        //public static bool UserIsAuthenticated = false;
-
         public static DataExchangeService Service = DataExchangeService.Instance();
         public MainPage()
         {
@@ -32,7 +30,6 @@ namespace RaceYa.Views
             {
                 Navigation.PushAsync(new LoginPage());
             }
-
         }
 
         private async void syncButton_Clicked(object sender, EventArgs e)

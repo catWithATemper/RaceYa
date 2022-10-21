@@ -30,7 +30,7 @@
                     Text="Start Race" 
                     Clicked="startButton_Clicked"
                     HeightRequest="40"
-                    WidthRequest="320"
+                    WidthRequest="160"
                     HorizontalOptions="Center"
                     Margin="20"/>
             <Label x:Name="searchingForGPSLabel"

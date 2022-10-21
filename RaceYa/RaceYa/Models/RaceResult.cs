@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
 
 namespace RaceYa.Models
 {
-    public class RaceResult
+    public class RaceResult : INotifyPropertyChanged
     {
         public Location CurrentLocation { get; set; }
         Location PreviousLocation { get; set; }
@@ -13,13 +15,28 @@ namespace RaceYa.Models
 
         DateTime StartTime;
         public TimeSpan TimeSinceStart { get; set; }
-        public double CoveredDistance { get; set; }
+
+        private double coveredDistance;
+        public double CoveredDistance { 
+            get 
+            { 
+                return coveredDistance; 
+            }
+            set 
+            {
+                coveredDistance = value;
+                NotifyPropertyChanged();
+            }
+        }
         public double AverageSpeed { get; set; }
 
         public SortedDictionary<TimeSpan, double> RaceTimes;
 
         public KeyValuePair<TimeSpan, double> CurrentRaceTime;
+
         public int RaceTimeIndex { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public RaceResult()
         {   
@@ -28,6 +45,12 @@ namespace RaceYa.Models
             RaceTimes = new SortedDictionary<TimeSpan, double>();
             CurrentRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
             RaceTimeIndex = 0;
+        }
+
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void SetCurrentLocation(Location newReading)

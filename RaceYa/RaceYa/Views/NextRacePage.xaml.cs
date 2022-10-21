@@ -53,7 +53,8 @@ namespace RaceYa.Views
                     //TODO Check again for location availability at regular intervals here. 
                     if (!answer)
                     {
-                        startButton.IsEnabled = true; ;
+                        startButton.IsEnabled = true;
+                        searchingForGPSLabel.IsVisible = false;
                         return;
                     }
                     else
@@ -64,7 +65,7 @@ namespace RaceYa.Views
                             countDownLabel.Text = times.ToString();
                             await Task.Delay(1000);
                         }
-                        await Navigation.PushModalAsync(new RaceInProgressPage());
+                        await Navigation.PushModalAsync(new RaceTabbedPage());
                     }
                 }
             }
