@@ -17,6 +17,10 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant;
 
+        //public StopWatch PageStopWatch = new StopWatch();
+
+        public StopWatch PageStopWatch = RaceTabbedPage.PageStopWatch;
+
         public RaceDataPage()
         {
             InitializeComponent();
@@ -24,39 +28,14 @@ namespace RaceYa.Views
             CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
             BindingContext = CurrentParticipant.Result;
-
-            //UpdateRaceDataLabels();
+            timerLabel.BindingContext = PageStopWatch;
         }
 
-
-        /*
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            await UpdateRaceDataLabels();
-        }
-        */
-        
-        
-
-
-        public async Task UpdateRaceDataLabels()
-        {
-            await Task.Run(() => {
-
-                while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength)
-                {
-                    distanceLabel.Text = CurrentParticipant.Result.CoveredDistance.ToString("F0");
-                    avgSpeedLabel.Text = CurrentParticipant.Result.AverageSpeed.ToString("F2");
-
-                    if (CurrentParticipant.Result.CurrentLocation != null)
-                    {
-                        latitudeLabel.Text = CurrentParticipant.Result.CurrentLocation.Latitude.ToString("F8");
-                        longitudeLabel.Text = CurrentParticipant.Result.CurrentLocation.Longitude.ToString("F8");
-                    }
-                }
-            }); 
+            //PageStopWatch.SetTimer();
         }
     }
 }

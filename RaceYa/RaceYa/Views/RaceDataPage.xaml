@@ -4,47 +4,63 @@
              x:Class="RaceYa.Views.RaceDataPage">
     <StackLayout  Margin="20"
                   Spacing="10">
+        <Label Text="Time:"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="#33343a"/>
+        <Label x:Name="timerLabel" 
+               Text="{Binding ElapsedTimeString}"
+               FontSize="30"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"/>
         <Grid ColumnDefinitions="*,*">
             <Label Text="Total distance (m)"
-                   FontSize="16"
-                   FontAttributes="Bold"/>
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#33343a"/>
             <Label x:Name="distanceLabel"
-                   Text="{Binding CoveredDistance}"
+                   Text="{Binding CoveredDistance, StringFormat='{0:F0}'}"
                    Grid.Column="1"
-                   FontSize="16"/>
+                   FontSize="20"/>
         </Grid>
-        <Grid ColumnDefinitions="*,*">
+        <Grid ColumnDefinitions="auto,*">
             <Label Text="Average speed (m/s)"
-                   FontSize="16"
-                   FontAttributes="Bold"/>
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#33343a"/>
             <Label x:Name="avgSpeedLabel"
-                   Text="{Binding AverageSpeed}"
+                   Text="{Binding AverageSpeed, StringFormat='{0:F2}'}"
                    Grid.Column="1"
-                   FontSize="16"/>
+                   FontSize="20"/>
         </Grid>
         <Grid ColumnDefinitions="*,*">
             <Label Text=""/>
         </Grid>
         <Grid ColumnDefinitions="*,*">
-            <Label Text="Your position"
-                   FontSize="16"
-                   FontAttributes="Bold"/>
+            <Label Text="Current location"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#33343a"/>
         </Grid>
         <Grid ColumnDefinitions="*,*">
             <Label Text="Latitude:"
-                   FontSize="16"
-                   FontAttributes="Bold"/>
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#33343a"/>
             <Label x:Name="latitudeLabel"
+                   Text="{Binding Latitude}"
                    Grid.Column="1"
-                   FontSize="16"/>
+                   FontSize="20"/>
         </Grid>
         <Grid ColumnDefinitions="*,*">
             <Label Text="Longitude:"
-                   FontSize="16"
-                   FontAttributes="Bold"/>
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="#33343a"/>
             <Label x:Name="longitudeLabel"
+                   Text="{Binding Longitude}"
                    Grid.Column="1"
-                   FontSize="16"/>
+                   FontSize="20"/>
         </Grid>
     </StackLayout>
 </ContentPage>

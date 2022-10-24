@@ -35,7 +35,7 @@
                     Margin="20"/>
             <Label x:Name="searchingForGPSLabel"
                    Margin="20"
-                   FontSize="20"
+                   FontSize="30"
                    FontAttributes="Bold, italic"
                    HorizontalOptions="Center"
                    TextColor="#33343a"/>

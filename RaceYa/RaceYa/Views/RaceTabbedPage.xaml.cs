@@ -9,6 +9,9 @@ using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
 using System.Threading;
+using System.Timers;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace RaceYa.Views
 {
@@ -21,6 +24,8 @@ namespace RaceYa.Views
 
         CancellationTokenSource cts;
 
+        public static StopWatch PageStopWatch = new StopWatch();
+
         public RaceTabbedPage()
         {
             InitializeComponent();
@@ -30,6 +35,9 @@ namespace RaceYa.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
+            PageStopWatch.SetTimer();
+
             await CalculateRaceResult();
         }
 
@@ -47,20 +55,13 @@ namespace RaceYa.Views
                 CurrentParticipant.Result.SetCurrentLocation(currentLocation);
                 CurrentParticipant.Result.CalculateTimeSinceStart();
 
-                //latitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Latitude.ToString("f8"));
-                //longitudeLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CurrentLocation.Longitude.ToString("F8"));
-
                 CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
-                
-                //distanceLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.CoveredDistance.ToString("F0"));
 
                 if (CurrentParticipant.Result.CoveredDistance != 0)
                 {
                     Service.CurrentRace.UpdateLeaderBoard();
 
                     CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
-
-                    //avgSpeedLabel.SetValue(Label.TextProperty, CurrentParticipant.Result.AverageSpeed.ToString("F2"));
                 }
             }
         }
