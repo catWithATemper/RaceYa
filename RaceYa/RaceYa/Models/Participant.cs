@@ -13,7 +13,7 @@
             Race = race;
             Result = new RaceResult();
             Race.Participants.Add(this);
-            Race.LeaerBoard.Add(this, 0);
+            Race.LeaderBoard.Add(this, 0);
         }
     }
 }

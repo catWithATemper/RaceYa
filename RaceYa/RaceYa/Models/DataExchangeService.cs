@@ -25,12 +25,12 @@ namespace RaceYa.Models
 
         public void SyncData()
         {
-            User user1 = new User("Amy");
-            User User2 = new User("Bob");
-            User User3 = new User("Lin");
-            User User4 = new User("Sam");
-            User User5 = new User("Tom");
-            User User6 = new User("Zoe");
+            User user1 = new User("Zoe");
+            User User2 = new User("Tom");
+            User User3 = new User("Sam");
+            User User4 = new User("Lin");
+            User User5 = new User("Bob");
+            User User6 = new User("Amy");
 
             Participant participant1 = new Participant(user1, CurrentRace);
             Participant participant2 = new Participant(User2, CurrentRace);

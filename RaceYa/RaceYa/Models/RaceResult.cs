@@ -105,7 +105,6 @@ namespace RaceYa.Models
             RaceTimeIndex = 0;
         }
 
-
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
