@@ -25,5 +25,12 @@ namespace RaceYa.Views
             leaderBoardView.ItemsSource = Service.CurrentRace.ObservableLeaderBoard;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            Service.CurrentRace.UpdateObservableLeaderboard();
+        }
+
     }
 }

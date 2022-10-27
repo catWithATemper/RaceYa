@@ -70,25 +70,36 @@ namespace RaceYa.Models
                 result.SetCurrentLocation(initialLocation);
                 result.SetStartingPoint();
 
-                //Then read the whole file and calculate distance and speed for each location reading
+                //Then read through the file and calculate distance and speed for each location reading
+                //until completing the race route length
                 foreach (XElement trkseg in trk.Elements())
                 {
                     foreach (XElement trkpt in trkseg.Elements())
                     {
-                        double lat = (double)trkpt.Attribute("lat");
-                        double lon = (double)trkpt.Attribute("lon");
-
-                        DateTime Time = DateTime.Parse(trkpt.Element(ns + "time").Value);
-                        Location currentLocation = new Location(lat, lon, Time);
-
-                        result.SetCurrentLocation(currentLocation);
-                        //result.SetStartingPoint();
-                        result.CoveredDistance = result.CalculateCoveredDistance();
-                        result.CalculateTimeSinceStart();
-                        if (result.CoveredDistance != 0)
+                        if (result.CoveredDistance <= CurrentRace.RouteLength)
                         {
-                            result.AverageSpeed = result.CalculateAverageSpeed();
+                            double lat = (double)trkpt.Attribute("lat");
+                            double lon = (double)trkpt.Attribute("lon");
+
+                            DateTime Time = DateTime.Parse(trkpt.Element(ns + "time").Value);
+                            Location currentLocation = new Location(lat, lon, Time);
+
+                            result.SetCurrentLocation(currentLocation);
+                            result.CalculateTimeSinceStart();
+                            result.CoveredDistance = result.CalculateCoveredDistance();
+                            if (result.CoveredDistance != 0)
+                            {
+                                result.AverageSpeed = result.CalculateAverageSpeed();
+                            }
                         }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if (result.CoveredDistance > CurrentRace.RouteLength)
+                    {
+                        break;
                     }
                 }
             }

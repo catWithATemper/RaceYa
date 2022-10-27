@@ -8,6 +8,8 @@ namespace RaceYa.Models
 {
     public class RaceResult : INotifyPropertyChanged
     {
+        public Participant RaceParticipant;
+
         public Location CurrentLocation { get; set; }
 
         private string latitude;
@@ -96,6 +98,10 @@ namespace RaceYa.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public bool RaceCompleted;
+
+        public TimeSpan RaceCompletionTime;
+
         public RaceResult()
         {   
             CoveredDistance = 0;
@@ -103,6 +109,8 @@ namespace RaceYa.Models
             RaceTimes = new SortedDictionary<TimeSpan, double>();
             CurrentRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
             RaceTimeIndex = 0;
+
+            RaceCompleted = false;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -153,5 +161,12 @@ namespace RaceYa.Models
                 return 0;
             }
         }
+
+        /*
+        public void ManageExceedingDistance()
+        {
+            
+        }
+        */
     }
 }

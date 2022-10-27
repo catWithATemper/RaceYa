@@ -17,8 +17,6 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant;
 
-        //public StopWatch PageStopWatch = new StopWatch();
-
         public StopWatch PageStopWatch = RaceTabbedPage.PageStopWatch;
 
         public RaceDataPage()
@@ -29,13 +27,6 @@ namespace RaceYa.Views
 
             BindingContext = CurrentParticipant.Result;
             timerLabel.BindingContext = PageStopWatch;
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            //PageStopWatch.SetTimer();
         }
     }
 }

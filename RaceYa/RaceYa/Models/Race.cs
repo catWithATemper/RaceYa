@@ -11,7 +11,7 @@ namespace RaceYa.Models
     {
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
-        public float RouteLength { get; set; } //in meters
+        public double RouteLength { get; set; } //in meters
         public Participant CurrentParticipant { get; set; }
         public List<Participant> Participants { get; set; }
 
@@ -32,7 +32,7 @@ namespace RaceYa.Models
         }
 
         //Each pair contains a participant and their average speed
-        public static SortedDictionary<Participant, double> FinalLeaerBoard { get; set; }
+        public static SortedDictionary<Participant, double> FinalLeaderBoard { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -53,7 +53,7 @@ namespace RaceYa.Models
         public Race()
         {
             //Hardcoded values
-            RouteLength = 5000;
+            RouteLength = 200;
             EndDate = DateTime.Parse("November 15, 2022");
 
             Participants = new List<Participant>();
@@ -63,6 +63,8 @@ namespace RaceYa.Models
 
             observableLeaderBoard = new ObservableCollection<string>();
             ObservableLeaderBoard = new ObservableCollection<string>();
+
+            FinalLeaderBoard = new SortedDictionary<Participant, double>(new SpeedComparer());
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -124,20 +126,37 @@ namespace RaceYa.Models
                             }
                         }
                     }
-
-                    
                 }
             }
+            //Animal code
+            //UpdateObservableLeaderboard();
         }
+
 
         public void UpdateObservableLeaderboard()
         {
             ObservableLeaderBoard.Clear();
             foreach (Participant participant in LeaderBoard.Keys)
             {
-                ObservableLeaderBoard.Add(participant.User.Name + " " + LeaderBoard[participant]);
+                ObservableLeaderBoard.Add(participant.User.Name + " " + Math.Truncate(LeaderBoard[participant]));
             }
         }
 
+        public void CalculateFinalLeaderBoard()
+        {
+            foreach (Participant participant in Participants)
+            {
+                FinalLeaderBoard.Add(participant, participant.Result.AverageSpeed);
+                //debug
+                Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
+                foreach (var p in FinalLeaderBoard)
+                {
+                    Console.WriteLine(p.Key.User.Name + " " +
+                                      p.Value + " " +
+                                      p.Key.Result.CoveredDistance + " " +
+                                      p.Key.Result.TimeSinceStart + "\n");
+                }
+            }
+        }
     }
 }

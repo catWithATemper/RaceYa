@@ -56,14 +56,24 @@ namespace RaceYa.Views
                 CurrentParticipant.Result.CalculateTimeSinceStart();
 
                 CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
-
+ 
                 if (CurrentParticipant.Result.CoveredDistance != 0)
                 {
                     Service.CurrentRace.UpdateLeaderBoard();
 
                     CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
                 }
+                
+                /*
+                if (CurrentParticipant.Result.CoveredDistance > Service.CurrentRace.RouteLength)
+                { 
+                    CurrentParticipant.Result.ManageExceedingDistance();
+                }
+                */
+                
             }
+            CurrentParticipant.Result.RaceCompleted = true;
+            Service.CurrentRace.CalculateFinalLeaderBoard();
         }
 
         public async Task<Location> GetCurrentLocation()
