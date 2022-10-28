@@ -54,18 +54,19 @@ namespace RaceYa.Views
                     if (!answer)
                     {
                         startButton.IsEnabled = true;
-                        searchingForGPSLabel.IsVisible = false;
+                        searchingForGPSLabel.Text = "";
                         return;
                     }
                     else
                     {
-                        searchingForGPSLabel.IsVisible = false;
+                        searchingForGPSLabel.Text = "";
                         for (int times = 5; times > 0; times--)
                         {
                             countDownLabel.Text = times.ToString();
                             await Task.Delay(1000);
                         }
                         await Navigation.PushModalAsync(new RaceTabbedPage());
+                        countDownLabel.Text = "";
                     }
                 }
             }
@@ -76,6 +77,7 @@ namespace RaceYa.Views
             }
         }
 
+        //TODO put this method in its own class
         public async Task<Location> GetCurrentLocation()
         {
             GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));

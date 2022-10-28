@@ -20,27 +20,35 @@ namespace RaceYa.Views
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             if (Service.UserIsAuthenticated)
             {
                 base.OnAppearing();
+                await Task.Factory.StartNew(() => { Service.SyncData(); });
             }
             else
             {
-                Navigation.PushAsync(new LoginPage());
+                await Navigation.PushAsync(new LoginPage());
             }
         }
 
-        private async void syncButton_Clicked(object sender, EventArgs e)
-        {   
-            await Task.Factory.StartNew(() => { Service.SyncData(); });
-            
-        }
+
 
         private async void nextRaceButton_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//NextRacePage");
         }
+
+
+
+        /*
+        private async void syncButton_Clicked(object sender, EventArgs e)
+        {   
+            await Task.Factory.StartNew(() => { Service.SyncData(); });
+
+        }
+        */
+
     }
 }

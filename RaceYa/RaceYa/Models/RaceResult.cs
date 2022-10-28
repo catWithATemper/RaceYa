@@ -161,12 +161,5 @@ namespace RaceYa.Models
                 return 0;
             }
         }
-
-        /*
-        public void ManageExceedingDistance()
-        {
-            
-        }
-        */
     }
 }

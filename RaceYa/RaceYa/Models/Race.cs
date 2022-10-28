@@ -36,8 +36,8 @@ namespace RaceYa.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ObservableCollection<string> observableLeaderBoard;
-        public ObservableCollection<String> ObservableLeaderBoard
+        private ObservableCollection<LeaderBoardItem> observableLeaderBoard;
+        public ObservableCollection<LeaderBoardItem> ObservableLeaderBoard
         {
             get
             {
@@ -53,7 +53,7 @@ namespace RaceYa.Models
         public Race()
         {
             //Hardcoded values
-            RouteLength = 200;
+            RouteLength = 100;
             EndDate = DateTime.Parse("November 15, 2022");
 
             Participants = new List<Participant>();
@@ -61,8 +61,8 @@ namespace RaceYa.Models
             leaderBoard = new SortedDictionary<Participant, double>(new ParticipantComparer());
             LeaderBoard = new SortedDictionary<Participant, double>(new ParticipantComparer());
 
-            observableLeaderBoard = new ObservableCollection<string>();
-            ObservableLeaderBoard = new ObservableCollection<string>();
+            observableLeaderBoard = new ObservableCollection<LeaderBoardItem>();
+            ObservableLeaderBoard = new ObservableCollection<LeaderBoardItem>();
 
             FinalLeaderBoard = new SortedDictionary<Participant, double>(new SpeedComparer());
         }
@@ -72,9 +72,7 @@ namespace RaceYa.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //TODO: Add method to adjust for any extra distance run and save a final leaderboard
-        //based on average speed
-        //Improve the stopwatch synchronization. Consider the closest timestamp to the current participant
+        //TODO Improve the stopwatch synchronization. Consider the closest timestamp to the current participant
         //even though it may be "in the future"
 
         public void UpdateLeaderBoard()
@@ -138,7 +136,9 @@ namespace RaceYa.Models
             ObservableLeaderBoard.Clear();
             foreach (Participant participant in LeaderBoard.Keys)
             {
-                ObservableLeaderBoard.Add(participant.User.Name + " " + Math.Truncate(LeaderBoard[participant]));
+                ObservableLeaderBoard.Add(new LeaderBoardItem(Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1,
+                                                              participant.User.Name,
+                                                              Math.Truncate(LeaderBoard[participant])));
             }
         }
 
@@ -149,6 +149,7 @@ namespace RaceYa.Models
                 FinalLeaderBoard.Add(participant, participant.Result.AverageSpeed);
                 //debug
                 Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
+                //debug
                 foreach (var p in FinalLeaderBoard)
                 {
                     Console.WriteLine(p.Key.User.Name + " " +

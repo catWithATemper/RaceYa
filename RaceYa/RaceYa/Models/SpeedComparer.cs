@@ -10,7 +10,8 @@ namespace RaceYa.Models
         {
             if(part1.Result.AverageSpeed.CompareTo(part2.Result.AverageSpeed) != 0)
             {
-                //The result is negated 
+                //The result is negated because a particpant with a larger average speed should be higher in rank
+                // in the leaderboard
                 return - part1.Result.AverageSpeed.CompareTo(part2.Result.AverageSpeed);
             }
             else if (part1.User.Name.CompareTo(part2.User.Name) != 0)

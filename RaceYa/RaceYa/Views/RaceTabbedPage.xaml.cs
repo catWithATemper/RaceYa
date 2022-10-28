@@ -63,19 +63,18 @@ namespace RaceYa.Views
 
                     CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
                 }
-                
-                /*
-                if (CurrentParticipant.Result.CoveredDistance > Service.CurrentRace.RouteLength)
-                { 
-                    CurrentParticipant.Result.ManageExceedingDistance();
-                }
-                */
-                
             }
+            await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");
+
             CurrentParticipant.Result.RaceCompleted = true;
             Service.CurrentRace.CalculateFinalLeaderBoard();
+
+            await Shell.Current.GoToAsync("//MainPage");
+            await Navigation.PopModalAsync();
+
         }
 
+        //TODO put this method in its own class
         public async Task<Location> GetCurrentLocation()
         {
             GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
