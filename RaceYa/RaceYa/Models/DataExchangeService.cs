@@ -40,7 +40,7 @@ namespace RaceYa.Models
             Participant participant6 = new Participant(User6, CurrentRace);
 
             PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.20190829_181304.gpx");
-            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.20200601_174558.gpx");
+            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.20210827_181606.gpx");
             PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.20201009_175328.gpx");
             PopulateRaceResultFromFile(participant4.Result, "RaceYa.DB.20210526_173957.gpx");
             PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.20210530_143238.gpx");

@@ -20,20 +20,20 @@
   <ItemGroup>
     <None Remove="20210526_173957.gpx" />
     <None Remove="DB\20190829_181304.gpx" />
-    <None Remove="DB\20200601_174558.gpx" />
     <None Remove="DB\20201009_175328.gpx" />
     <None Remove="DB\20210526_173957.gpx" />
     <None Remove="DB\20210530_143238.gpx" />
     <None Remove="DB\20210602_183136.gpx" />
+    <None Remove="DB\20210827_181606.gpx" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="DB\20190829_181304.gpx" />
-    <EmbeddedResource Include="DB\20200601_174558.gpx" />
     <EmbeddedResource Include="DB\20201009_175328.gpx" />
     <EmbeddedResource Include="DB\20210526_173957.gpx" />
     <EmbeddedResource Include="DB\20210530_143238.gpx" />
     <EmbeddedResource Include="DB\20210602_183136.gpx" />
+    <EmbeddedResource Include="DB\20210827_181606.gpx" />
   </ItemGroup>
 
   <ItemGroup>

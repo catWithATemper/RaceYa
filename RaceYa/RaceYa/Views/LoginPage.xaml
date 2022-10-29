@@ -2,16 +2,28 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RaceYa.Views.LoginPage"
-             >
+             Shell.NavBarIsVisible="false">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" 
-                 Margin="15">
-            <Entry x:Name="userNameEntry"
-               Placeholder="User Name"
-               Keyboard="Email"/>
-            <Button x:Name="LoginButton"
-                Text="Login"
-                Clicked="LoginButton_Clicked"/>
-        </StackLayout>
+        <AbsoluteLayout HorizontalOptions="FillAndExpand"
+                        Margin="20">
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0.15, 1, 0.3"
+                         AbsoluteLayout.LayoutFlags="All">
+                <Label Text="WELCOME"
+                   FontAttributes="Bold, italic"
+                   FontSize="30"/>
+                <Label Text="TO RACEYA."
+                   FontAttributes="Bold, italic"
+                   FontSize="30"/>
+            </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0.6, 1, 0.3"
+                         AbsoluteLayout.LayoutFlags="All">
+                <Entry x:Name="userNameEntry"
+                       Placeholder="User Name"
+                       Keyboard="Email"/>
+                <Button x:Name="LoginButton"
+                        Text="Login"
+                        Clicked="LoginButton_Clicked"/>
+            </StackLayout>
+        </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>

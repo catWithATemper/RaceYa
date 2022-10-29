@@ -106,9 +106,13 @@ namespace RaceYa.Models
                             {
                                 LeaderBoard.Remove(participant);
 
+                                SynchronizeRaceResults(participant, index);
+
+                                /*
                                 participant.Result.CurrentRaceTime = participant.Result.RaceTimes.ElementAt(index - 1);
                                 participant.Result.RaceTimeIndex = index - 1;
-
+                                */
+                                
                                 LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
 
                                 UpdateObservableLeaderboard();
@@ -128,6 +132,27 @@ namespace RaceYa.Models
             }
             //Animal code
             //UpdateObservableLeaderboard();
+        }
+
+
+        public void SynchronizeRaceResults(Participant participant, int index)
+        {
+            //Find the difference between the current participant's stopwatch value and the participant's 
+            //stopwatch value identified by the RaceTimeIndex property. Then do the same with the stopwatch
+            //value identified by RaceTimeIndex - 1. Finally use the participant's stopwatch value with the
+            //smaller difference for the speed comparison.          
+            if ((participant.Result.RaceTimes.ElementAt(index).Key -
+                CurrentParticipant.Result.TimeSinceStart).Duration() >
+                (participant.Result.RaceTimes.ElementAt(index - 1).Key -
+                CurrentParticipant.Result.TimeSinceStart).Duration())
+            {
+                participant.Result.CurrentRaceTime = participant.Result.RaceTimes.ElementAt(index - 1);
+                participant.Result.RaceTimeIndex = index - 1;
+            }
+            else
+            {
+                participant.Result.CurrentRaceTime = participant.Result.RaceTimes.ElementAt(index);
+            }
         }
 
 
