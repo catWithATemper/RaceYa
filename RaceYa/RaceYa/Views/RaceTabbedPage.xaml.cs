@@ -22,9 +22,11 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant;
 
-        CancellationTokenSource cts;
+        //CancellationTokenSource cts;
 
         public static StopWatch PageStopWatch = new StopWatch();
+
+        public static LocationServiceManager LocationService = new LocationServiceManager();
 
         public RaceTabbedPage()
         {
@@ -43,7 +45,7 @@ namespace RaceYa.Views
 
         public async Task CalculateRaceResult()
         {
-            Location currentLocation = await GetCurrentLocation();
+            Location currentLocation = await LocationService.GetCurrentLocation();
 
             CurrentParticipant.Result.SetCurrentLocation(currentLocation);
             CurrentParticipant.Result.SetStartingPoint();
@@ -51,7 +53,7 @@ namespace RaceYa.Views
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength)
             {
                 await Task.Delay(1000);
-                currentLocation = await GetCurrentLocation();
+                currentLocation = await LocationService.GetCurrentLocation();
                 CurrentParticipant.Result.SetCurrentLocation(currentLocation);
                 CurrentParticipant.Result.CalculateTimeSinceStart();
 
@@ -73,8 +75,8 @@ namespace RaceYa.Views
             await Navigation.PopModalAsync();
 
         }
-
-        //TODO put this method in its own class
+        
+        /*
         public async Task<Location> GetCurrentLocation()
         {
             GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
@@ -87,5 +89,6 @@ namespace RaceYa.Views
             }
             return location;
         }
+        */
     }
 }

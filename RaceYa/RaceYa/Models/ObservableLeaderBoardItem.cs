@@ -6,7 +6,7 @@ using System.Text;
 
 namespace RaceYa.Models
 {
-    public class LeaderBoardItem : INotifyPropertyChanged
+    public class ObservableLeaderBoardItem : INotifyPropertyChanged
     {
         private int rank;
         public int Rank {
@@ -49,13 +49,29 @@ namespace RaceYa.Models
             }
         }
 
+        private bool isCurrentParticipant;
+        public bool IsCurrentParticipant
+        {
+            get
+            {
+                return isCurrentParticipant;
+            }
+            set
+            {
+                isCurrentParticipant = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public LeaderBoardItem(int rank, string name, double coveredDistance)
+        public ObservableLeaderBoardItem(int rank, string name, double coveredDistance, bool isCurrentParticipant)
         {
             Rank = rank;
             Name = name;
             CoveredDistance = coveredDistance;
+            IsCurrentParticipant = isCurrentParticipant;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

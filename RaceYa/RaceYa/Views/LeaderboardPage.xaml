@@ -6,23 +6,104 @@
         <StackLayout Margin="20"
                      Spacing="10">
             <ListView  x:Name="leaderBoardView">
+                <ListView.Header BackgroundColor="Lavender">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" 
+                               Text="RANK"
+                               FontSize="20"
+                               FontAttributes="Bold, Italic"
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="Lavender"
+                               VerticalOptions="EndAndExpand"/>
+                        <Label Grid.Column="1" 
+                               Text="PARTICIPANT"
+                               FontSize="20"
+                               FontAttributes="Bold, italic"
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="Lavender"
+                               VerticalOptions="EndAndExpand"/>
+                        <Label Grid.Column="2" 
+                               Text="DISTANCE"
+                               FontSize="20"
+                               FontAttributes="Bold, italic"
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="Lavender"
+                               VerticalOptions="EndAndExpand"/>
+                        <BoxView Grid.Row="1"
+                                 Grid.ColumnSpan="3"
+                                 HeightRequest="1"
+                                 BackgroundColor="Black"
+                                 VerticalOptions="Start"/>
+                    </Grid>
+                </ListView.Header>
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell x:Name="leaderBoardCell">
                             <Grid x:Name="leaderBoardGrid"
                                   ColumnDefinitions="*,*">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
                                 <Label Grid.Column="0"
+                                       x:Name="rankLabel"
                                        Text="{Binding Rank}"
                                        FontSize="20"
-                                       FontAttributes="Bold"/>
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       VerticalOptions="EndAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCurrentParticipant}"
+                                                     Value="true">
+                                            <Setter Property="BackgroundColor" Value="#e3ff00"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Grid.Column="1"
+                                       x:Name="nameLabel"
                                        Text="{Binding Name}"
                                        FontSize="20"
-                                       FontAttributes="Bold"/>
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       VerticalOptions="EndAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCurrentParticipant}"
+                                                     Value="true">
+                                            <Setter Property="BackgroundColor" Value="#e3ff00"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
                                 <Label Grid.Column="2"
+                                       x:Name="distanceLabel"
                                        Text="{Binding CoveredDistance}"
                                        FontSize="20"
-                                       FontAttributes="Bold"/>
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       VerticalOptions="EndAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCurrentParticipant}"
+                                                     Value="true">
+                                            <Setter Property="BackgroundColor" Value="#e3ff00"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <BoxView Grid.Row="1"
+                                         Grid.ColumnSpan="3"
+                                         HeightRequest="1"
+                                         BackgroundColor="Black"
+                                         VerticalOptions="Start"/>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>

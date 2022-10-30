@@ -7,6 +7,8 @@
 
         public RaceResult Result;
 
+        public bool IsCurrentParticipant = false;
+
         public Participant(User user, Race race)
         {
             User = user;

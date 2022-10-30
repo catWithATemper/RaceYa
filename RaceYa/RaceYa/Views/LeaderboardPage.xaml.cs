@@ -16,6 +16,8 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public string CurrentUser = Service.CurrentRace.CurrentParticipant.User.Name;
+
         public LeaderboardPage()
         {
             InitializeComponent();
@@ -23,6 +25,8 @@ namespace RaceYa.Views
             BindingContext = Service.CurrentRace;
 
             leaderBoardView.ItemsSource = Service.CurrentRace.ObservableLeaderBoard;
+
+            Console.WriteLine(CurrentUser);
         }
 
         protected override void OnAppearing()
@@ -30,6 +34,12 @@ namespace RaceYa.Views
             base.OnAppearing();
 
             Service.CurrentRace.UpdateObservableLeaderboard();
+        }
+
+        public void HighlightCurrentParticipant()
+        {
+            
+
         }
 
     }

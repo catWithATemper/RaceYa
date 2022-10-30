@@ -36,8 +36,8 @@ namespace RaceYa.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ObservableCollection<LeaderBoardItem> observableLeaderBoard;
-        public ObservableCollection<LeaderBoardItem> ObservableLeaderBoard
+        private ObservableCollection<ObservableLeaderBoardItem> observableLeaderBoard;
+        public ObservableCollection<ObservableLeaderBoardItem> ObservableLeaderBoard
         {
             get
             {
@@ -61,8 +61,8 @@ namespace RaceYa.Models
             leaderBoard = new SortedDictionary<Participant, double>(new ParticipantComparer());
             LeaderBoard = new SortedDictionary<Participant, double>(new ParticipantComparer());
 
-            observableLeaderBoard = new ObservableCollection<LeaderBoardItem>();
-            ObservableLeaderBoard = new ObservableCollection<LeaderBoardItem>();
+            observableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
+            ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
 
             FinalLeaderBoard = new SortedDictionary<Participant, double>(new SpeedComparer());
         }
@@ -161,9 +161,10 @@ namespace RaceYa.Models
             ObservableLeaderBoard.Clear();
             foreach (Participant participant in LeaderBoard.Keys)
             {
-                ObservableLeaderBoard.Add(new LeaderBoardItem(Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1,
+                ObservableLeaderBoard.Add(new ObservableLeaderBoardItem(Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1,
                                                               participant.User.Name,
-                                                              Math.Truncate(LeaderBoard[participant])));
+                                                              Math.Truncate(LeaderBoard[participant]),
+                                                              participant.IsCurrentParticipant));
             }
         }
 

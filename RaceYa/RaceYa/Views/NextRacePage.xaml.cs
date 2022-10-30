@@ -20,12 +20,15 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
 
-        CancellationTokenSource cts;
+        //CancellationTokenSource cts;
 
+        public static LocationServiceManager LocationService = new LocationServiceManager();
         public NextRacePage()
         {
             InitializeComponent();
             Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+
+            CurrentParticipant.IsCurrentParticipant = true;
         }
 
         protected override void OnAppearing()
@@ -45,7 +48,7 @@ namespace RaceYa.Views
 
             try
             {
-                locationTest = await GetCurrentLocation();
+                locationTest = await LocationService.GetCurrentLocation();
 
                 if (locationTest != null)
                 {
@@ -77,7 +80,7 @@ namespace RaceYa.Views
             }
         }
 
-        //TODO put this method in its own class
+        /*
         public async Task<Location> GetCurrentLocation()
         {
             GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
@@ -90,5 +93,6 @@ namespace RaceYa.Views
             }
             return location;
         }
+        */
     }
 }
