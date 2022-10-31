@@ -2,65 +2,84 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RaceYa.Views.RaceDataPage">
-    <StackLayout  Margin="20"
-                  Spacing="10">
-        <Label Text="Time:"
-               FontSize="20"
-               FontAttributes="Bold"
-               TextColor="#33343a"/>
-        <Label x:Name="timerLabel" 
-               Text="{Binding ElapsedTimeString}"
-               FontSize="30"
-               FontAttributes="Bold"
-               HorizontalOptions="Center"/>
-        <Grid ColumnDefinitions="*,*">
-            <Label Text="Total distance (m)"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   TextColor="#33343a"/>
-            <Label x:Name="distanceLabel"
-                   Text="{Binding CoveredDistance, StringFormat='{0:F0}'}"
-                   Grid.Column="1"
-                   FontSize="20"/>
-        </Grid>
-        <Grid ColumnDefinitions="auto,*">
-            <Label Text="Average speed (m/s)"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   TextColor="#33343a"/>
-            <Label x:Name="avgSpeedLabel"
-                   Text="{Binding AverageSpeed, StringFormat='{0:F2}'}"
-                   Grid.Column="1"
-                   FontSize="20"/>
-        </Grid>
-        <Grid ColumnDefinitions="*,*">
-            <Label Text=""/>
-        </Grid>
-        <Grid ColumnDefinitions="*,*">
-            <Label Text="Current location"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   TextColor="#33343a"/>
-        </Grid>
-        <Grid ColumnDefinitions="*,*">
-            <Label Text="Latitude:"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   TextColor="#33343a"/>
-            <Label x:Name="latitudeLabel"
-                   Text="{Binding Latitude}"
-                   Grid.Column="1"
-                   FontSize="20"/>
-        </Grid>
-        <Grid ColumnDefinitions="*,*">
-            <Label Text="Longitude:"
-                   FontSize="20"
-                   FontAttributes="Bold"
-                   TextColor="#33343a"/>
-            <Label x:Name="longitudeLabel"
-                   Text="{Binding Longitude}"
-                   Grid.Column="1"
-                   FontSize="20"/>
-        </Grid>
-    </StackLayout>
+    <AbsoluteLayout>
+        <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, AutoSize"
+                     AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                     Margin="20"
+                     Spacing="10">
+            <StackLayout HorizontalOptions="Center">
+                <Label Text="TIME:"
+                       FontSize="20"
+                       FontAttributes="Bold, italic"
+                       TextColor="#33343a"
+                       HorizontalTextAlignment="Start"/>
+                <Label x:Name="timerLabel" 
+                       Text="{Binding ElapsedTimeString}"
+                       FontSize="30"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="start"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Start">
+                <StackLayout>
+                    <Label Text="COVERED DISTANCE (km)"
+                           FontSize="20"
+                           FontAttributes="Bold, italic"
+                           TextColor="#33343a"
+                           HorizontalTextAlignment="start"/>
+                    <Label x:Name="distanceLabel"
+                           Text="{Binding CoveredDistanceInKm, StringFormat='{0:F2}'}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="start"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="AVERAGE SPEED (m/s)"
+                           FontSize="20"
+                           FontAttributes="Bold, italic"
+                           TextColor="#33343a"
+                           HorizontalTextAlignment="start"/>
+                    <Label x:Name="avgSpeedLabel"
+                           Text="{Binding AverageSpeed, StringFormat='{0:F2}'}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="start"/>
+                </StackLayout>
+            </StackLayout>
+            <Grid ColumnDefinitions="*,*">
+                <Label Text=""/>
+            </Grid>
+            <Grid ColumnDefinitions="*,*">
+                <Label Text="Current location"
+                       FontSize="20" 
+                       FontAttributes="Bold"
+                       TextColor="#33343a"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,*">
+                <Label Text="Latitude:"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#33343a"/>
+                <Label x:Name="latitudeLabel"
+                       Text="{Binding Latitude}"
+                       Grid.Column="1"
+                       FontSize="20"/>
+            </Grid>
+            <Grid ColumnDefinitions="*,*">
+                <Label Text="Longitude:"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="#33343a"/>
+                <Label x:Name="longitudeLabel"
+                       Text="{Binding Longitude}"
+                       Grid.Column="1"
+                       FontSize="20"/>
+            </Grid>
+        </StackLayout>
+        <Button AbsoluteLayout.LayoutBounds="1, 1, 1, Autosize" 
+                AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
+                Text="Quit race"
+                x:Name="RaceDataPageButton"
+                Clicked="RaceDataPageButton_Clicked"/>
+    </AbsoluteLayout>
 </ContentPage>

@@ -28,5 +28,17 @@ namespace RaceYa.Views
             BindingContext = CurrentParticipant.Result;
             timerLabel.BindingContext = PageStopWatch;
         }
+
+        private async void RaceDataPageButton_Clicked(object sender, EventArgs e)
+        {
+            var response = await DisplayAlert("Warning!", "Quit race before the finish line?", "Yes", "No");
+            if (response)
+            {
+                MessagingCenter.Send(this, "Quit race");
+
+                await Shell.Current.GoToAsync("//MainPage");
+                await Navigation.PopModalAsync();
+            }
+        }
     }
 }

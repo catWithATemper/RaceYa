@@ -53,7 +53,7 @@ namespace RaceYa.Models
         public Race()
         {
             //Hardcoded values
-            RouteLength = 100;
+            RouteLength = 2000;
             EndDate = DateTime.Parse("November 15, 2022");
 
             Participants = new List<Participant>();
@@ -162,9 +162,9 @@ namespace RaceYa.Models
             foreach (Participant participant in LeaderBoard.Keys)
             {
                 ObservableLeaderBoard.Add(new ObservableLeaderBoardItem(Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1,
-                                                              participant.User.Name,
-                                                              Math.Truncate(LeaderBoard[participant]),
-                                                              participant.IsCurrentParticipant));
+                                                                        participant.User.Name,
+                                                                        Math.Round(LeaderBoard[participant] / 1000, 2),
+                                                                        participant.IsCurrentParticipant));
             }
         }
 

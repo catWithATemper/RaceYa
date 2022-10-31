@@ -35,8 +35,8 @@ namespace RaceYa.Models
             }
         }
 
-        private double coveredDistance;
-        public double  CoveredDistance 
+        private double coveredDistance; // in km
+        public double  CoveredDistance //in km
         {
             get
             {

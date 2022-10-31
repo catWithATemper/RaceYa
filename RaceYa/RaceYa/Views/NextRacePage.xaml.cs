@@ -20,8 +20,6 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
 
-        //CancellationTokenSource cts;
-
         public static LocationServiceManager LocationService = new LocationServiceManager();
         public NextRacePage()
         {
@@ -79,20 +77,5 @@ namespace RaceYa.Views
                 await DisplayAlert("Exception", "Unable to get location", "OK");
             }
         }
-
-        /*
-        public async Task<Location> GetCurrentLocation()
-        {
-            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(10));
-            cts = new CancellationTokenSource();
-
-            Location location = null;
-            while (location == null)
-            {
-                location = await Geolocation.GetLocationAsync(request, cts.Token);
-            }
-            return location;
-        }
-        */
     }
 }

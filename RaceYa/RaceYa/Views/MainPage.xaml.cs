@@ -25,7 +25,11 @@ namespace RaceYa.Views
             if (Service.UserIsAuthenticated)
             {
                 base.OnAppearing();
-                await Task.Factory.StartNew(() => { Service.SyncData(); });
+
+                if (Service.CurrentRace.Participants.Count == 0)
+                {
+                    await Task.Factory.StartNew(() => { Service.SyncData(); });
+                }
             }
             else
             {

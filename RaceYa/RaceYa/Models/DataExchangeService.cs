@@ -10,7 +10,7 @@ namespace RaceYa.Models
 {
     public class DataExchangeService
     {
-        private static DataExchangeService instance = null;
+        public static DataExchangeService instance = null;
 
         public bool UserIsAuthenticated = false;
 
@@ -99,6 +99,7 @@ namespace RaceYa.Models
                     }
                     if (result.CoveredDistance > CurrentRace.RouteLength)
                     {
+                        result.RaceCompleted = true;
                         break;
                     }
                 }

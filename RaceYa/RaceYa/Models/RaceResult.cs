@@ -76,6 +76,21 @@ namespace RaceYa.Models
             }
         }
 
+        private double coveredDitanceInKm;
+
+        public double CoveredDistanceInKm
+        {
+            get
+            {
+                return Math.Truncate(coveredDistance / 1000);
+            }
+            set
+            {
+                coveredDitanceInKm = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private double averageSpeed;
         public double AverageSpeed
         {

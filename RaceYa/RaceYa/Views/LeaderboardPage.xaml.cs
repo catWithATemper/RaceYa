@@ -16,17 +16,13 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public string CurrentUser = Service.CurrentRace.CurrentParticipant.User.Name;
+        public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
         public LeaderboardPage()
         {
             InitializeComponent();
 
-            BindingContext = Service.CurrentRace;
-
             leaderBoardView.ItemsSource = Service.CurrentRace.ObservableLeaderBoard;
-
-            Console.WriteLine(CurrentUser);
         }
 
         protected override void OnAppearing()
@@ -36,11 +32,16 @@ namespace RaceYa.Views
             Service.CurrentRace.UpdateObservableLeaderboard();
         }
 
-        public void HighlightCurrentParticipant()
+        private async void leaderBoardPageButton_Clicked(object sender, EventArgs e)
         {
-            
+            var response = await DisplayAlert("Warning!", "Quit race before the finish line?", "Yes", "No");
+            if (response)
+            {
+                MessagingCenter.Send(this, "Quit race");
 
+                await Shell.Current.GoToAsync("//MainPage");
+                await Navigation.PopModalAsync();
+            }
         }
-
     }
 }

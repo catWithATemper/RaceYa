@@ -122,33 +122,11 @@
                                FontSize="16"/>
                     </Grid>
                 </StackLayout>
-                <Button 
-                        Text="See result"
+                <Button Text="See result"
                         HeightRequest="40"
                         WidthRequest="160"
                         HorizontalOptions="End"/>
-            </StackLayout>
-            <!-- 
-            <BoxView Color="Lavender" 
-                     Margin="10" 
-                     AbsoluteLayout.LayoutBounds="0, 0.93, 1, 0.2"
-                     AbsoluteLayout.LayoutFlags="All"/>
-            <StackLayout Margin="20"
-                         AbsoluteLayout.LayoutBounds="0, 0.93, 1, 0.2"
-                         AbsoluteLayout.LayoutFlags="All"
-                         VerticalOptions="FillAndExpand">
-                <Label TextColor="#33343a"
-                       FontSize="20"
-                       Text="OPTIONS"
-                       FontAttributes="Bold, Italic"/>
-                <Button x:Name="syncButton"
-                        Text="Sync data"
-                        HeightRequest="40"
-                        WidthRequest="160"
-                        HorizontalOptions="End"
-                        Clicked="syncButton_Clicked"/>
-            </StackLayout>
-             -->
+            </StackLayout> 
         </AbsoluteLayout>
     </ContentPage.Content>
 </ContentPage>
