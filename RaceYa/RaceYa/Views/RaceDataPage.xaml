@@ -8,73 +8,124 @@
                      Margin="20"
                      Spacing="10">
             <StackLayout HorizontalOptions="Center">
-                <Label Text="TIME:"
-                       FontSize="20"
-                       FontAttributes="Bold, italic"
-                       TextColor="#33343a"
-                       HorizontalTextAlignment="Start"/>
-                <Label x:Name="timerLabel" 
-                       Text="{Binding ElapsedTimeString}"
-                       FontSize="30"
-                       FontAttributes="Bold"
-                       HorizontalTextAlignment="start"/>
+                <Grid ColumnDefinitions="auto, auto"
+                      RowDefinitions="auto, auto">
+                    <Label Text="TIME"
+                           FontSize="20"
+                           FontAttributes="Bold, italic"
+                           TextColor="#33343a"
+                           HorizontalTextAlignment="start"
+                           BackgroundColor="Lavender"/>
+                    <Label x:Name="timerLabel"
+                           Text="{Binding ElapsedTimeString}"
+                           FontSize="30"
+                           HorizontalTextAlignment="start"
+                           Grid.Row="1"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout Margin="0, 10">
+                <Grid ColumnDefinitions="auto">
+                    <Label Text="COVERED DISTANCE"
+                            FontSize="20"
+                            FontAttributes="Bold, italic"
+                            TextColor="#33343a"
+                            HorizontalTextAlignment="start"
+                            BackgroundColor="Lavender"/>
+                    <Label x:Name="distanceLabel"
+                            Text="{Binding CoveredDistanceInKm, StringFormat='{0:F2} km'}"
+                            FontSize="20"
+                            HorizontalTextAlignment="start"
+                            Grid.Row="1"
+                            FontAttributes="Bold"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout Margin="0, 10">
+                <Grid ColumnDefinitions="auto">
+                    <Label Text="REMAINING DISTANCE"
+                           FontSize="20"
+                           FontAttributes="Bold, italic"
+                           TextColor="#33343a"
+                           HorizontalTextAlignment="start"
+                           BackgroundColor="Lavender"/>
+                    <Label Text="not impl"
+                           FontSize="20"
+                           HorizontalTextAlignment="start"
+                           Grid.Row="1"
+                           FontAttributes="Bold"
+                           />
+                </Grid>
             </StackLayout>
             <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="Start">
-                <StackLayout>
-                    <Label Text="COVERED DISTANCE (km)"
-                           FontSize="20"
-                           FontAttributes="Bold, italic"
-                           TextColor="#33343a"
-                           HorizontalTextAlignment="start"/>
-                    <Label x:Name="distanceLabel"
-                           Text="{Binding CoveredDistanceInKm, StringFormat='{0:F2}'}"
-                           FontSize="20"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="start"/>
+                         HorizontalOptions="Start"
+                         Margin="0, 10">
+                <StackLayout Margin="0, 0, 10, 0">
+                    <Grid ColumnDefinitions="auto">
+                        <Label Text="AVERAGE SPEED"
+                               FontSize="20"
+                               FontAttributes="Bold, italic"
+                               TextColor="#33343a"
+                               HorizontalTextAlignment="start"
+                               BackgroundColor="Lavender"/>
+                        <Label x:Name="avgSpeedLabel"
+                               Text="{Binding AverageSpeed, StringFormat='{0:F2} m/s'}"
+                               FontSize="20"
+                               HorizontalTextAlignment="start"
+                               Grid.Row="1"
+                               FontAttributes="Bold"/>
+                    </Grid>
                 </StackLayout>
-                <StackLayout>
-                    <Label Text="AVERAGE SPEED (m/s)"
-                           FontSize="20"
-                           FontAttributes="Bold, italic"
-                           TextColor="#33343a"
-                           HorizontalTextAlignment="start"/>
-                    <Label x:Name="avgSpeedLabel"
-                           Text="{Binding AverageSpeed, StringFormat='{0:F2}'}"
-                           FontSize="20"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="start"/>
+                <StackLayout Margin="10, 0, 0, 0">
+                    <Grid ColumnDefinitions="auto">
+                        <Label Text="AVERAGE PACE"
+                               FontSize="20"
+                               FontAttributes="Bold, italic"
+                               TextColor="#33343a"
+                               HorizontalTextAlignment="start"
+                               BackgroundColor="Lavender"/>
+                        <Label Text="not impl"
+                               FontSize="20"
+                               HorizontalTextAlignment="start"
+                               Grid.Row="1"
+                               FontAttributes="Bold"/>
+                    </Grid>
                 </StackLayout>
             </StackLayout>
-            <Grid ColumnDefinitions="*,*">
-                <Label Text=""/>
-            </Grid>
-            <Grid ColumnDefinitions="*,*">
-                <Label Text="Current location"
-                       FontSize="20" 
-                       FontAttributes="Bold"
-                       TextColor="#33343a"/>
-            </Grid>
-            <Grid ColumnDefinitions="*,*">
-                <Label Text="Latitude:"
-                       FontSize="20"
-                       FontAttributes="Bold"
-                       TextColor="#33343a"/>
-                <Label x:Name="latitudeLabel"
-                       Text="{Binding Latitude}"
-                       Grid.Column="1"
-                       FontSize="20"/>
-            </Grid>
-            <Grid ColumnDefinitions="*,*">
-                <Label Text="Longitude:"
-                       FontSize="20"
-                       FontAttributes="Bold"
-                       TextColor="#33343a"/>
-                <Label x:Name="longitudeLabel"
-                       Text="{Binding Longitude}"
-                       Grid.Column="1"
-                       FontSize="20"/>
-            </Grid>
+            <StackLayout Margin="0, 10">
+                <Grid ColumnDefinitions="auto">
+                    <Label Text="LEADERBOARD POSITION"
+                            FontSize="20"
+                            FontAttributes="Bold, italic"
+                            TextColor="#33343a"
+                            HorizontalTextAlignment="start"
+                            BackgroundColor="Lavender"/>
+                    <Label Text="{Binding LeaderBoardRank}"
+                           FontSize="20"
+                           HorizontalTextAlignment="start"
+                           Grid.Row="1"
+                           FontAttributes="Bold"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout Margin="0, 10">
+                <Grid ColumnDefinitions="auto">
+                    <Label Text="CURRENT LOCATION"
+                           FontSize="20"
+                           FontAttributes="Bold, italic"
+                           TextColor="#33343a"
+                           HorizontalTextAlignment="start"
+                           BackgroundColor="Lavender"/>
+                    <Label FontSize="20"
+                           HorizontalTextAlignment="start"
+                           Grid.Row="1"
+                           FontAttributes="Bold">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}Lat: {0}, Lon: {1}">
+                                <Binding Path="Latitude" />
+                                <Binding Path="Longitude" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                </Grid>
+            </StackLayout>
         </StackLayout>
         <Button AbsoluteLayout.LayoutBounds="1, 1, 1, Autosize" 
                 AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"

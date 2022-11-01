@@ -82,7 +82,7 @@ namespace RaceYa.Models
         {
             get
             {
-                return Math.Truncate(coveredDistance / 1000);
+                return coveredDitanceInKm;
             }
             set
             {
@@ -115,7 +115,22 @@ namespace RaceYa.Models
 
         public bool RaceCompleted;
 
-        public TimeSpan RaceCompletionTime;
+        public TimeSpan RaceCompletionTime;//remove?
+
+        private int leaderBoardRank;
+
+        public int LeaderBoardRank
+        {
+            get
+            {
+                return leaderBoardRank;
+            }
+            set
+            {
+                leaderBoardRank = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         public RaceResult()
         {   
@@ -126,6 +141,8 @@ namespace RaceYa.Models
             RaceTimeIndex = 0;
 
             RaceCompleted = false;
+
+            LeaderBoardRank = 1;//Can be improved
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -160,6 +177,8 @@ namespace RaceYa.Models
             if (!RaceTimes.ContainsKey(TimeSinceStart))
 
                 RaceTimes.Add(TimeSinceStart, CoveredDistance);
+
+            CoveredDistanceInKm = CoveredDistance / 1000; // TODO: deve essere dentro l'if?
 
             return CoveredDistance;
         }

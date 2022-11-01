@@ -90,6 +90,8 @@ namespace RaceYa.Models
 
                         UpdateObservableLeaderboard();
 
+                        participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
+
                         Console.WriteLine("List " + LeaderBoard.Count);
                         foreach (var p in LeaderBoard)
                         {
@@ -116,6 +118,8 @@ namespace RaceYa.Models
                                 LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
 
                                 UpdateObservableLeaderboard();
+
+                                participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
 
                                 Console.WriteLine("List " + LeaderBoard.Count);
                                 foreach (var p in LeaderBoard)
