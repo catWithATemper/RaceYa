@@ -63,7 +63,7 @@ namespace RaceYa.Models
         public TimeSpan TimeSinceStart;
 
         private double coveredDistance;
-        public double CoveredDistance 
+        public double CoveredDistance //meters
         { 
             get 
             { 
@@ -91,7 +91,7 @@ namespace RaceYa.Models
             }
         }
 
-        private double averageSpeed;
+        private double averageSpeed; //m/s
         public double AverageSpeed
         {
             get
@@ -105,6 +105,51 @@ namespace RaceYa.Models
             }
         }
 
+        private TimeSpan averagePace;
+
+        public TimeSpan AveragePace
+        {
+            get
+            {
+                return averagePace;
+            }
+            set
+            {
+                averagePace = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string averagePaceString;
+
+        public string AveragePaceString
+        {
+            get
+            {
+                return averagePaceString;
+            }
+            set
+            {
+                averagePaceString = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private double evaluatedDistance;
+        
+        public double EvaluatedDistance
+        {
+            get
+            {
+                return evaluatedDistance;
+            }
+            set
+            {
+                evaluatedDistance = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public SortedDictionary<TimeSpan, double> RaceTimes;
 
         public KeyValuePair<TimeSpan, double> CurrentRaceTime;
@@ -114,8 +159,6 @@ namespace RaceYa.Models
         public event PropertyChangedEventHandler PropertyChanged;
 
         public bool RaceCompleted;
-
-        public TimeSpan RaceCompletionTime;//remove?
 
         private int leaderBoardRank;
 
@@ -132,8 +175,10 @@ namespace RaceYa.Models
             }
         }
 
-        public RaceResult()
-        {   
+        public RaceResult(Participant participant)
+        {
+            RaceParticipant = participant;
+
             CoveredDistance = 0;
             AverageSpeed = 0;
             RaceTimes = new SortedDictionary<TimeSpan, double>();
@@ -142,7 +187,8 @@ namespace RaceYa.Models
 
             RaceCompleted = false;
 
-            LeaderBoardRank = 1;//Can be improved
+            //The participant has not been added yet becasue of concurrency.
+            LeaderBoardRank = RaceParticipant.Race.Participants.Count + 1;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -175,10 +221,15 @@ namespace RaceYa.Models
             CoveredDistance += Location.CalculateDistance(CurrentLocation, PreviousLocation, DistanceUnits.Kilometers) * 1000;
 
             if (!RaceTimes.ContainsKey(TimeSinceStart))
-
+            {
                 RaceTimes.Add(TimeSinceStart, CoveredDistance);
+            }
 
-            CoveredDistanceInKm = CoveredDistance / 1000; // TODO: deve essere dentro l'if?
+            DetermineEvaluatedDistance();
+
+            CoveredDistanceInKm = CoveredDistance / 1000;
+            //Add speed calculation here
+            CalculateAveragePace();
 
             return CoveredDistance;
         }
@@ -195,5 +246,66 @@ namespace RaceYa.Models
                 return 0;
             }
         }
+
+        public void CalculateAveragePace()
+        {
+            if (CoveredDistanceInKm != 0 && CoveredDistance !=0)
+            {
+                double paceAsDouble = TimeSinceStart.TotalMinutes / CoveredDistanceInKm;
+
+                int minutes = (int)Math.Floor(paceAsDouble);
+                int seconds = (int)((paceAsDouble - Math.Floor(paceAsDouble)) * 60);
+
+                AveragePace = new TimeSpan(0, minutes, seconds);
+
+                Console.WriteLine("Speed m/s: " + AverageSpeed + " Pace min/km" + AveragePace);
+                    
+            }
+            else
+            {
+                AveragePace = new TimeSpan(0, 0, 0);
+            }
+
+            AveragePaceString = AveragePace.ToString(@"mm\:ss");
+        }
+
+        public void DetermineEvaluatedDistance()
+        {
+            if (CoveredDistance <= RaceParticipant.Race.RouteLength)
+            {
+                EvaluatedDistance = CoveredDistance;
+            }
+            else
+            {
+                EvaluatedDistance = RaceParticipant.Race.RouteLength;
+            }
+        }
+
+        /*
+        public void CalculateAveragePace()
+        {
+            TimeSpan Time = new TimeSpan(0, 30, 30);
+            int distance = 5;
+
+            double speed = distance * 1000 / Time.TotalSeconds;
+
+            if (CoveredDistanceInKm != 0)
+            {
+                double paceAsDouble = Time.TotalMinutes / distance;
+
+                int minutes = (int)Math.Floor(paceAsDouble);
+                int seconds = (int)((paceAsDouble - Math.Floor(paceAsDouble)) * 60);
+
+                AveragePace = new TimeSpan(0, minutes, seconds);
+
+                Console.WriteLine("Speed m/s: " + speed + "Pace min/km" + AveragePace);
+
+            }
+            else
+            {
+                AveragePace = new TimeSpan(0, 0, 0);
+            }
+        }
+        */
     }
 }

@@ -82,7 +82,7 @@
                                TextColor="#33343a"
                                HorizontalTextAlignment="start"
                                BackgroundColor="Lavender"/>
-                        <Label Text="not impl"
+                        <Label Text="{Binding AveragePaceString}"
                                FontSize="20"
                                HorizontalTextAlignment="start"
                                Grid.Row="1"

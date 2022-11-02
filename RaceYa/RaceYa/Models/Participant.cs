@@ -13,9 +13,11 @@
         {
             User = user;
             Race = race;
-            Result = new RaceResult();
+            Result = new RaceResult(this);
             Race.Participants.Add(this);
             Race.LeaderBoard.Add(this, 0);
+            
+           
         }
     }
 }

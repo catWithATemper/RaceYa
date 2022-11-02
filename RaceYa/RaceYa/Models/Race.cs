@@ -53,18 +53,18 @@ namespace RaceYa.Models
         public Race()
         {
             //Hardcoded values
-            RouteLength = 2000;
+            RouteLength = 200;
             EndDate = DateTime.Parse("November 15, 2022");
 
             Participants = new List<Participant>();
 
-            leaderBoard = new SortedDictionary<Participant, double>(new ParticipantComparer());
-            LeaderBoard = new SortedDictionary<Participant, double>(new ParticipantComparer());
+            leaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
+            LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
 
             observableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
 
-            FinalLeaderBoard = new SortedDictionary<Participant, double>(new SpeedComparer());
+            FinalLeaderBoard = new SortedDictionary<Participant, double>(new FinalLeaderBoardComparer());
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -185,7 +185,8 @@ namespace RaceYa.Models
                     Console.WriteLine(p.Key.User.Name + " " +
                                       p.Value + " " +
                                       p.Key.Result.CoveredDistance + " " +
-                                      p.Key.Result.TimeSinceStart + "\n");
+                                      p.Key.Result.TimeSinceStart + " " +
+                                      p.Key.Result.EvaluatedDistance + "\n");
                 }
             }
         }
