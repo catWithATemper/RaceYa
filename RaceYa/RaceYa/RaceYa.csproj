@@ -42,16 +42,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\ActiveRaceLeaderboardPage.xaml.cs">
+      <DependentUpon>ActiveRaceLeaderboardPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\RaceDataPage.xaml.cs">
-      <DependentUpon>RaceDataPage.xaml</DependentUpon>
+    <Compile Update="Views\ActiveRaceDataPage.xaml.cs">
+      <DependentUpon>ActiveRaceDataPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ActiveRaceTabbedPage.xaml.cs">
+      <DependentUpon>ActiveRaceTabbedPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\LeaderboardPage.xaml">
+    <EmbeddedResource Update="Views\ActiveRaceLeaderboardPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainPage.xaml">
@@ -63,10 +69,19 @@
     <EmbeddedResource Update="Views\NextRacePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RaceDataPage.xaml">
+    <EmbeddedResource Update="Views\ActiveRaceDataPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RaceTabbedPage.xaml">
+    <EmbeddedResource Update="Views\ActiveRaceTabbedPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RaceResultDataPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RaceResultLeaderBoard.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RaceResultTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

@@ -44,15 +44,9 @@ namespace RaceYa.Views
             await Shell.Current.GoToAsync("//NextRacePage");
         }
 
-
-
-        /*
-        private async void syncButton_Clicked(object sender, EventArgs e)
-        {   
-            await Task.Factory.StartNew(() => { Service.SyncData(); });
-
+        private async void latestRaceButton_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//RaceResultTabbedPage");
         }
-        */
-
     }
 }

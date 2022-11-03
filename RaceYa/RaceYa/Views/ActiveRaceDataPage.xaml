@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RaceYa.Views.RaceDataPage">
+             x:Class="RaceYa.Views.ActiveRaceDataPage">
     <AbsoluteLayout>
         <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, AutoSize"
                      AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
@@ -47,7 +47,7 @@
                            TextColor="#33343a"
                            HorizontalTextAlignment="start"
                            BackgroundColor="Lavender"/>
-                    <Label Text="not impl"
+                    <Label Text="{Binding RemainingDistance, StringFormat='{0:F2} km'}"
                            FontSize="20"
                            HorizontalTextAlignment="start"
                            Grid.Row="1"
@@ -82,7 +82,7 @@
                                TextColor="#33343a"
                                HorizontalTextAlignment="start"
                                BackgroundColor="Lavender"/>
-                        <Label Text="{Binding AveragePaceString}"
+                        <Label Text="{Binding AveragePaceString, StringFormat='{0} min/km'}"
                                FontSize="20"
                                HorizontalTextAlignment="start"
                                Grid.Row="1"

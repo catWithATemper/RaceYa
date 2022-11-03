@@ -16,7 +16,7 @@ using System.Runtime.CompilerServices;
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RaceTabbedPage : TabbedPage
+    public partial class ActiveRaceTabbedPage : TabbedPage
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
@@ -26,17 +26,17 @@ namespace RaceYa.Views
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 
-        public RaceTabbedPage()
+        public ActiveRaceTabbedPage()
         {
             InitializeComponent();
             CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
-            MessagingCenter.Subscribe<RaceDataPage>(this, "Quit race", (sender) =>
+            MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
                 CurrentParticipant.Result.RaceCompleted = true;
                 Service.CurrentRace.CalculateFinalLeaderBoard();
             });
-            MessagingCenter.Subscribe<LeaderboardPage>(this, "Quit race", (sender) =>
+            MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
                 CurrentParticipant.Result.RaceCompleted = true;
                 Service.CurrentRace.CalculateFinalLeaderBoard();

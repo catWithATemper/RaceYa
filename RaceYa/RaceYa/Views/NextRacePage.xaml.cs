@@ -66,7 +66,7 @@ namespace RaceYa.Views
                             countDownLabel.Text = times.ToString();
                             await Task.Delay(1000);
                         }
-                        await Navigation.PushModalAsync(new RaceTabbedPage());
+                        await Navigation.PushModalAsync(new ActiveRaceTabbedPage());
                         countDownLabel.Text = "";
                     }
                 }

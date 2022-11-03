@@ -123,9 +123,11 @@
                     </Grid>
                 </StackLayout>
                 <Button Text="See result"
+                        x:Name="latestRaceButton"
                         HeightRequest="40"
                         WidthRequest="160"
-                        HorizontalOptions="End"/>
+                        HorizontalOptions="End"
+                        Clicked="latestRaceButton_Clicked"/>
             </StackLayout> 
         </AbsoluteLayout>
     </ContentPage.Content>

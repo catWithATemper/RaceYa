@@ -11,15 +11,15 @@ using Xamarin.Essentials;
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RaceDataPage : ContentPage
+    public partial class ActiveRaceDataPage : ContentPage
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public static Participant CurrentParticipant;
 
-        public StopWatch PageStopWatch = RaceTabbedPage.PageStopWatch;
+        public StopWatch PageStopWatch = ActiveRaceTabbedPage.PageStopWatch;
 
-        public RaceDataPage()
+        public ActiveRaceDataPage()
         {
             InitializeComponent();
 

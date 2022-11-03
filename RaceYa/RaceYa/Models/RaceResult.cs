@@ -135,6 +135,21 @@ namespace RaceYa.Models
             }
         }
 
+        private double remainingDistance;
+
+        public double RemainingDistance //in km
+        {
+            get
+            {
+                return remainingDistance;
+            }
+            set
+            {
+                remainingDistance = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private double evaluatedDistance;
         
         public double EvaluatedDistance
@@ -180,7 +195,11 @@ namespace RaceYa.Models
             RaceParticipant = participant;
 
             CoveredDistance = 0;
+            coveredDitanceInKm = 0;
             AverageSpeed = 0;
+            AveragePace = new TimeSpan(0, 0, 0);
+            AveragePaceString = "00:00";
+            RemainingDistance = participant.Race.RouteLength / 1000;
             RaceTimes = new SortedDictionary<TimeSpan, double>();
             CurrentRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
             RaceTimeIndex = 0;
@@ -226,6 +245,8 @@ namespace RaceYa.Models
             }
 
             DetermineEvaluatedDistance();
+
+            RemainingDistance = (CoveredDistance - RaceParticipant.Race.RouteLength) / 1000;
 
             CoveredDistanceInKm = CoveredDistance / 1000;
             //Add speed calculation here
