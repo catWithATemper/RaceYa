@@ -279,7 +279,7 @@ namespace RaceYa.Models
 
                 AveragePace = new TimeSpan(0, minutes, seconds);
 
-                Console.WriteLine("Speed m/s: " + AverageSpeed + " Pace min/km" + AveragePace);
+                Console.WriteLine("Speed m/s: " + AverageSpeed + " Pace min/km " + AveragePace);
                     
             }
             else

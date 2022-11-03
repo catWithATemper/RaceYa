@@ -18,15 +18,12 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static Participant CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
+        public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
         public NextRacePage()
         {
             InitializeComponent();
-            Service.CurrentRace.CurrentParticipant = CurrentParticipant;
-
-            CurrentParticipant.IsCurrentParticipant = true;
         }
 
         protected override void OnAppearing()

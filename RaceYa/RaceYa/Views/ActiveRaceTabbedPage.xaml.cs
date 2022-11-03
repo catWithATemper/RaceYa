@@ -26,6 +26,10 @@ namespace RaceYa.Views
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 
+
+        //TODO fix possible concurrency problem. After the final leaderboard is calculated, the normal leaderboard is
+        //calculated a few more times. This causes an error in the final leaderboard position of the current participant,
+        //if they don't complete the race. 
         public ActiveRaceTabbedPage()
         {
             InitializeComponent();

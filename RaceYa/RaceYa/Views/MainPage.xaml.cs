@@ -15,6 +15,9 @@ namespace RaceYa.Views
     public partial class MainPage : ContentPage
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
+
+        public static Participant CurrentParticipant;
+
         public MainPage()
         {
             InitializeComponent();
@@ -29,6 +32,10 @@ namespace RaceYa.Views
                 if (Service.CurrentRace.Participants.Count == 0)
                 {
                     await Task.Factory.StartNew(() => { Service.SyncData(); });
+
+                    CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
+                    Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+                    CurrentParticipant.IsCurrentParticipant = true;
                 }
             }
             else

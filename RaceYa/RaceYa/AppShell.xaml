@@ -105,6 +105,9 @@
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>
+    <TabBar>
+        <ShellContent Route="RaceResultTabbedPage" ContentTemplate="{DataTemplate local:RaceResultTabbedPage}" />
+    </TabBar>
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.

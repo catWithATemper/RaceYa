@@ -12,6 +12,8 @@ namespace RaceYa.Models
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
         public double RouteLength { get; set; } //in meters
+
+        public double RouteLengthInKm { get; set; }
         public Participant CurrentParticipant { get; set; }
         public List<Participant> Participants { get; set; }
 
@@ -53,8 +55,10 @@ namespace RaceYa.Models
         public Race()
         {
             //Hardcoded values
-            RouteLength = 200;
+            RouteLength = 500;
+            RouteLengthInKm = RouteLength / 1000;
             EndDate = DateTime.Parse("November 15, 2022");
+            StartDate = DateTime.Parse("October 31, 2022");
 
             Participants = new List<Participant>();
 
@@ -177,6 +181,7 @@ namespace RaceYa.Models
             foreach (Participant participant in Participants)
             {
                 FinalLeaderBoard.Add(participant, participant.Result.AverageSpeed);
+                participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
                 //debug
                 Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
                 //debug
