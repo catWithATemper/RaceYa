@@ -43,9 +43,9 @@
                     <Label Grid.Column="1">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{Binding StartDate}" FontSize="18"/>
-                                <Span Text=" to " FontAttributes="Bold"/>
-                                <Span Text="{Binding EndDate}" FontSize="18"/>
+                                <Span Text="{Binding StartDate, StringFormat='{0:MMMM:dd, :yyyy}'}" FontSize="18"/>
+                                <Span Text=" to " FontAttributes="Bold" FontSize="18"/>
+                                <Span Text="{Binding EndDate, StringFormat='{0:MMMM:dd, :yyyy}'}" FontSize="18"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
@@ -70,14 +70,23 @@
                 </Grid>
                 <Grid ColumnDefinitions="*,*"
                       HorizontalOptions="Center">
-                    <Label Text="Time:"
+                    <Label Text="Time (hh:mm:ss):"
                            FontSize="18"
                            FontAttributes="Bold"
                            HorizontalOptions="End"
                            HorizontalTextAlignment="End"/>
                     <Label Grid.Column="1"
-                           FontSize="18"
-                           Text="{Binding TimeSinceStart}"/>
+                           FontSize="18">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding TimeSinceStart.Hours}" FontSize="18"/>
+                                <Span Text=":" FontSize="18"/>
+                                <Span Text="{Binding TimeSinceStart.Minutes}" FontSize="18"/>
+                                <Span Text=":" FontSize="18"/>
+                                <Span Text="{Binding TimeSinceStart.Seconds}" FontSize="18"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </Grid>
                 <Grid ColumnDefinitions="*,*"
                       HorizontalOptions="Center">

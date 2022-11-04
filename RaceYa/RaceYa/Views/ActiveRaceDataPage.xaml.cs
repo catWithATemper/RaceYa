@@ -35,8 +35,9 @@ namespace RaceYa.Views
             if (response)
             {
                 MessagingCenter.Send(this, "Quit race");
+                CurrentParticipant.Result.RaceCompleted = true;
 
-                await Shell.Current.GoToAsync("//MainPage");
+                await Shell.Current.GoToAsync("//RaceResultTabbedPage");
                 await Navigation.PopModalAsync();
             }
         }

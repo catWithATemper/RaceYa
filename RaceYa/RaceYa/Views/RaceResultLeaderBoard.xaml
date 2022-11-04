@@ -3,10 +3,155 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="RaceYa.Views.RaceResultLeaderBoard">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="20"
+                     Spacing="10">
+            <ListView  x:Name="leaderBoardView">
+                <ListView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Column="0" 
+                               Text="RANK"
+                               FontSize="20"
+                               FontAttributes="Bold, Italic"
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="Lavender"
+                               VerticalOptions="EndAndExpand"/>
+                        <Label Grid.Column="1" 
+                               Text="PARTICIPANT"
+                               FontSize="20"
+                               FontAttributes="Bold, italic"
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="Lavender"
+                               VerticalOptions="EndAndExpand"/>
+                        <Label Grid.Column="2"        
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="Lavender"
+                               VerticalOptions="EndAndExpand">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="SPEED " 
+                                          FontAttributes="Bold, italic" 
+                                          FontSize="20"  />
+                                    <Span Text="(m/s)" 
+                                          FontAttributes="Bold" 
+                                          FontSize="20"  />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Grid.Column="3"        
+                               VerticalTextAlignment="Center"
+                               BackgroundColor="Lavender"
+                               VerticalOptions="EndAndExpand">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="PACE " 
+                                          FontAttributes="Bold, italic" 
+                                          FontSize="20"  />
+                                    <Span Text="(min/km)" 
+                                          FontAttributes="Bold" 
+                                          FontSize="20"  />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <BoxView Grid.Row="1"
+                                 Grid.ColumnSpan="3"
+                                 HeightRequest="1"
+                                 BackgroundColor="Black"
+                                 VerticalOptions="Start"/>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnDefinitions="*, 2*, 2*">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0"
+                                       Text="{Binding Rank}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalOptions="EndAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCurrentParticipant}"
+                                                     Value="true">
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="#e3ff00"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalOptions="EndAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCurrentParticipant}"
+                                                     Value="true">
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="#e3ff00"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Grid.Column="2"
+                                       x:Name="distanceLabel"
+                                       Text="{Binding CoveredDistance}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalOptions="EndAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCurrentParticipant}"
+                                                     Value="true">
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="#e3ff00"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Grid.Column="3"
+                                       Text="{Binding CoveredDistance}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       VerticalOptions="EndAndExpand">
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label"
+                                                     Binding="{Binding IsCurrentParticipant}"
+                                                     Value="true">
+                                            <Setter Property="BackgroundColor" 
+                                                    Value="#e3ff00"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <BoxView Grid.Row="1"
+                                         Grid.ColumnSpan="3"
+                                         HeightRequest="1"
+                                         BackgroundColor="Black"
+                                         VerticalOptions="Start"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

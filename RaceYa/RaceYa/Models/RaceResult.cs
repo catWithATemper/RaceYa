@@ -60,7 +60,19 @@ namespace RaceYa.Models
 
         DateTime StartTime;
 
-        public TimeSpan TimeSinceStart;
+        private TimeSpan timeSinceStart;
+        public TimeSpan TimeSinceStart
+        {
+            get
+            {
+                return timeSinceStart;
+            }
+            set
+            {
+                timeSinceStart = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private double coveredDistance;
         public double CoveredDistance //meters
@@ -246,7 +258,7 @@ namespace RaceYa.Models
 
             DetermineEvaluatedDistance();
 
-            RemainingDistance = (CoveredDistance - RaceParticipant.Race.RouteLength) / 1000;
+            RemainingDistance = (RaceParticipant.Race.RouteLength - CoveredDistance) / 1000;
 
             CoveredDistanceInKm = CoveredDistance / 1000;
             //Add speed calculation here

@@ -26,10 +26,6 @@ namespace RaceYa.Views
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 
-
-        //TODO fix possible concurrency problem. After the final leaderboard is calculated, the normal leaderboard is
-        //calculated a few more times. This causes an error in the final leaderboard position of the current participant,
-        //if they don't complete the race. 
         public ActiveRaceTabbedPage()
         {
             InitializeComponent();
@@ -37,12 +33,12 @@ namespace RaceYa.Views
 
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
-                CurrentParticipant.Result.RaceCompleted = true;
+                //urrentParticipant.Result.RaceCompleted = true;
                 Service.CurrentRace.CalculateFinalLeaderBoard();
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
-                CurrentParticipant.Result.RaceCompleted = true;
+                //CurrentParticipant.Result.RaceCompleted = true;
                 Service.CurrentRace.CalculateFinalLeaderBoard();
             });
         }
@@ -63,9 +59,10 @@ namespace RaceYa.Views
             CurrentParticipant.Result.SetCurrentLocation(currentLocation);
             CurrentParticipant.Result.SetStartingPoint();
 
+
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
                    CurrentParticipant.Result.RaceCompleted == false)
-            {
+            { 
                 await Task.Delay(1000);
                 currentLocation = await LocationService.GetCurrentLocation();
                 CurrentParticipant.Result.SetCurrentLocation(currentLocation);
@@ -85,7 +82,7 @@ namespace RaceYa.Views
             CurrentParticipant.Result.RaceCompleted = true;
             Service.CurrentRace.CalculateFinalLeaderBoard();
 
-            await Shell.Current.GoToAsync("//MainPage");
+            await Shell.Current.GoToAsync("//RaceResultTabbedPage");
             await Navigation.PopModalAsync();
         }
     }

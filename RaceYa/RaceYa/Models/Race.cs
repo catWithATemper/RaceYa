@@ -76,70 +76,63 @@ namespace RaceYa.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //TODO Improve the stopwatch synchronization. Consider the closest timestamp to the current participant
-        //even though it may be "in the future"
-
         public void UpdateLeaderBoard()
         {
-            foreach (Participant participant in Participants)
+            if (CurrentParticipant.Result.RaceCompleted == false)
             {
-                if (participant.Result.RaceTimes != null)
+                foreach (Participant participant in Participants)
                 {
-                    if (participant == CurrentParticipant)
+                    if (participant.Result.RaceTimes != null)
                     {
-                        LeaderBoard.Remove(participant);
-                        participant.Result.CurrentRaceTime = new KeyValuePair<TimeSpan, double>(participant.Result.TimeSinceStart, 
-                                                                                                participant.Result.CoveredDistance);
-                        LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
-
-                        UpdateObservableLeaderboard();
-
-                        participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
-
-                        Console.WriteLine("List " + LeaderBoard.Count);
-                        foreach (var p in LeaderBoard)
+                        if (participant == CurrentParticipant)
                         {
-                            Console.WriteLine(p.Key.User.Name + " " +
-                                              p.Key.Result.CurrentRaceTime.Key + " " +
-                                              p.Key.Result.CurrentRaceTime.Value);
-                        }
-                    }
-                    else
-                    {
-                        for (int index = participant.Result.RaceTimeIndex; index < participant.Result.RaceTimes.Count; index++)
-                        {
-                            if (participant.Result.RaceTimes.ElementAt(index).Key > CurrentParticipant.Result.TimeSinceStart)
+                            LeaderBoard.Remove(participant);
+                            participant.Result.CurrentRaceTime = new KeyValuePair<TimeSpan, double>(participant.Result.TimeSinceStart,
+                                                                                                    participant.Result.CoveredDistance);
+                            LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
+
+                            UpdateObservableLeaderboard();
+
+                            participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
+
+                            Console.WriteLine("List " + LeaderBoard.Count);
+                            foreach (var p in LeaderBoard)
                             {
-                                LeaderBoard.Remove(participant);
-
-                                SynchronizeRaceResults(participant, index);
-
-                                /*
-                                participant.Result.CurrentRaceTime = participant.Result.RaceTimes.ElementAt(index - 1);
-                                participant.Result.RaceTimeIndex = index - 1;
-                                */
-                                
-                                LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
-
-                                UpdateObservableLeaderboard();
-
-                                participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
-
-                                Console.WriteLine("List " + LeaderBoard.Count);
-                                foreach (var p in LeaderBoard)
+                                Console.WriteLine(p.Key.User.Name + " " +
+                                                  p.Key.Result.CurrentRaceTime.Key + " " +
+                                                  p.Key.Result.CurrentRaceTime.Value);
+                            }
+                        }
+                        else
+                        {
+                            for (int index = participant.Result.RaceTimeIndex; index < participant.Result.RaceTimes.Count; index++)
+                            {
+                                if (participant.Result.RaceTimes.ElementAt(index).Key > CurrentParticipant.Result.TimeSinceStart)
                                 {
-                                    Console.WriteLine(p.Key.User.Name + " " +
-                                                      p.Key.Result.CurrentRaceTime.Key + " " +
-                                                      p.Key.Result.CurrentRaceTime.Value);
+                                    LeaderBoard.Remove(participant);
+
+                                    SynchronizeRaceResults(participant, index);
+
+                                    LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
+
+                                    UpdateObservableLeaderboard();
+
+                                    participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
+
+                                    Console.WriteLine("List " + LeaderBoard.Count);
+                                    foreach (var p in LeaderBoard)
+                                    {
+                                        Console.WriteLine(p.Key.User.Name + " " +
+                                                          p.Key.Result.CurrentRaceTime.Key + " " +
+                                                          p.Key.Result.CurrentRaceTime.Value);
+                                    }
+                                    break;
                                 }
-                                break;
                             }
                         }
                     }
                 }
             }
-            //Animal code
-            //UpdateObservableLeaderboard();
         }
 
 
