@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="RaceYa.Views.RaceResultLeaderBoard">
+             x:Class="RaceYa.Views.RaceResultLeaderBoard"
+             Title="Leaderboard">
     <ContentPage.Content>
         <StackLayout Margin="20"
                      Spacing="10">
@@ -9,10 +10,10 @@
                 <ListView.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="4*" />
                             <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
@@ -20,50 +21,54 @@
                         </Grid.RowDefinitions>
                         <Label Grid.Column="0" 
                                Text="RANK"
-                               FontSize="20"
+                               FontSize="18"
                                FontAttributes="Bold, Italic"
                                VerticalTextAlignment="Center"
                                BackgroundColor="Lavender"
-                               VerticalOptions="EndAndExpand"/>
+                               VerticalOptions="StartAndExpand"
+                               HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="1" 
                                Text="PARTICIPANT"
-                               FontSize="20"
+                               FontSize="18"
                                FontAttributes="Bold, italic"
                                VerticalTextAlignment="Center"
                                BackgroundColor="Lavender"
-                               VerticalOptions="EndAndExpand"/>
+                               VerticalOptions="StartAndExpand"
+                               HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="2"        
                                VerticalTextAlignment="Center"
-                               BackgroundColor="Lavender"
-                               VerticalOptions="EndAndExpand">
+                               VerticalOptions="EndAndExpand"
+                               HorizontalTextAlignment="Center">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="SPEED " 
                                           FontAttributes="Bold, italic" 
-                                          FontSize="20"  />
+                                          FontSize="18"  
+                                          BackgroundColor="Lavender"/>
                                     <Span Text="(m/s)" 
                                           FontAttributes="Bold" 
-                                          FontSize="20"  />
+                                          FontSize="16"  />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
                         <Label Grid.Column="3"        
                                VerticalTextAlignment="Center"
-                               BackgroundColor="Lavender"
-                               VerticalOptions="EndAndExpand">
+                               VerticalOptions="EndAndExpand"
+                               HorizontalTextAlignment="Center">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="PACE " 
                                           FontAttributes="Bold, italic" 
-                                          FontSize="20"  />
-                                    <Span Text="(min/km)" 
-                                          FontAttributes="Bold" 
-                                          FontSize="20"  />
+                                          FontSize="18"  
+                                          BackgroundColor="Lavender"/>
+                                    <Span FontAttributes="Bold" 
+                                          FontSize="16"
+                                          Text="   (min/km)"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
                         <BoxView Grid.Row="1"
-                                 Grid.ColumnSpan="3"
+                                 Grid.ColumnSpan="4"
                                  HeightRequest="1"
                                  BackgroundColor="Black"
                                  VerticalOptions="Start"/>
@@ -72,18 +77,25 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid ColumnDefinitions="*, 2*, 2*">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="3*" />
+                                </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Column="0"
                                        Text="{Binding Rank}"
-                                       FontSize="20"
+                                       FontSize="18"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Start"
+                                       HorizontalTextAlignment="Center"
                                        VerticalOptions="EndAndExpand">
+                                    <!-- 
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                      Binding="{Binding IsCurrentParticipant}"
@@ -92,14 +104,16 @@
                                                     Value="#e3ff00"/>
                                         </DataTrigger>
                                     </Label.Triggers>
+                                    -->
                                 </Label>
                                 <Label Grid.Column="1"
                                        Text="{Binding Name}"
-                                       FontSize="20"
+                                       FontSize="18"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Start"
+                                       HorizontalTextAlignment="center"
                                        VerticalOptions="EndAndExpand">
+                                    <!-- 
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                      Binding="{Binding IsCurrentParticipant}"
@@ -108,15 +122,16 @@
                                                     Value="#e3ff00"/>
                                         </DataTrigger>
                                     </Label.Triggers>
+                                    -->
                                 </Label>
                                 <Label Grid.Column="2"
-                                       x:Name="distanceLabel"
-                                       Text="{Binding CoveredDistance}"
-                                       FontSize="20"
+                                       Text="{Binding AverageSpeed, StringFormat='{0:F2}'}"
+                                       FontSize="18"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Start"
+                                       HorizontalTextAlignment="center"
                                        VerticalOptions="EndAndExpand">
+                                    <!--
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                      Binding="{Binding IsCurrentParticipant}"
@@ -125,14 +140,13 @@
                                                     Value="#e3ff00"/>
                                         </DataTrigger>
                                     </Label.Triggers>
+                                    -->
                                 </Label>
                                 <Label Grid.Column="3"
-                                       Text="{Binding CoveredDistance}"
-                                       FontSize="20"
-                                       FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Start"
+                                       HorizontalTextAlignment="Center"
                                        VerticalOptions="EndAndExpand">
+                                    <!-- 
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label"
                                                      Binding="{Binding IsCurrentParticipant}"
@@ -141,9 +155,17 @@
                                                     Value="#e3ff00"/>
                                         </DataTrigger>
                                     </Label.Triggers>
+                                     -->
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding AveragePace.Minutes}" FontSize="18" FontAttributes="Bold"/>
+                                            <Span Text=":" FontSize="18" FontAttributes="Bold"/>
+                                            <Span Text="{Binding AveragePace.Seconds}" FontSize="18" FontAttributes="Bold"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
                                 </Label>
                                 <BoxView Grid.Row="1"
-                                         Grid.ColumnSpan="3"
+                                         Grid.ColumnSpan="4"
                                          HeightRequest="1"
                                          BackgroundColor="Black"
                                          VerticalOptions="Start"/>

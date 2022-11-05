@@ -33,8 +33,22 @@ namespace RaceYa.Models
             }
         }
 
-        //Each pair contains a participant and their average speed
-        public static SortedDictionary<Participant, double> FinalLeaderBoard { get; set; }
+        //Final leaderboard
+        private SortedDictionary<Participant, FinalLeaderBoardItem> finalLeaderBoard;
+
+        public SortedDictionary<Participant, FinalLeaderBoardItem> FinalLeaderBoard
+        {
+            get
+            {
+                return finalLeaderBoard;
+            }
+            set
+            {
+                finalLeaderBoard = value;
+                NotifyPropertyChanged();
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -48,6 +62,21 @@ namespace RaceYa.Models
             set
             {
                 observableLeaderBoard = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private ObservableCollection<FinalLeaderBoardItem> observableFinalLeaderBoard;
+        
+        public ObservableCollection<FinalLeaderBoardItem> ObservableFinalLeaderBoard
+        {
+            get
+            {
+                return observableFinalLeaderBoard;
+            }
+            set
+            {
+                observableFinalLeaderBoard = value;
                 NotifyPropertyChanged();
             }
         }
@@ -68,7 +97,11 @@ namespace RaceYa.Models
             observableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
 
-            FinalLeaderBoard = new SortedDictionary<Participant, double>(new FinalLeaderBoardComparer());
+            finalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
+            FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
+
+            observableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
+            ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -171,21 +204,40 @@ namespace RaceYa.Models
 
         public void CalculateFinalLeaderBoard()
         {
-            foreach (Participant participant in Participants)
+            //Verify that the final leaderboard hasn't been populated yet.
+            if (FinalLeaderBoard.Count == 0)
             {
-                FinalLeaderBoard.Add(participant, participant.Result.AverageSpeed);
-                participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
-                //debug
-                Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
-                //debug
-                foreach (var p in FinalLeaderBoard)
+                foreach (Participant participant in Participants)
                 {
-                    Console.WriteLine(p.Key.User.Name + " " +
-                                      p.Value + " " +
-                                      p.Key.Result.CoveredDistance + " " +
-                                      p.Key.Result.TimeSinceStart + " " +
-                                      p.Key.Result.EvaluatedDistance + "\n");
+                    FinalLeaderBoard.Add(participant,
+                                         new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
+                                                                  participant.User.Name,
+                                                                  participant.Result.AverageSpeed,
+                                                                  participant.Result.AveragePace));
+                    participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
+
+                    //debug
+                    Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
+                    //debug
+                    foreach (var p in FinalLeaderBoard)
+                    {
+                        Console.WriteLine(p.Key.User.Name + " " +
+                                          p.Value + " " +
+                                          p.Key.Result.CoveredDistance + " " +
+                                          p.Key.Result.TimeSinceStart + " " +
+                                          p.Key.Result.EvaluatedDistance + "\n");
+                    }
                 }
+
+                ObservableFinalLeaderBoard.Clear();
+                foreach (Participant participant in FinalLeaderBoard.Keys)
+                {
+                    ObservableFinalLeaderBoard.Add(new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
+                                                                            participant.User.Name,
+                                                                            participant.Result.AverageSpeed,
+                                                                            participant.Result.AveragePace));
+                }
+
             }
         }
     }
