@@ -5,7 +5,7 @@
              Title="Main page">
     <ContentPage.Content>
         <AbsoluteLayout>
-            <BoxView Color="Lavender" 
+            <BoxView Color="#f0f0f0" 
                      Margin="10" 
                      AbsoluteLayout.LayoutBounds="0, 0, 1, 0.3"
                      AbsoluteLayout.LayoutFlags="All"/>
@@ -14,10 +14,11 @@
                          AbsoluteLayout.LayoutFlags="All"
                          VerticalOptions="FillAndExpand"
                          HorizontalOptions="Center">
-                <Label TextColor="#33343a"
-                       FontSize="20"
+                <Label FontSize="20"
                        Text="NEXT RACE"
-                       FontAttributes="Bold, Italic"/>
+                       FontAttributes="Bold, Italic"
+                       TextColor="Black" 
+                       />
                 <StackLayout HorizontalOptions="Center">
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
@@ -49,7 +50,7 @@
                         HorizontalOptions="End"
                         Clicked="nextRaceButton_Clicked"/>
             </StackLayout>
-            <BoxView Color="Lavender" 
+            <BoxView Color="#f0f0f0"  
                      Margin="10" 
                      AbsoluteLayout.LayoutBounds="0, 0.35, 1, 0.2"
                      AbsoluteLayout.LayoutFlags="All"/>
@@ -61,7 +62,7 @@
                        FontSize="20"
                        Text="SIGN UP FOR A RACE"
                        FontAttributes="Bold, Italic"
-                       HorizontalOptions="Start"/>
+                       />
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="EndAndExpand">
                     <Button Text="Browse races"
@@ -74,7 +75,7 @@
                             HorizontalOptions="End"/>
                 </StackLayout>
             </StackLayout>
-            <BoxView Color="Lavender" 
+            <BoxView Color="#f0f0f0" 
                      Margin="10" 
                      AbsoluteLayout.LayoutBounds="0, 0.71, 1, 0.35"
                      AbsoluteLayout.LayoutFlags="All"/>
@@ -86,7 +87,8 @@
                 <Label TextColor="#33343a"
                        FontSize="20"
                        Text="LATEST RACE"
-                       FontAttributes="Bold, Italic"/>
+                       FontAttributes="Bold, Italic"
+                       />
                 <StackLayout HorizontalOptions="Center">
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">

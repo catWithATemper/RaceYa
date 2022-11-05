@@ -79,17 +79,33 @@
         https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
     -->
     <FlyoutItem Title="Main page">
-        <ShellContent Route="MainPage" ContentTemplate="{DataTemplate local:MainPage}"/>
+        <ShellContent Route="MainPage" 
+                      ContentTemplate="{DataTemplate local:MainPage}"
+                      Title="Main page"
+                      Icon="home.png"/>
+        <ShellContent Route="SignUpForARacePage"
+                      Title="Races"
+                      Icon="calendar.png"/>
+        <ShellContent Route="NextRacePace" 
+                      ContentTemplate="{DataTemplate local:NextRacePage}"
+                      Title="Next race"
+                      Icon="running.png"/>
+        <ShellContent Route="RaceResultTabbedPage" 
+                      ContentTemplate="{DataTemplate local:RaceResultTabbedPage}" 
+                      Title="Race results"
+                      Icon="data.png"/>
     </FlyoutItem>
-    <FlyoutItem Title="Next Race">
-        <ShellContent Route="NextRacePage" ContentTemplate="{DataTemplate local:NextRacePage}" />
-    </FlyoutItem>
+
     <!-- 
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
     -->
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
+    <MenuItem Text="Profile" StyleClass="MenuItemLayoutStyle">
+    </MenuItem>
+    <MenuItem Text="Settings" StyleClass="MenuItemLayoutStyle">
+    </MenuItem>
     <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnLogoutClicked">
     </MenuItem>
 
@@ -104,9 +120,6 @@
 
     <TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
-    </TabBar>
-    <TabBar>
-        <ShellContent Route="RaceResultTabbedPage" ContentTemplate="{DataTemplate local:RaceResultTabbedPage}" />
     </TabBar>
 
     <!-- Optional Templates 

@@ -46,9 +46,11 @@ namespace RaceYa.Views
 
 
 
-        private async void nextRaceButton_Clicked(object sender, EventArgs e)
+        private void nextRaceButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//NextRacePage");
+            Shell.Current.CurrentItem = Shell.Current.Items[0].Items[2];
+
+            //await Shell.Current.GoToAsync("//NextRacePage");
         }
 
         private async void latestRaceButton_Clicked(object sender, EventArgs e)
