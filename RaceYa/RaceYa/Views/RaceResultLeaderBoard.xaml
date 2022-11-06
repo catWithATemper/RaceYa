@@ -8,7 +8,7 @@
                      Spacing="10">
             <ListView  x:Name="leaderBoardView">
                 <ListView.Header>
-                    <Grid>
+                    <Grid BackgroundColor="Lavender">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="4*" />
@@ -24,7 +24,6 @@
                                FontSize="18"
                                FontAttributes="Bold, Italic"
                                VerticalTextAlignment="Center"
-                               BackgroundColor="Lavender"
                                VerticalOptions="StartAndExpand"
                                HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="1" 
@@ -32,7 +31,6 @@
                                FontSize="18"
                                FontAttributes="Bold, italic"
                                VerticalTextAlignment="Center"
-                               BackgroundColor="Lavender"
                                VerticalOptions="StartAndExpand"
                                HorizontalTextAlignment="Center"/>
                         <Label Grid.Column="2"        
@@ -43,11 +41,10 @@
                                 <FormattedString>
                                     <Span Text="SPEED " 
                                           FontAttributes="Bold, italic" 
-                                          FontSize="18"  
-                                          BackgroundColor="Lavender"/>
+                                          FontSize="18" />
                                     <Span Text="(m/s)" 
                                           FontAttributes="Bold" 
-                                          FontSize="16"  />
+                                          FontSize="16" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -59,8 +56,7 @@
                                 <FormattedString>
                                     <Span Text="PACE " 
                                           FontAttributes="Bold, italic" 
-                                          FontSize="18"  
-                                          BackgroundColor="Lavender"/>
+                                          FontSize="18"/>
                                     <Span FontAttributes="Bold" 
                                           FontSize="16"
                                           Text="   (min/km)"/>

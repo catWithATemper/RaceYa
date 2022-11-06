@@ -2,7 +2,8 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:views="clr-namespace:RaceYa.Views"
-            x:Class="RaceYa.Views.ActiveRaceTabbedPage">
+            x:Class="RaceYa.Views.ActiveRaceTabbedPage"
+            BarBackgroundColor="{StaticResource Primary}">
   <!--Pages can be added as references or inline-->
     <views:ActiveRaceDataPage Title="Data"/>
     <views:ActiveRaceLeaderboardPage Title="Leaderboard"/>

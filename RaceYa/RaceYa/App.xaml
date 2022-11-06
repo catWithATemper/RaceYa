@@ -15,7 +15,7 @@
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#e3ff00" />
+                                    <Setter Property="BackgroundColor" Value="#00e3ff" />
                                 </VisualState.Setters>
                             </VisualState>
                             <VisualState x:Name="Disabled">
