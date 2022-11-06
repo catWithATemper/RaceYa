@@ -10,11 +10,20 @@
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0.15, 1, 0.3"
                          AbsoluteLayout.LayoutFlags="All">
                 <Label Text="WELCOME"
-                   FontAttributes="Bold, italic"
-                   FontSize="30"/>
-                <Label Text="TO RACEYA."
-                   FontAttributes="Bold, italic"
-                   FontSize="30"/>
+                       FontAttributes="Bold, italic"
+                       FontSize="30"/>
+                <Label Text="TO RACEYA"
+                       FontAttributes="Bold, italic"
+                       FontSize="30"/>
+            </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutBounds="0, 0.4, 1, 0.3"
+                         AbsoluteLayout.LayoutFlags="All">
+                <Label Text="AN APP FOR RUNNING"
+                       FontAttributes="Bold, italic"
+                       FontSize="20"/>
+                <Label Text="VIRTUAL RACES"
+                       FontAttributes="Bold, italic"
+                       FontSize="20"/>
             </StackLayout>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0.6, 1, 0.3"
                          AbsoluteLayout.LayoutFlags="All">

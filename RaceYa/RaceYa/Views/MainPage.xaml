@@ -9,7 +9,8 @@
                      Margin="10" 
                      AbsoluteLayout.LayoutBounds="0, 0, 1, 0.3"
                      AbsoluteLayout.LayoutFlags="All"/>
-            <StackLayout Margin="20"
+            <StackLayout x:Name="nextRaceStackLayout"
+                         Margin="20"
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 0.3"
                          AbsoluteLayout.LayoutFlags="All"
                          VerticalOptions="FillAndExpand"
@@ -27,9 +28,9 @@
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"/>
-                        <Label x:Name="nextRaceDistanceLbl"
-                               Grid.Column="1"
-                               FontSize="16"/>
+                        <Label Grid.Column="1"
+                               FontSize="16"
+                               Text="{Binding RouteLengthInKm, StringFormat='{0:F2} km'}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
@@ -38,9 +39,9 @@
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"/>
-                        <Label x:Name="nextRaceEndDateLbl"
-                               Grid.Column="1"
-                               FontSize="16"/>
+                        <Label Grid.Column="1"
+                               FontSize="16"
+                               Text="{Binding EndDate, StringFormat='{0:MMMM, dd yyyy}'}"/>
                     </Grid>
                 </StackLayout>
                 <Button x:Name="nextRaceButton"
@@ -65,21 +66,26 @@
                        />
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="EndAndExpand">
-                    <Button Text="Browse races"
+                    <Button x:Name="browseRaceButton"
+                            Text="Browse races"
                             HeightRequest="40"
                             WidthRequest="160"
-                            HorizontalOptions="End"/>
-                    <Button Text="Create new race"
+                            HorizontalOptions="End"
+                            Clicked="browseRaceButton_Clicked"/>
+                    <Button x:Name="createNewRaceButton"
+                            Text="Create new race"
                             HeightRequest="40"
                             WidthRequest="160"
-                            HorizontalOptions="End"/>
+                            HorizontalOptions="End"
+                            Clicked="createNewRaceButton_Clicked"/>
                 </StackLayout>
             </StackLayout>
             <BoxView Color="#f0f0f0" 
                      Margin="10" 
                      AbsoluteLayout.LayoutBounds="0, 0.71, 1, 0.35"
                      AbsoluteLayout.LayoutFlags="All"/>
-            <StackLayout Margin="20"
+            <StackLayout x:Name="latestRaceStackLayout"
+                         Margin="20"
                          AbsoluteLayout.LayoutBounds="0, 0.71, 1, 0.35"
                          AbsoluteLayout.LayoutFlags="All"
                          VerticalOptions="FillAndExpand"
@@ -97,9 +103,9 @@
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"/>
-                        <Label x:Name="latestRaceDistanceLbl"
-                               Grid.Column="1"
-                               FontSize="16"/>
+                        <Label Grid.Column="1"
+                               FontSize="16"
+                               Text="{Binding CoveredDistanceInKm, StringFormat='{0:F2} km'}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
@@ -108,20 +114,20 @@
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"/>
-                        <Label x:Name="latestRaceDateLbl"
-                               Grid.Column="1"
-                               FontSize="16"/>
+                        <Label Grid.Column="1"
+                               FontSize="16"
+                               Text="{Binding StartTime, StringFormat='{0:MM/dd/yy hh:mm}'}"/>
                     </Grid>
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
-                        <Label Text="Lederboard position:"
+                        <Label Text="Leaderboard position:"
                                FontSize="16"
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"/>
-                        <Label x:Name="LeaderboardLbl"
-                               Grid.Column="1"
-                               FontSize="16"/>
+                        <Label Grid.Column="1"
+                               FontSize="16"
+                               Text="{Binding LeaderBoardRank}"/>
                     </Grid>
                 </StackLayout>
                 <Button Text="See result"

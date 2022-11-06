@@ -43,9 +43,9 @@
                     <Label Grid.Column="1">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{Binding StartDate, StringFormat='{0:MMMM:dd, :yyyy}'}" FontSize="18"/>
+                                <Span Text="{Binding StartDate, StringFormat='{0:MMMM, dd yyyy}'}" FontSize="18"/>
                                 <Span Text=" to " FontAttributes="Bold" FontSize="18"/>
-                                <Span Text="{Binding EndDate, StringFormat='{0:MMMM:dd, :yyyy}'}" FontSize="18"/>
+                                <Span Text="{Binding EndDate, StringFormat='{0:MMMM, dd yyyy}'}" FontSize="18"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>

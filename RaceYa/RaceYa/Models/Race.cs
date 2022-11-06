@@ -86,8 +86,8 @@ namespace RaceYa.Models
             //Hardcoded values
             RouteLength = 500;
             RouteLengthInKm = RouteLength / 1000;
-            EndDate = DateTime.Parse("November 15, 2022");
-            StartDate = DateTime.Parse("October 31, 2022");
+            EndDate = DateTime.Parse("November 15, 2022 23:59:59");
+            StartDate = DateTime.Parse("October 31, 2022 23:59:59");
 
             Participants = new List<Participant>();
 

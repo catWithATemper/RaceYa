@@ -37,6 +37,13 @@ namespace RaceYa.Views
                     Service.CurrentRace.CurrentParticipant = CurrentParticipant;
                     CurrentParticipant.IsCurrentParticipant = true;
                 }
+
+                nextRaceStackLayout.BindingContext = Service.CurrentRace;
+
+                if (CurrentParticipant.Result.RaceCompleted == true)
+                {
+                    latestRaceStackLayout.BindingContext = CurrentParticipant.Result;
+                }
             }
             else
             {
@@ -46,16 +53,24 @@ namespace RaceYa.Views
 
 
 
-        private void nextRaceButton_Clicked(object sender, EventArgs e)
+        private async void nextRaceButton_Clicked(object sender, EventArgs e)
         {
-            Shell.Current.CurrentItem = Shell.Current.Items[0].Items[2];
-
-            //await Shell.Current.GoToAsync("//NextRacePage");
+            await Shell.Current.GoToAsync("//NextRacePage");
         }
 
         private async void latestRaceButton_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
+        }
+
+        private async void browseRaceButton_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//SignUpForARacePage");
+        }
+
+        private async void createNewRaceButton_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("//SignUpForARacePage");
         }
     }
 }

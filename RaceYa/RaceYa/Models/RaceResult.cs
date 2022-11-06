@@ -58,7 +58,20 @@ namespace RaceYa.Models
 
         Location StartingPoint;
 
-        DateTime StartTime;
+        private DateTime startTime;
+
+        public DateTime StartTime
+        {
+            get
+            {
+                return startTime;
+            }
+            set
+            {
+                startTime = value;
+                NotifyPropertyChanged();
+            }
+        }
 
         private TimeSpan timeSinceStart;
         public TimeSpan TimeSinceStart
