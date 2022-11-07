@@ -4,24 +4,26 @@
              x:Class="RaceYa.Views.NextRacePage"
              Title="Next race">
     <ContentPage.Content>
-        <StackLayout Margin="30"
+        <StackLayout x:Name="nextRaceStackLayout" 
+                     Margin="30"
                      Spacing="10">
-            <Grid ColumnDefinitions="*,*">
-                <Label Text="RACE DISTANCE"
+            <Grid ColumnDefinitions="3*,2*">
+                <Label Text="ROUTE LENGTH"
                        TextColor="#33343a"
                        FontSize="20"
                        FontAttributes="Bold, italic"/>
-                <Label x:Name="distanceLabel"
+                <Label Text="{Binding RouteLengthInKm, StringFormat='{0:F2} km'}"
                        Grid.Column="1"
                        FontSize="18"
-                       FontAttributes="Bold"/>
+                       FontAttributes="Bold"
+                       VerticalOptions="End"/>
             </Grid>
-            <Grid ColumnDefinitions="*,*">
+            <Grid ColumnDefinitions="3*,2*">
                 <Label Text="OPEN UNTIL"
                        TextColor="#33343a"
                        FontSize="20"
                        FontAttributes="Bold, italic"/>
-                <Label x:Name="endDateLabel"
+                <Label Text="{Binding EndDate, StringFormat='{0:MMMM, dd yyyy}'}"
                        Grid.Column="1"
                        FontSize="16"
                        FontAttributes="Bold"/>
@@ -33,15 +35,16 @@
                     WidthRequest="160"
                     HorizontalOptions="Center"
                     Margin="20"/>
+            
             <Label x:Name="searchingForGPSLabel"
                    Margin="10"
-                   FontSize="30"
+                   FontSize="25"
                    FontAttributes="Bold, italic"
                    HorizontalOptions="Center"
-                   TextColor="#33343a"/>
+                   TextColor="Black"/>
             <Label x:Name="countDownLabel"
                    Margin="10"
-                   FontSize="120"
+                   FontSize="100"
                    FontAttributes="Bold"
                    HorizontalOptions="Center"/>
         </StackLayout>

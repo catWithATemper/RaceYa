@@ -4,7 +4,7 @@
              x:Class="RaceYa.Views.BrowseRacesPage"
              Title="Browse existing races">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Margin="20">
             <Label Text="Browse through existing races here."
                    VerticalOptions="CenterAndExpand" 
                    HorizontalOptions="CenterAndExpand" 

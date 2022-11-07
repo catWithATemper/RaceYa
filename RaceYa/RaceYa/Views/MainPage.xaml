@@ -4,22 +4,37 @@
              x:Class="RaceYa.Views.MainPage"
              Title="Main page">
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <BoxView Color="#f0f0f0" 
-                     Margin="10" 
-                     AbsoluteLayout.LayoutBounds="0, 0, 1, 0.3"
-                     AbsoluteLayout.LayoutFlags="All"/>
-            <StackLayout x:Name="nextRaceStackLayout"
+        <RelativeLayout>
+            <BoxView RelativeLayout.XConstraint="{ConstraintExpression Type=Constant,
+                                                                        Constant=0}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,
+                                                                       Constant=0}"
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Width,
+                                                                           Factor=1}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                            Property=Height,
+                                                                            Factor=0.33}"
+                     Color="#f0f0f0" 
+                     Margin="10"/>
+            <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=Constant,
+                                                                        Constant=0}"
+                         RelativeLayout.YConstraint="{ConstraintExpression Type=Constant,
+                                                                       Constant=0}"
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Width,
+                                                                           Factor=1}"
+                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                            Property=Height,
+                                                                            Factor=0.33}"
+                         x:Name="nextRaceStackLayout"
                          Margin="20"
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 0.3"
-                         AbsoluteLayout.LayoutFlags="All"
                          VerticalOptions="FillAndExpand"
                          HorizontalOptions="Center">
                 <Label FontSize="20"
                        Text="NEXT RACE"
                        FontAttributes="Bold, Italic"
-                       TextColor="Black" 
-                       />
+                       TextColor="Black" />
                 <StackLayout HorizontalOptions="Center">
                     <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
@@ -51,13 +66,40 @@
                         HorizontalOptions="End"
                         Clicked="nextRaceButton_Clicked"/>
             </StackLayout>
-            <BoxView Color="#f0f0f0"  
-                     Margin="10" 
-                     AbsoluteLayout.LayoutBounds="0, 0.35, 1, 0.2"
-                     AbsoluteLayout.LayoutFlags="All"/>
-            <StackLayout Margin="20"
-                         AbsoluteLayout.LayoutBounds="0, 0.35, 1, 0.2"
-                         AbsoluteLayout.LayoutFlags="All"
+            <BoxView RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                       Property=X,
+                                                                       Factor=1}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                       ElementName=nextRaceStackLayout,
+                                                                       Property=Height,
+                                                                       Factor=1,
+                                                                       Constant=30}" 
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Width,
+                                                                           Factor=1}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                           ElementName=nextRaceStackLayout,
+                                                                           Property=Height,
+                                                                           Factor=0.9}"
+                     Color="#f0f0f0"  
+                     Margin="10"/>
+            <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=X,
+                                                                           Factor=1}"
+                                              RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                       ElementName=nextRaceStackLayout,
+                                                                       Property=Height,
+                                                                       Factor=1,
+                                                                       Constant=30}" 
+                         RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Width,
+                                                                           Factor=1}"
+                         RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                           ElementName=nextRaceStackLayout,
+                                                                           Property=Height,
+                                                                           Factor=1}"                     
+                         x:Name="signUpStackLayout"
+                         Margin="20"
                          VerticalOptions="FillAndExpand">
                 <Label TextColor="#33343a"
                        FontSize="20"
@@ -80,14 +122,40 @@
                             Clicked="createNewRaceButton_Clicked"/>
                 </StackLayout>
             </StackLayout>
-            <BoxView Color="#f0f0f0" 
-                     Margin="10" 
-                     AbsoluteLayout.LayoutBounds="0, 0.71, 1, 0.35"
-                     AbsoluteLayout.LayoutFlags="All"/>
-            <StackLayout x:Name="latestRaceStackLayout"
+            <BoxView RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                       Property=X,
+                                                                       Factor=1}"
+                     RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                       ElementName=signUpStackLayout,
+                                                                       Property=Y,
+                                                                       Factor=1,
+                                                                       Constant=95}" 
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Width,
+                                                                           Factor=1}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                           ElementName=nextRaceStackLayout,
+                                                                           Property=Height,
+                                                                           Factor=1.5}"
+                     Color="#f0f0f0" 
+                     Margin="10" />
+            <StackLayout RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                       Property=X,
+                                                                       Factor=1}"
+                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                       ElementName=signUpStackLayout,
+                                                                       Property=Y,
+                                                                       Factor=1,
+                                                                       Constant=95}" 
+                     RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                           Property=Width,
+                                                                           Factor=1}"
+                     RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToView,
+                                                                           ElementName=nextRaceStackLayout,
+                                                                           Property=Height,
+                                                                           Factor=1.5}"
+                         x:Name="latestRaceStackLayout"
                          Margin="20"
-                         AbsoluteLayout.LayoutBounds="0, 0.71, 1, 0.35"
-                         AbsoluteLayout.LayoutFlags="All"
                          VerticalOptions="FillAndExpand"
                          HorizontalOptions="Center">
                 <Label TextColor="#33343a"
@@ -137,6 +205,6 @@
                         HorizontalOptions="End"
                         Clicked="latestRaceButton_Clicked"/>
             </StackLayout> 
-        </AbsoluteLayout>
+        </RelativeLayout>
     </ContentPage.Content>
 </ContentPage>

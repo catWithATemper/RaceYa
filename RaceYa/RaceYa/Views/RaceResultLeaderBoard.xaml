@@ -4,14 +4,14 @@
              x:Class="RaceYa.Views.RaceResultLeaderBoard"
              Title="Leaderboard">
     <ContentPage.Content>
-        <StackLayout Margin="20"
+        <StackLayout Margin="10"
                      Spacing="10">
             <ListView  x:Name="leaderBoardView">
                 <ListView.Header>
                     <Grid BackgroundColor="Lavender">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="4*" />
+                            <ColumnDefinition Width="4.2*" />
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
@@ -59,7 +59,7 @@
                                           FontSize="18"/>
                                     <Span FontAttributes="Bold" 
                                           FontSize="16"
-                                          Text="   (min/km)"/>
+                                          Text="     (min/km)"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>

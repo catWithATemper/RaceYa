@@ -43,6 +43,8 @@ namespace RaceYa.Views
             });
         }
 
+        //TODO Fix "Race complete" messages
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();

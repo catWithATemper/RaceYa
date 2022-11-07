@@ -24,14 +24,13 @@ namespace RaceYa.Views
         public NextRacePage()
         {
             InitializeComponent();
+
+            nextRaceStackLayout.BindingContext = Service.CurrentRace;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            distanceLabel.Text = (Service.CurrentRace.RouteLength / 1000) + " km";
-            endDateLabel.Text = Service.CurrentRace.EndDate.ToString();
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)

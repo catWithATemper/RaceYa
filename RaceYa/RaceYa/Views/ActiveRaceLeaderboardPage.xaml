@@ -6,7 +6,7 @@
         <AbsoluteLayout>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0, 1, AutoSize"
                          AbsoluteLayout.LayoutFlags="PositionProportional, WidthProportional"
-                         Margin="20"
+                         Margin="10"
                          Spacing="10">
                 <ListView  x:Name="leaderBoardView">
                     <ListView.Header>
@@ -22,14 +22,14 @@
                             </Grid.RowDefinitions>
                             <Label Grid.Column="0" 
                                    Text="RANK"
-                                   FontSize="20"
+                                   FontSize="18"
                                    FontAttributes="Bold, Italic"
                                    VerticalTextAlignment="Center"
                                    BackgroundColor="Lavender"
                                    VerticalOptions="EndAndExpand"/>
                             <Label Grid.Column="1" 
                                    Text="PARTICIPANT"
-                                   FontSize="20"
+                                   FontSize="18"
                                    FontAttributes="Bold, italic"
                                    VerticalTextAlignment="Center"
                                    BackgroundColor="Lavender"
@@ -40,12 +40,12 @@
                                    VerticalOptions="EndAndExpand">
                                 <Label.FormattedText>
                                     <FormattedString>
-                                        <Span Text="DISTANCE " 
+                                        <Span Text="DISTANCE" 
                                               FontAttributes="Bold, italic" 
-                                              FontSize="20"/>
-                                        <Span Text="(km)" 
+                                              FontSize="18"/>
+                                        <Span Text=" (km)" 
                                               FontAttributes="Bold" 
-                                              FontSize="20"/>
+                                              FontSize="16"/>
                                     </FormattedString>
                                 </Label.FormattedText>
                             </Label>
@@ -67,7 +67,7 @@
                                     <Label Grid.Column="0"
                                            x:Name="rankLabel"
                                            Text="{Binding Rank}"
-                                           FontSize="20"
+                                           FontSize="18"
                                            FontAttributes="Bold"
                                            VerticalTextAlignment="Center"
                                            HorizontalTextAlignment="Start"
@@ -83,7 +83,7 @@
                                     <Label Grid.Column="1"
                                            x:Name="nameLabel"
                                            Text="{Binding Name}"
-                                           FontSize="20"
+                                           FontSize="18"
                                            FontAttributes="Bold"
                                            VerticalTextAlignment="Center"
                                            HorizontalTextAlignment="Start"
@@ -99,7 +99,7 @@
                                     <Label Grid.Column="2"
                                            x:Name="distanceLabel"
                                            Text="{Binding CoveredDistance}"
-                                           FontSize="20"
+                                           FontSize="18"
                                            FontAttributes="Bold"
                                            VerticalTextAlignment="Center"
                                            HorizontalTextAlignment="Start"
