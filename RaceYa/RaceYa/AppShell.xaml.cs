@@ -13,6 +13,8 @@ namespace RaceYa
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute("CreateNewRacePage", typeof(CreateNewRacePage));
         }
 
         

@@ -18,6 +18,8 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant;
 
+        
+
         public MainPage()
         {
             InitializeComponent();
@@ -65,11 +67,13 @@ namespace RaceYa.Views
 
         private async void browseRaceButton_Clicked(object sender, EventArgs e)
         {
+            SignUpForARaceTabbedPage.SelectedTab = 0;
             await Shell.Current.GoToAsync("//SignUpForARacePage");
         }
 
         private async void createNewRaceButton_Clicked(object sender, EventArgs e)
         {
+            SignUpForARaceTabbedPage.SelectedTab = 1;
             await Shell.Current.GoToAsync("//SignUpForARacePage");
         }
     }
