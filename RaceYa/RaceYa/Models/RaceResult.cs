@@ -304,7 +304,7 @@ namespace RaceYa.Models
 
                 AveragePace = new TimeSpan(0, minutes, seconds);
 
-                Console.WriteLine("Speed m/s: " + AverageSpeed + " Pace min/km " + AveragePace);
+                //Console.WriteLine("Speed m/s: " + AverageSpeed + " Pace min/km " + AveragePace);
                     
             }
             else
@@ -326,32 +326,5 @@ namespace RaceYa.Models
                 EvaluatedDistance = RaceParticipant.Race.RouteLength;
             }
         }
-
-        /*
-        public void CalculateAveragePace()
-        {
-            TimeSpan Time = new TimeSpan(0, 30, 30);
-            int distance = 5;
-
-            double speed = distance * 1000 / Time.TotalSeconds;
-
-            if (CoveredDistanceInKm != 0)
-            {
-                double paceAsDouble = Time.TotalMinutes / distance;
-
-                int minutes = (int)Math.Floor(paceAsDouble);
-                int seconds = (int)((paceAsDouble - Math.Floor(paceAsDouble)) * 60);
-
-                AveragePace = new TimeSpan(0, minutes, seconds);
-
-                Console.WriteLine("Speed m/s: " + speed + "Pace min/km" + AveragePace);
-
-            }
-            else
-            {
-                AveragePace = new TimeSpan(0, 0, 0);
-            }
-        }
-        */
     }
 }

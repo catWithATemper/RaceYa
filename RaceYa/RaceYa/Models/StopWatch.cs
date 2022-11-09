@@ -42,7 +42,7 @@ namespace RaceYa.Models
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool Stopped = false;
+        //public bool Stopped = false;
 
         private DateTime StartTime;
 

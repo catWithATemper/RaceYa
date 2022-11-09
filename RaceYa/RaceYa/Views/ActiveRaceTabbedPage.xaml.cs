@@ -26,6 +26,10 @@ namespace RaceYa.Views
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 
+        public static TextToSpeechServiceManager TextToSpeechService = new TextToSpeechServiceManager();
+
+        //For text to speech management
+
         public ActiveRaceTabbedPage()
         {
             InitializeComponent();
@@ -51,6 +55,8 @@ namespace RaceYa.Views
 
             PageStopWatch.SetTimer();
 
+            TextToSpeechService.StartTextToSpeech();
+
             await CalculateRaceResult();
         }
 
@@ -61,6 +67,7 @@ namespace RaceYa.Views
             CurrentParticipant.Result.SetCurrentLocation(currentLocation);
             CurrentParticipant.Result.SetStartingPoint();
 
+            await TextToSpeech.SpeakAsync("Gps found");
 
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
                    CurrentParticipant.Result.RaceCompleted == false)
