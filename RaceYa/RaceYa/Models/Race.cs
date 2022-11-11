@@ -9,6 +9,11 @@ namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
+        //TODO: Manage the case of participants who enrolled for the race but haven't run yet, so that they
+        //don't appear in the observable leaderboard with a distance of "0". Idea: use 2 lists, one with all enrolled
+        //participant, another with those who actually ran the race. The second list should replace Participants
+        //in the leaderboard update algorithm. 
+
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
         public double RouteLength { get; set; } //in meters
@@ -18,7 +23,6 @@ namespace RaceYa.Models
         public List<Participant> Participants { get; set; }
 
         //Each pair contains a participant and the distance covered by the participant at the current time
-
         private SortedDictionary<Participant, double> leaderBoard;
         public SortedDictionary<Participant, double> LeaderBoard
         {
@@ -33,7 +37,6 @@ namespace RaceYa.Models
             }
         }
 
-        //Final leaderboard
         private SortedDictionary<Participant, FinalLeaderBoardItem> finalLeaderBoard;
 
         public SortedDictionary<Participant, FinalLeaderBoardItem> FinalLeaderBoard
@@ -204,7 +207,7 @@ namespace RaceYa.Models
 
         public void CalculateFinalLeaderBoard()
         {
-            //Verify that the final leaderboard hasn't been populated yet.
+            //First erify that the final leaderboard hasn't been populated yet.
             if (FinalLeaderBoard.Count == 0)
             {
                 foreach (Participant participant in Participants)
@@ -237,7 +240,6 @@ namespace RaceYa.Models
                                                                             participant.Result.AverageSpeed,
                                                                             participant.Result.AveragePace));
                 }
-
             }
         }
     }

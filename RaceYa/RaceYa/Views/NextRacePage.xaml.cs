@@ -16,11 +16,18 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NextRacePage : ContentPage
     {
+        /*
+         * TODO: use real timer for the countdown
+         * //TODO Check again for location availability at regular intervals
+         * 
+         */
+
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
+
         public NextRacePage()
         {
             InitializeComponent();

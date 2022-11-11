@@ -200,9 +200,9 @@ namespace RaceYa.Models
 
         public bool RaceCompleted;
 
-        private int leaderBoardRank;
+        private int? leaderBoardRank;
 
-        public int LeaderBoardRank
+        public int? LeaderBoardRank
         {
             get
             {
@@ -231,8 +231,11 @@ namespace RaceYa.Models
 
             RaceCompleted = false;
 
-            //The participant has not been added yet becasue of concurrency.
-            LeaderBoardRank = RaceParticipant.Race.Participants.Count + 1;
+            //The participant, whom this race result belongs to, has not been added to the Participants list in the
+            //Race class yet. To compensate the list size is increased by 1. 
+            //LeaderBoardRank = RaceParticipant.Race.Participants.Count + 1;
+
+            LeaderBoardRank = null;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -274,7 +277,7 @@ namespace RaceYa.Models
             RemainingDistance = (RaceParticipant.Race.RouteLength - CoveredDistance) / 1000;
 
             CoveredDistanceInKm = CoveredDistance / 1000;
-            //Add speed calculation here
+            //Add average speed calculation here
             CalculateAveragePace();
 
             return CoveredDistance;
@@ -304,14 +307,12 @@ namespace RaceYa.Models
 
                 AveragePace = new TimeSpan(0, minutes, seconds);
 
-                //Console.WriteLine("Speed m/s: " + AverageSpeed + " Pace min/km " + AveragePace);
-                    
+                //Console.WriteLine("Speed m/s: " + AverageSpeed + " Pace min/km " + AveragePace);     
             }
             else
             {
                 AveragePace = new TimeSpan(0, 0, 0);
             }
-
             AveragePaceString = AveragePace.ToString(@"mm\:ss");
         }
 

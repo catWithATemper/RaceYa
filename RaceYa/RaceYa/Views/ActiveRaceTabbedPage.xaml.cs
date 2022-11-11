@@ -18,6 +18,10 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActiveRaceTabbedPage : TabbedPage
     {
+        /*
+        TODO Fix "Race complete" messages
+        */
+
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public static Participant CurrentParticipant;
@@ -26,14 +30,13 @@ namespace RaceYa.Views
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 
-        public static TextToSpeechServiceManager TextToSpeechService = new TextToSpeechServiceManager();
-
-        //For text to speech management
+        public static TextToSpeechServiceManager TextToSpeechService;
 
         public ActiveRaceTabbedPage()
         {
             InitializeComponent();
             CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+            TextToSpeechService = new TextToSpeechServiceManager(CurrentParticipant.Result);
 
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
@@ -46,8 +49,6 @@ namespace RaceYa.Views
                 Service.CurrentRace.CalculateFinalLeaderBoard();
             });
         }
-
-        //TODO Fix "Race complete" messages
 
         protected override async void OnAppearing()
         {
@@ -67,8 +68,6 @@ namespace RaceYa.Views
             CurrentParticipant.Result.SetCurrentLocation(currentLocation);
             CurrentParticipant.Result.SetStartingPoint();
 
-            await TextToSpeech.SpeakAsync("Gps found");
-
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
                    CurrentParticipant.Result.RaceCompleted == false)
             { 
@@ -87,6 +86,8 @@ namespace RaceYa.Views
                 }
             }
             await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");
+
+            TextToSpeechService.StopTextToSpeech();
 
             CurrentParticipant.Result.RaceCompleted = true;
             Service.CurrentRace.CalculateFinalLeaderBoard();
