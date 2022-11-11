@@ -42,28 +42,28 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Views\ActiveRaceLeaderboardPage.xaml.cs">
+    <Compile Update="Views\ActiveRace\ActiveRaceLeaderboardPage.xaml.cs">
       <DependentUpon>ActiveRaceLeaderboardPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ActiveRaceDataPage.xaml.cs">
+    <Compile Update="Views\ActiveRace\ActiveRaceDataPage.xaml.cs">
       <DependentUpon>ActiveRaceDataPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ActiveRaceTabbedPage.xaml.cs">
+    <Compile Update="Views\ActiveRace\ActiveRaceTabbedPage.xaml.cs">
       <DependentUpon>ActiveRaceTabbedPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\ActiveRaceLeaderboardPage.xaml">
+    <EmbeddedResource Update="Views\ActiveRace\ActiveRaceLeaderboardPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\BrowseRacesPage.xaml">
+    <EmbeddedResource Update="Views\Races\BrowseRacesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\CreateNewRacePage.xaml">
+    <EmbeddedResource Update="Views\Races\CreateNewRacePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainPage.xaml">
@@ -75,22 +75,22 @@
     <EmbeddedResource Update="Views\NextRacePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ActiveRaceDataPage.xaml">
+    <EmbeddedResource Update="Views\ActiveRace\ActiveRaceDataPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ActiveRaceTabbedPage.xaml">
+    <EmbeddedResource Update="Views\ActiveRace\ActiveRaceTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RaceResultDataPage.xaml">
+    <EmbeddedResource Update="Views\RaceResult\RaceResultDataPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RaceResultLeaderBoard.xaml">
+    <EmbeddedResource Update="Views\RaceResult\RaceResultLeaderBoard.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\RaceResultTabbedPage.xaml">
+    <EmbeddedResource Update="Views\RaceResult\RaceResultTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\SignUpForARaceTabbedPage.xaml">
+    <EmbeddedResource Update="Views\Races\SignUpForARaceTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

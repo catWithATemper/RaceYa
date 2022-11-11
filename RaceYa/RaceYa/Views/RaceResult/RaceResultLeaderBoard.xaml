@@ -91,16 +91,6 @@
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Center"
                                        VerticalOptions="EndAndExpand">
-                                    <!-- 
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label"
-                                                     Binding="{Binding IsCurrentParticipant}"
-                                                     Value="true">
-                                            <Setter Property="BackgroundColor" 
-                                                    Value="#e3ff00"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                    -->
                                 </Label>
                                 <Label Grid.Column="1"
                                        Text="{Binding Name}"
@@ -109,16 +99,6 @@
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="center"
                                        VerticalOptions="EndAndExpand">
-                                    <!-- 
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label"
-                                                     Binding="{Binding IsCurrentParticipant}"
-                                                     Value="true">
-                                            <Setter Property="BackgroundColor" 
-                                                    Value="#e3ff00"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                    -->
                                 </Label>
                                 <Label Grid.Column="2"
                                        Text="{Binding AverageSpeed, StringFormat='{0:F2}'}"
@@ -127,31 +107,11 @@
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="center"
                                        VerticalOptions="EndAndExpand">
-                                    <!--
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label"
-                                                     Binding="{Binding IsCurrentParticipant}"
-                                                     Value="true">
-                                            <Setter Property="BackgroundColor" 
-                                                    Value="#e3ff00"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                    -->
                                 </Label>
                                 <Label Grid.Column="3"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Center"
                                        VerticalOptions="EndAndExpand">
-                                    <!-- 
-                                    <Label.Triggers>
-                                        <DataTrigger TargetType="Label"
-                                                     Binding="{Binding IsCurrentParticipant}"
-                                                     Value="true">
-                                            <Setter Property="BackgroundColor" 
-                                                    Value="#e3ff00"/>
-                                        </DataTrigger>
-                                    </Label.Triggers>
-                                     -->
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding AveragePace.Minutes}" FontSize="18" FontAttributes="Bold"/>

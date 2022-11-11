@@ -94,16 +94,16 @@ namespace RaceYa.Models
 
             Participants = new List<Participant>();
 
-            leaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
+            //leaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
             LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
 
-            observableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
+            //observableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
 
-            finalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
+            //finalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
             FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
 
-            observableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
+            //observableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
             ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
         }
 

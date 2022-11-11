@@ -25,18 +25,15 @@
                                    FontSize="18"
                                    FontAttributes="Bold, Italic"
                                    VerticalTextAlignment="Center"
-                                   BackgroundColor="Lavender"
                                    VerticalOptions="EndAndExpand"/>
                             <Label Grid.Column="1" 
                                    Text="PARTICIPANT"
                                    FontSize="18"
                                    FontAttributes="Bold, italic"
                                    VerticalTextAlignment="Center"
-                                   BackgroundColor="Lavender"
                                    VerticalOptions="EndAndExpand"/>
                             <Label Grid.Column="2"        
                                    VerticalTextAlignment="Center"
-                                   BackgroundColor="Lavender"
                                    VerticalOptions="EndAndExpand">
                                 <Label.FormattedText>
                                     <FormattedString>
