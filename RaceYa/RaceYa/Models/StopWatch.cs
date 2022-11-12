@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace RaceYa.Models
@@ -41,8 +38,6 @@ namespace RaceYa.Models
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        //public bool Stopped = false;
 
         private DateTime StartTime;
 

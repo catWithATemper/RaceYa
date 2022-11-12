@@ -1,6 +1,5 @@
 ﻿using RaceYa.Views;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 using RaceYa.Models;
@@ -14,7 +13,7 @@ namespace RaceYa
         {
             InitializeComponent();
 
-            Routing.RegisterRoute("CreateNewRacePage", typeof(CreateNewRacePage));
+            //Routing.RegisterRoute("CreateNewRacePage", typeof(CreateNewRacePage));
         }
 
         

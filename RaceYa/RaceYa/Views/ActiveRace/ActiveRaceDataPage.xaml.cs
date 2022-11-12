@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
-using System.Threading;
-using Xamarin.Essentials;
 
 namespace RaceYa.Views
 {
@@ -18,6 +14,8 @@ namespace RaceYa.Views
         public static Participant CurrentParticipant;
 
         public StopWatch PageStopWatch = ActiveRaceTabbedPage.PageStopWatch;
+
+        public static TextToSpeechServiceManager TextToSpeechService = ActiveRaceTabbedPage.TextToSpeechService;
 
         public ActiveRaceDataPage()
         {
@@ -31,11 +29,16 @@ namespace RaceYa.Views
 
         private async void RaceDataPageButton_Clicked(object sender, EventArgs e)
         {
-            var response = await DisplayAlert("Warning!", "Quit race before the finish line?", "Yes", "No");
+            bool response = await DisplayAlert("Warning!", "Quit race before the finish line?", "Yes", "No");
             if (response)
             {
                 MessagingCenter.Send(this, "Quit race");
                 CurrentParticipant.Result.RaceCompleted = true;
+
+                if (TextToSpeechService != null)
+                {
+                    TextToSpeechService.StopTextToSpeech();
+                }
 
                 await Shell.Current.GoToAsync("//RaceResultTabbedPage");
                 await Navigation.PopModalAsync();

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -18,10 +14,6 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActiveRaceTabbedPage : TabbedPage
     {
-        /*
-        TODO Fix "Race complete" messages
-        */
-
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public static Participant CurrentParticipant;
@@ -35,6 +27,7 @@ namespace RaceYa.Views
         public ActiveRaceTabbedPage()
         {
             InitializeComponent();
+
             CurrentParticipant = Service.CurrentRace.CurrentParticipant;
             TextToSpeechService = new TextToSpeechServiceManager(CurrentParticipant.Result);
 
@@ -68,6 +61,7 @@ namespace RaceYa.Views
             CurrentParticipant.Result.SetCurrentLocation(currentLocation);
             CurrentParticipant.Result.SetStartingPoint();
 
+            //Add external counter 1-10 and change task.Delay(100) i.e. 0.1 seconds
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
                    CurrentParticipant.Result.RaceCompleted == false)
             { 
@@ -80,17 +74,25 @@ namespace RaceYa.Views
  
                 if (CurrentParticipant.Result.CoveredDistance != 0)
                 {
+                    //remove from if and test
                     Service.CurrentRace.UpdateLeaderBoard();
 
                     CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
                 }
             }
-            await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");
-
-            TextToSpeechService.StopTextToSpeech();
-
+  
+            if (CurrentParticipant.Result.CoveredDistance >= Service.CurrentRace.RouteLength)
+            {
+                await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");
+            }
             CurrentParticipant.Result.RaceCompleted = true;
+
             Service.CurrentRace.CalculateFinalLeaderBoard();
+
+            if (TextToSpeechService != null)
+            {
+                TextToSpeechService.StopTextToSpeech();
+            }
 
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
             await Navigation.PopModalAsync();

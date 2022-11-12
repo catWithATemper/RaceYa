@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,6 +12,8 @@ namespace RaceYa.Views
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+
+        public static TextToSpeechServiceManager TextToSpeechService = ActiveRaceTabbedPage.TextToSpeechService;
 
         public ActiveRaceLeaderboardPage()
         {
@@ -34,11 +31,16 @@ namespace RaceYa.Views
 
         private async void leaderBoardPageButton_Clicked(object sender, EventArgs e)
         {
-            var response = await DisplayAlert("Warning!", "Quit race before the finish line?", "Yes", "No");
+            bool response = await DisplayAlert("Warning!", "Quit race before the finish line?", "Yes", "No");
             if (response)
             {
                 MessagingCenter.Send(this, "Quit race");
                 CurrentParticipant.Result.RaceCompleted = true;
+
+                if (TextToSpeechService != null)
+                {
+                    TextToSpeechService.StopTextToSpeech();
+                }
 
                 await Shell.Current.GoToAsync("//RaceResultTabbedPage");
                 await Navigation.PopModalAsync();
