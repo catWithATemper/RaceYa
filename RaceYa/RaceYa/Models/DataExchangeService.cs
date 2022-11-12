@@ -83,12 +83,14 @@ namespace RaceYa.Models
                             Location currentLocation = new Location(lat, lon, Time);
 
                             result.SetCurrentLocation(currentLocation);
-                            result.CalculateTimeSinceStart();
-                            result.CoveredDistance = result.CalculateCoveredDistance();
+                            //result.CalculateTimeSinceStart();
+                            //result.CoveredDistance = result.CalculateCoveredDistance();
+                            /*
                             if (result.CoveredDistance != 0)
                             {
                                 result.AverageSpeed = result.CalculateAverageSpeed();
                             }
+                            */
                         }
                         else
                         {

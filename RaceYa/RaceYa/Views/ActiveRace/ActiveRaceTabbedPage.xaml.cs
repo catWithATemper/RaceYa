@@ -4,10 +4,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
-using System.Threading;
-using System.Timers;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace RaceYa.Views
 {
@@ -73,15 +69,15 @@ namespace RaceYa.Views
                 {
                     currentLocation = await LocationService.GetCurrentLocation();
                     CurrentParticipant.Result.SetCurrentLocation(currentLocation);
-                    CurrentParticipant.Result.CalculateTimeSinceStart();
+                    //CurrentParticipant.Result.CalculateTimeSinceStart();
 
-                    CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
+                    //CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
 
                     if (CurrentParticipant.Result.CoveredDistance != 0)
                     {
                         Service.CurrentRace.UpdateLeaderBoard();
 
-                        CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
+                        //CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
                     }
                     counter = 0;
                 }

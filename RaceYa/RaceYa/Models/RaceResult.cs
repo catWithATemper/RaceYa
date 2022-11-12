@@ -248,6 +248,13 @@ namespace RaceYa.Models
             PreviousLocation = CurrentLocation;
             CurrentLocation = newReading;
 
+            CalculateTimeSinceStart();
+
+            if (PreviousLocation != null)
+            {
+                CalculateCoveredDistance();
+            }
+
             Latitude = Math.Round(CurrentLocation.Latitude, 6).ToString();
             Longitude = Math.Round(CurrentLocation.Longitude, 6).ToString();
         }
@@ -258,12 +265,12 @@ namespace RaceYa.Models
             StartTime = StartingPoint.Timestamp.DateTime;
         }
 
-        public void CalculateTimeSinceStart()
+        private void CalculateTimeSinceStart()
         {
             TimeSinceStart = CurrentLocation.Timestamp.DateTime - StartTime;
         }
 
-        public double CalculateCoveredDistance()
+        private double CalculateCoveredDistance()
         {
             CoveredDistance += Location.CalculateDistance(CurrentLocation, PreviousLocation, DistanceUnits.Kilometers) * 1000;
 
@@ -273,17 +280,17 @@ namespace RaceYa.Models
             }
 
             DetermineEvaluatedDistance();
+            CalculateAverageSpeed();
 
             RemainingDistance = (RaceParticipant.Race.RouteLength - CoveredDistance) / 1000;
 
             CoveredDistanceInKm = CoveredDistance / 1000;
-            //Add average speed calculation here
             CalculateAveragePace();
 
             return CoveredDistance;
         }
 
-        public double CalculateAverageSpeed()
+        private double CalculateAverageSpeed()
         {
             if (TimeSinceStart.TotalSeconds != 0)
             {
