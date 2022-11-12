@@ -61,26 +61,31 @@ namespace RaceYa.Views
             CurrentParticipant.Result.SetCurrentLocation(currentLocation);
             CurrentParticipant.Result.SetStartingPoint();
 
-            //Add external counter 1-10 and change task.Delay(100) i.e. 0.1 seconds
+            int counter = 0;
+
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
                    CurrentParticipant.Result.RaceCompleted == false)
-            { 
-                await Task.Delay(1000);
-                currentLocation = await LocationService.GetCurrentLocation();
-                CurrentParticipant.Result.SetCurrentLocation(currentLocation);
-                CurrentParticipant.Result.CalculateTimeSinceStart();
+            {
+                await Task.Delay(100); //0.1 seconds
+                counter++;
 
-                CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
- 
-                if (CurrentParticipant.Result.CoveredDistance != 0)
+                if (counter == 10)
                 {
-                    //remove from if and test
-                    Service.CurrentRace.UpdateLeaderBoard();
+                    currentLocation = await LocationService.GetCurrentLocation();
+                    CurrentParticipant.Result.SetCurrentLocation(currentLocation);
+                    CurrentParticipant.Result.CalculateTimeSinceStart();
 
-                    CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
+                    CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
+
+                    if (CurrentParticipant.Result.CoveredDistance != 0)
+                    {
+                        Service.CurrentRace.UpdateLeaderBoard();
+
+                        CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
+                    }
+                    counter = 0;
                 }
             }
-  
             if (CurrentParticipant.Result.CoveredDistance >= Service.CurrentRace.RouteLength)
             {
                 await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");

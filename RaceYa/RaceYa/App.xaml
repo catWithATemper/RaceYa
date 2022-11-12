@@ -8,6 +8,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <Color x:Key="Primary">#1e3f5a</Color>
+            <Color x:Key="Accent">#ff00e3</Color>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="{StaticResource Primary}"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
