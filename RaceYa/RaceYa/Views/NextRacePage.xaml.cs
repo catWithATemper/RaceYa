@@ -35,6 +35,8 @@ namespace RaceYa.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            startButton.IsEnabled = true;
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)

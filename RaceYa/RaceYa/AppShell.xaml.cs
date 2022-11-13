@@ -12,8 +12,6 @@ namespace RaceYa
         public AppShell()
         {
             InitializeComponent();
-
-            //Routing.RegisterRoute("CreateNewRacePage", typeof(CreateNewRacePage));
         }
 
         
@@ -21,6 +19,8 @@ namespace RaceYa
         {
             Service.UserIsAuthenticated = false;
             await Shell.Current.GoToAsync("//LoginPage");
+
+            Service.UserIsAuthenticated = false;
         }
         
     }

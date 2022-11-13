@@ -15,8 +15,6 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant;
 
-        
-
         public MainPage()
         {
             InitializeComponent();
@@ -28,14 +26,20 @@ namespace RaceYa.Views
             {
                 base.OnAppearing();
 
+                if (Service.CurrentRace.CurrentParticipant != null)
+                {
+                    Service.CurrentRace.CurrentParticipant = null;
+                    CurrentParticipant.IsCurrentParticipant = false;
+                }
+
                 if (Service.CurrentRace.Participants.Count == 0)
                 {
                     await Task.Factory.StartNew(() => { Service.SyncData(); });
-
-                    CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
-                    Service.CurrentRace.CurrentParticipant = CurrentParticipant;
-                    CurrentParticipant.IsCurrentParticipant = true;
                 }
+                CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
+                Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+                CurrentParticipant.IsCurrentParticipant = true;
+
 
                 nextRaceStackLayout.BindingContext = Service.CurrentRace;
 
