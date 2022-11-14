@@ -82,6 +82,11 @@ namespace RaceYa.Views
                     counter = 0;
                 }
             }
+            if (TextToSpeechService != null)
+            {
+                TextToSpeechService.StopTextToSpeech();
+            }
+
             if (CurrentParticipant.Result.CoveredDistance >= Service.CurrentRace.RouteLength)
             {
                 await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");
@@ -90,13 +95,18 @@ namespace RaceYa.Views
 
             Service.CurrentRace.CalculateFinalLeaderBoard();
 
+            await Shell.Current.GoToAsync("//RaceResultTabbedPage");
+            await Navigation.PopModalAsync();
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
             if (TextToSpeechService != null)
             {
                 TextToSpeechService.StopTextToSpeech();
             }
-
-            await Shell.Current.GoToAsync("//RaceResultTabbedPage");
-            await Navigation.PopModalAsync();
         }
     }
 }
