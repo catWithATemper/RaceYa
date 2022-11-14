@@ -13,11 +13,11 @@ namespace RaceYa.Models
             {
                 return - part1.Result.EvaluatedDistance.CompareTo(part2.Result.EvaluatedDistance);
             }
-            else if(part1.Result.AverageSpeed.CompareTo(part2.Result.AverageSpeed) != 0)
+            else if(part1.Result.AverageSpeedKmH.CompareTo(part2.Result.AverageSpeedKmH) != 0)
             {
                 //The result is negated because a particpant with a larger average speed should be higher in rank
                 // in the leaderboard
-                return - part1.Result.AverageSpeed.CompareTo(part2.Result.AverageSpeed);
+                return - part1.Result.AverageSpeedKmH.CompareTo(part2.Result.AverageSpeedKmH);
             }
             else if (part1.User.Name.CompareTo(part2.User.Name) != 0)
             {

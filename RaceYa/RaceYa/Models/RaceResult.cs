@@ -130,6 +130,22 @@ namespace RaceYa.Models
             }
         }
 
+        private double averageSpeedKmH; // km/h
+
+        public double AverageSpeedKmH
+        {
+            get
+            {
+                return averageSpeedKmH;
+            }
+            set
+            {
+                averageSpeedKmH = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
         private TimeSpan averagePace;
 
         public TimeSpan AveragePace
@@ -231,10 +247,6 @@ namespace RaceYa.Models
 
             RaceCompleted = false;
 
-            //The participant, whom this race result belongs to, has not been added to the Participants list in the
-            //Race class yet. To compensate the list size is increased by 1. 
-            //LeaderBoardRank = RaceParticipant.Race.Participants.Count + 1;
-
             LeaderBoardRank = null;
         }
 
@@ -295,6 +307,9 @@ namespace RaceYa.Models
             if (TimeSinceStart.TotalSeconds != 0)
             {
                 AverageSpeed = CoveredDistance / TimeSinceStart.TotalSeconds;
+
+                AverageSpeedKmH = AverageSpeed * 3.6;
+
                 return AverageSpeed;
             }
             else

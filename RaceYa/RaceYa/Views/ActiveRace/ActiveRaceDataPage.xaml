@@ -67,7 +67,7 @@
                                HorizontalTextAlignment="start"
                                BackgroundColor="Lavender"/>
                         <Label x:Name="avgSpeedLabel"
-                               Text="{Binding AverageSpeed, StringFormat='{0:F2} m/s'}"
+                               Text="{Binding AverageSpeedKmH, StringFormat='{0:F2} km/h'}"
                                FontSize="20"
                                HorizontalTextAlignment="start"
                                Grid.Row="1"

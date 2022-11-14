@@ -43,11 +43,11 @@
                     </Grid>
                 </StackLayout>
                 <Button x:Name="nextRaceButton"
-                            Text="Go to race"
-                            HeightRequest="40"
-                            WidthRequest="150"
-                            HorizontalOptions="EndAndExpand"
-                            Clicked="nextRaceButton_Clicked"
+                        Text="Go to race"
+                        HeightRequest="40"
+                        WidthRequest="150"
+                        HorizontalOptions="EndAndExpand"
+                        Clicked="nextRaceButton_Clicked"
                             />
             </StackLayout>
             <StackLayout x:Name="signUpStackLayout"
@@ -83,7 +83,7 @@
                          VerticalOptions="FillAndExpand"
                          HorizontalOptions="Center"
                          BackgroundColor="#f0f0f0"
-                         Padding="10, 10">
+                         Padding="10, 10, 10, 20">
                 <Label TextColor="#33343a"
                        FontSize="20"
                        Text="LATEST RACE"

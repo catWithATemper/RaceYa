@@ -36,17 +36,17 @@ namespace RaceYa.Models
             }
         }
 
-        private double averageSpeed;
+        private double averageSpeedKmH;
         
-        public double AverageSpeed
+        public double AverageSpeedKmH
         {
             get
             {
-                return averageSpeed;
+                return averageSpeedKmH;
             }
             set
             {
-                averageSpeed = value;
+                averageSpeedKmH = value;
                 NotifyPropertyChanged();
             }
         }
@@ -66,11 +66,11 @@ namespace RaceYa.Models
             }
         }
 
-        public FinalLeaderBoardItem(int rank, string name, double averageSpeed, TimeSpan averagePace)
+        public FinalLeaderBoardItem(int rank, string name, double averageSpeedKmH, TimeSpan averagePace)
         {
             Rank = rank;
             Name = name;
-            AverageSpeed = averageSpeed;
+            AverageSpeedKmH = averageSpeedKmH;
             AveragePace = averagePace;
         }
 

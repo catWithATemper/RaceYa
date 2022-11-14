@@ -19,8 +19,6 @@ namespace RaceYa
         {
             Service.UserIsAuthenticated = false;
             await Shell.Current.GoToAsync("//LoginPage");
-
-            Service.UserIsAuthenticated = false;
         }
         
     }

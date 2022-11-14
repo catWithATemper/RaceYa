@@ -9,11 +9,6 @@ namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
-        //TODO: Manage the case of participants who enrolled for the race but haven't run yet, so that they
-        //don't appear in the observable leaderboard with a distance of "0". Idea: use 2 lists, one with all enrolled
-        //participant, another with those who actually ran the race. The second list should replace Participants
-        //in the leaderboard update algorithm. 
-
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
         public double RouteLength { get; set; } //in meters
@@ -123,7 +118,8 @@ namespace RaceYa.Models
 
                             participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
 
-                            Console.WriteLine("List " + LeaderBoard.Count);
+                            Console.WriteLine("Leaderboard " + LeaderBoard.Count);
+                            Console.WriteLine("Name Time Distance");
                             foreach (var p in LeaderBoard)
                             {
                                 Console.WriteLine(p.Key.User.Name + " " +
@@ -147,7 +143,8 @@ namespace RaceYa.Models
 
                                     participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
 
-                                    Console.WriteLine("List " + LeaderBoard.Count);
+                                    Console.WriteLine("Leaderboard " + LeaderBoard.Count);
+                                    Console.WriteLine("Name Time Distance");
                                     foreach (var p in LeaderBoard)
                                     {
                                         Console.WriteLine(p.Key.User.Name + " " +
@@ -207,12 +204,13 @@ namespace RaceYa.Models
                     FinalLeaderBoard.Add(participant,
                                          new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
                                                                   participant.User.Name,
-                                                                  participant.Result.AverageSpeed,
+                                                                  participant.Result.AverageSpeedKmH,
                                                                   participant.Result.AveragePace));
                     participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
 
                     //debug
                     Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
+                    Console.WriteLine("Name Speed Distance Time EvaluatedDistance");
                     //debug
                     foreach (var p in FinalLeaderBoard)
                     {
@@ -229,7 +227,7 @@ namespace RaceYa.Models
                 {
                     ObservableFinalLeaderBoard.Add(new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
                                                                             participant.User.Name,
-                                                                            participant.Result.AverageSpeed,
+                                                                            participant.Result.AverageSpeedKmH,
                                                                             participant.Result.AveragePace));
                 }
             }

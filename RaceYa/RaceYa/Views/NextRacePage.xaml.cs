@@ -15,7 +15,8 @@ namespace RaceYa.Views
     {
         /*
          * TODO: use real timer for the countdown
-         * //TODO Check again for location availability at regular intervals
+         * TODO: Check again for location availability at regular intervals
+         * TODO: the button returns active when the os asks for location permissions 
          * 
          */
 

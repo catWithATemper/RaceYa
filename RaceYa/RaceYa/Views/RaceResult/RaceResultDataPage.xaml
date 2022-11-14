@@ -98,7 +98,7 @@
                            HorizontalTextAlignment="End"/>
                     <Label Grid.Column="1"
                            FontSize="18"
-                           Text="{Binding AverageSpeed, StringFormat='{0:F2} m/s'}"/>
+                           Text="{Binding AverageSpeedKmH, StringFormat='{0:F2} km/h'}"/>
                 </Grid>
                 <Grid ColumnDefinitions="*,*"
                       HorizontalOptions="Center">
