@@ -4,87 +4,88 @@
              x:Class="RaceYa.Views.MainPage"
              Title="Main page">
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout x:Name="nextRaceStackLayout"
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand">
+                <StackLayout x:Name="nextRaceStackLayout"
                          Margin="20, 10"
                          VerticalOptions="FillAndExpand"
                          HorizontalOptions="Center"
                          BackgroundColor="#f0f0f0"
                          Padding="10, 10">
-                <Label FontSize="20"
+                    <Label FontSize="20"
                        Text="NEXT RACE"
                        FontAttributes="Bold, Italic"
                        TextColor="Black" />
-                <StackLayout HorizontalOptions="Center">
-                    <Grid ColumnDefinitions="*,*"
+                    <StackLayout HorizontalOptions="Center">
+                        <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
-                        <Label Text="Distance:"
+                            <Label Text="Distance:"
                                FontSize="16"
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"
                                Grid.Column="0"/>
-                        <Label Grid.Column="1"
+                            <Label Grid.Column="1"
                                FontSize="16"
                                Text="{Binding RouteLengthInKm, StringFormat='{0:F2} km'}"/>
-                    </Grid>
-                    <Grid ColumnDefinitions="*,*"
+                        </Grid>
+                        <Grid ColumnDefinitions="*,*"
                           HorizontalOptions="Center">
-                        <Label Text="Open until:"
+                            <Label Text="Open until:"
                                FontSize="16"
                                FontAttributes="Bold"
                                HorizontalOptions="End"
                                HorizontalTextAlignment="End"
                                Grid.Column="0"/>
-                        <Label Grid.Column="1"
+                            <Label Grid.Column="1"
                                FontSize="16"
                                Text="{Binding EndDate, StringFormat='{0:MMMM, dd yyyy}'}"
                                />
-                    </Grid>
-                </StackLayout>
-                <Button x:Name="nextRaceButton"
+                        </Grid>
+                    </StackLayout>
+                    <Button x:Name="nextRaceButton"
                         Text="Go to race"
                         HeightRequest="40"
                         WidthRequest="150"
                         HorizontalOptions="EndAndExpand"
                         Clicked="nextRaceButton_Clicked"
                             />
-            </StackLayout>
-            <StackLayout x:Name="signUpStackLayout"
+                </StackLayout>
+                <StackLayout x:Name="signUpStackLayout"
                          Margin="20, 10"
                          VerticalOptions="FillAndExpand"
                          BackgroundColor="#f0f0f0"
                          Padding="0, 10">
-                <Label TextColor="#33343a"
+                    <Label TextColor="#33343a"
                        FontSize="20"
                        Text="SIGN UP FOR A RACE"
                        FontAttributes="Bold, Italic"
                        Padding="10,0" />
-                <StackLayout Orientation="Horizontal" 
+                    <StackLayout Orientation="Horizontal" 
                              HorizontalOptions="EndAndExpand">
-                    <Button x:Name="browseRaceButton"
+                        <Button x:Name="browseRacesButton"
                             Text="Browse races"
                             HeightRequest="40"
                             WidthRequest="150"
                             HorizontalOptions="EndAndExpand"
-                            Clicked="browseRaceButton_Clicked"
+                            Clicked="browseRacesButton_Clicked"
                             Margin="0, 10, 0, 10"/>
-                    <Button x:Name="createNewRaceButton"
+                        <Button x:Name="createNewRaceButton"
                             Text="Create new race"
                             HeightRequest="40"
                             WidthRequest="150"
                             HorizontalOptions="EndAndExpand"
                             Clicked="createNewRaceButton_Clicked"
                             Margin="0, 10, 10, 10"/>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
-            <StackLayout x:Name="latestRaceStackLayout"
+                <StackLayout x:Name="latestRaceStackLayout"
                          Margin="20, 10"
                          VerticalOptions="FillAndExpand"
                          HorizontalOptions="Center"
                          BackgroundColor="#f0f0f0"
                          Padding="10, 10, 10, 20">
-                <Label TextColor="#33343a"
+                    <Label TextColor="#33343a"
                        FontSize="20"
                        Text="LATEST RACE"
                        FontAttributes="Bold, Italic"
@@ -135,7 +136,8 @@
                             HorizontalOptions="EndAndExpand"
                             Clicked="latestRaceButton_Clicked"/>
 
-            </StackLayout> 
-        </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

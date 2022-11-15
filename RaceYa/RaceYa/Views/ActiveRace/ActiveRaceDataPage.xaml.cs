@@ -35,6 +35,12 @@ namespace RaceYa.Views
                 MessagingCenter.Send(this, "Quit race");
                 CurrentParticipant.Result.RaceCompleted = true;
 
+                if (PageStopWatch != null)
+                {
+
+                    PageStopWatch.StopTimer();
+                }
+
                 if (TextToSpeechService != null)
                 {
                     TextToSpeechService.StopTextToSpeech();

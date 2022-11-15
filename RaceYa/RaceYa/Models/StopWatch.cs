@@ -67,5 +67,10 @@ namespace RaceYa.Models
         {
             ElapsedTimeString = (StartTime - e.SignalTime).ToString(@"hh\:mm\:ss\.f");
         }
+
+        public void StopTimer()
+        {
+            ActualTimer.Dispose();
+        }
     }
 }

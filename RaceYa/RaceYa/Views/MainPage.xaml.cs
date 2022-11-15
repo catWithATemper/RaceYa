@@ -60,7 +60,7 @@ namespace RaceYa.Views
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
         }
 
-        private async void browseRaceButton_Clicked(object sender, EventArgs e)
+        private async void browseRacesButton_Clicked(object sender, EventArgs e)
         {
             SignUpForARaceTabbedPage.SelectedTab = 0;
             await Shell.Current.GoToAsync("//SignUpForARacePage");

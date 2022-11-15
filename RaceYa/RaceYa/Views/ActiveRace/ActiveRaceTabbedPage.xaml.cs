@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
+using System;
 
 namespace RaceYa.Views
 {
@@ -29,12 +30,10 @@ namespace RaceYa.Views
 
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
-                //urrentParticipant.Result.RaceCompleted = true;
                 Service.CurrentRace.CalculateFinalLeaderBoard();
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
-                //CurrentParticipant.Result.RaceCompleted = true;
                 Service.CurrentRace.CalculateFinalLeaderBoard();
             });
         }
@@ -57,8 +56,11 @@ namespace RaceYa.Views
             CurrentParticipant.Result.SetCurrentLocation(currentLocation);
             CurrentParticipant.Result.SetStartingPoint();
 
-            int counter = 0;
+            //debug
+            Console.WriteLine("Start: Latitude " + currentLocation.Latitude + " , Longitude " + currentLocation.Longitude + 
+                              " , Time " + currentLocation.Timestamp); 
 
+            int counter = 0;
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
                    CurrentParticipant.Result.RaceCompleted == false)
             {
@@ -69,19 +71,28 @@ namespace RaceYa.Views
                 {
                     currentLocation = await LocationService.GetCurrentLocation();
                     CurrentParticipant.Result.SetCurrentLocation(currentLocation);
-                    //CurrentParticipant.Result.CalculateTimeSinceStart();
 
-                    //CurrentParticipant.Result.CoveredDistance = CurrentParticipant.Result.CalculateCoveredDistance();
+                    //debug
+                    Console.WriteLine("Current location: Latitude " + currentLocation.Latitude + " , Longitude" + currentLocation.Longitude +
+                                      " , Time" + currentLocation.Timestamp);
+                    Console.WriteLine("Distance: " + CurrentParticipant.Result.CoveredDistance +
+                                      " , Avg speed" + CurrentParticipant.Result.AverageSpeed + 
+                                      " , GPS speed" + currentLocation.Speed);
 
                     if (CurrentParticipant.Result.CoveredDistance != 0)
                     {
                         Service.CurrentRace.UpdateLeaderBoard();
-
-                        //CurrentParticipant.Result.AverageSpeed = CurrentParticipant.Result.CalculateAverageSpeed();
                     }
                     counter = 0;
                 }
             }
+
+            if (PageStopWatch != null)
+            {
+
+                PageStopWatch.StopTimer();
+            }
+
             if (TextToSpeechService != null)
             {
                 TextToSpeechService.StopTextToSpeech();
@@ -91,6 +102,7 @@ namespace RaceYa.Views
             {
                 await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");
             }
+
             CurrentParticipant.Result.RaceCompleted = true;
 
             Service.CurrentRace.CalculateFinalLeaderBoard();
