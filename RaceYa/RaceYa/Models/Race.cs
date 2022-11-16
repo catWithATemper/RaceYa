@@ -14,6 +14,8 @@ namespace RaceYa.Models
         public double RouteLength { get; set; } //in meters
 
         public double RouteLengthInKm { get; set; }
+
+        public string Description { get; set; }
         public Participant CurrentParticipant { get; set; }
         public List<Participant> Participants { get; set; }
 
@@ -79,19 +81,24 @@ namespace RaceYa.Models
             }
         }
 
-        public Race()
+        public Race(double routeLengthInKm, DateTime startDate, DateTime endDate, string description)
         {
-            //Hardcoded values
-            RouteLength = 500;
-            RouteLengthInKm = RouteLength / 1000;
-            EndDate = DateTime.Parse("November 15, 2022 23:59:59");
-            StartDate = DateTime.Parse("October 31, 2022 23:59:59");
+            RouteLengthInKm = routeLengthInKm;
+            RouteLength = RouteLengthInKm * 1000;
+            StartDate = startDate;
+            EndDate = endDate;
+            Description = description;
 
             Participants = new List<Participant>();
             LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
             FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
             ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
+
+            //Debug
+            Console.WriteLine("Race created:");
+            Console.WriteLine("Route Length: " + RouteLength + " Start date: " + StartDate + " End date: " +
+                              EndDate + " Description: " + Description);
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
