@@ -4,12 +4,65 @@
              x:Class="RaceYa.Views.BrowseRacesPage"
              Title="Browse existing races">
     <ContentPage.Content>
-        <StackLayout Margin="20">
-            <Label Text="Browse through existing races here."
-                   VerticalOptions="CenterAndExpand" 
-                   HorizontalOptions="CenterAndExpand" 
-                   FontSize="20"
-                   FontAttributes="Bold"/>
+        <StackLayout Margin="10">
+            <ListView x:Name="racesListView"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell Height="00">
+                            <StackLayout BackgroundColor="#f0f0f0"
+                                         HorizontalOptions="FillAndExpand"
+                                         Margin="5"
+                                         Padding="10">
+                                <StackLayout Orientation="Horizontal"
+                                             VerticalOptions="Center"
+                                             HorizontalOptions="EndAndExpand"
+                                             Spacing="10">
+                                    <Label Text="{Binding RouteLengthInKm, StringFormat='{0:F2} km'}"
+                                           FontSize="28"
+                                           FontAttributes="Bold, italic"
+                                           VerticalOptions="Center"/>
+                                    <Grid ColumnDefinitions="auto, auto" 
+                                          RowSpacing="0"
+                                          Margin="5">
+                                        <Label Text="From:"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="0"/>
+                                        <Label Text="{Binding StartDate, StringFormat='{0:dd/MM/yy}'}"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               Grid.Column="1"
+                                               Grid.Row="0"/>
+                                        <Label Text="To:"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               Grid.Column="0"
+                                               Grid.Row="1"/>
+                                        <Label Text="{Binding EndDate, StringFormat='{0:dd/MM/yy}'}"
+                                               FontSize="18"
+                                               FontAttributes="Bold"
+                                               Grid.Column="1"
+                                               Grid.Row="1"/>
+                                    </Grid>
+                                    <Button Text="Sign up"
+                                        x:Name="signUpButton"
+                                        HeightRequest="40"
+                                       VerticalOptions="End"
+                                        HorizontalOptions="End"/>
+                                </StackLayout>
+                                <Label Grid.Row="1"
+                                        Text="{Binding Description}"
+                                        FontSize="18"
+                                        FontAttributes="Bold"
+                                        VerticalOptions="FillAndExpand"/>
+                               
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

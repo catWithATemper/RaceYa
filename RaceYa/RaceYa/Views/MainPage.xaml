@@ -69,7 +69,7 @@
                             WidthRequest="150"
                             HorizontalOptions="EndAndExpand"
                             Clicked="browseRacesButton_Clicked"
-                            Margin="0, 10, 0, 10"/>
+                            Margin="10, 10, 0, 10"/>
                         <Button x:Name="createNewRaceButton"
                             Text="Create new race"
                             HeightRequest="40"

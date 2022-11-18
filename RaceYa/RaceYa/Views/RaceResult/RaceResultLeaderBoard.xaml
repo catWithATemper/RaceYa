@@ -25,18 +25,18 @@
                                FontAttributes="Bold, Italic"
                                VerticalTextAlignment="Center"
                                VerticalOptions="StartAndExpand"
-                               HorizontalTextAlignment="Center"/>
+                               HorizontalTextAlignment="Start"/>
                         <Label Grid.Column="1" 
                                Text="PARTICIPANT"
                                FontSize="18"
                                FontAttributes="Bold, italic"
                                VerticalTextAlignment="Center"
                                VerticalOptions="StartAndExpand"
-                               HorizontalTextAlignment="Center"/>
+                               HorizontalTextAlignment="Start"/>
                         <Label Grid.Column="2"        
                                VerticalTextAlignment="Center"
                                VerticalOptions="EndAndExpand"
-                               HorizontalTextAlignment="Center">
+                               HorizontalTextAlignment="Start">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="SPEED " 
@@ -51,7 +51,7 @@
                         <Label Grid.Column="3"        
                                VerticalTextAlignment="Center"
                                VerticalOptions="EndAndExpand"
-                               HorizontalTextAlignment="Center">
+                               HorizontalTextAlignment="Start">
                             <Label.FormattedText>
                                 <FormattedString>
                                     <Span Text="PACE " 
@@ -59,7 +59,7 @@
                                           FontSize="18"/>
                                     <Span FontAttributes="Bold" 
                                           FontSize="16"
-                                          Text="     (min/km)"/>
+                                          Text="(min/km)"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -89,7 +89,7 @@
                                        FontSize="18"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
                                        VerticalOptions="EndAndExpand">
                                 </Label>
                                 <Label Grid.Column="1"
@@ -97,7 +97,7 @@
                                        FontSize="18"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="center"
+                                       HorizontalTextAlignment="Start"
                                        VerticalOptions="EndAndExpand">
                                 </Label>
                                 <Label Grid.Column="2"
@@ -105,12 +105,12 @@
                                        FontSize="18"
                                        FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="center"
+                                       HorizontalTextAlignment="Start"
                                        VerticalOptions="EndAndExpand">
                                 </Label>
                                 <Label Grid.Column="3"
                                        VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
                                        VerticalOptions="EndAndExpand">
                                     <Label.FormattedText>
                                         <FormattedString>

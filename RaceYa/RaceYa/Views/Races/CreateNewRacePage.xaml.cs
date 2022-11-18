@@ -12,6 +12,8 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateNewRacePage : ContentPage
     {
+        public static DataExchangeService Service = DataExchangeService.Instance();
+
         public double RouteLength;
 
         public DateTime StartDate = DateTime.Today;
@@ -155,7 +157,7 @@ namespace RaceYa.Views
 
             if (ValidateRouteLengthResult && ValidateStartDateResult && ValidateEndDateResult && ValidateDesscriptionResult)
             {
-                new Race(RouteLength, StartDate, EndDate, Description);
+                Service.Races.Add(new Race(RouteLength, StartDate, EndDate, Description));
             }
         }
     }

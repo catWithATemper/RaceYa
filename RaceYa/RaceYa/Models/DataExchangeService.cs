@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
@@ -13,9 +14,11 @@ namespace RaceYa.Models
         public bool UserIsAuthenticated = false;
 
         public Race CurrentRace = new Race(0.5, 
-                                           DateTime.Parse("November 15, 2022 23:59:59"), 
                                            DateTime.Parse("October 31, 2022 23:59:59"),
+                                           DateTime.Parse("November 15, 2022 23:59:59"),
                                            "Test run");
+
+        public List<Race> Races = new List<Race>();
 
         public static DataExchangeService Instance()
         {
@@ -26,6 +29,8 @@ namespace RaceYa.Models
 
         public void SyncData()
         {
+            Races.Add(CurrentRace);
+
             User user1 = new User("Zoe");
             User User2 = new User("Tom");
             User User3 = new User("Sam");
