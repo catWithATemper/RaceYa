@@ -159,6 +159,12 @@ namespace RaceYa.Views
             {
                 Service.Races.Add(new Race(RouteLength, StartDate, EndDate, Description));
             }
+
+            routeLengthEntry.Text = "";
+            descriptionEditor.Text = "";
+
+            var tabbedPage = this.Parent as TabbedPage;
+            tabbedPage.CurrentPage = tabbedPage.Children[0];
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Xml.Linq;
@@ -18,7 +19,7 @@ namespace RaceYa.Models
                                            DateTime.Parse("November 15, 2022 23:59:59"),
                                            "Test run");
 
-        public List<Race> Races = new List<Race>();
+        public ObservableCollection<Race> Races = new ObservableCollection<Race>();
 
         public static DataExchangeService Instance()
         {
@@ -45,12 +46,12 @@ namespace RaceYa.Models
             Participant participant5 = new Participant(User5, CurrentRace);
             Participant participant6 = new Participant(User6, CurrentRace);
 
-            PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.20190829_181304.gpx");
-            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.20210827_181606.gpx");
-            PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.20201009_175328.gpx");
-            PopulateRaceResultFromFile(participant4.Result, "RaceYa.DB.20210526_173957.gpx");
-            PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.20210530_143238.gpx");
-            PopulateRaceResultFromFile(participant6.Result, "RaceYa.DB.20210602_183136.gpx");
+            PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.activity_8915103095.gpx");
+            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.activity_8937870612.gpx");
+            PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.activity_9486210614.gpx");
+            PopulateRaceResultFromFile(participant4.Result, "RaceYa.DB.activity_9578996388.gpx");
+            PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.activity_9643381559.gpx");
+            PopulateRaceResultFromFile(participant6.Result, "RaceYa.DB.activity_9731960401.gpx");
         }
 
         public void PopulateRaceResultFromFile(RaceResult result, string fileName)

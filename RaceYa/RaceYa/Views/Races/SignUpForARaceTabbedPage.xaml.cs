@@ -18,10 +18,9 @@ namespace RaceYa.Views
             base.OnAppearing();
 
             SwitchTabs();
-
         }
 
-        private void SwitchTabs()
+        public void SwitchTabs()
         {
             if (SelectedTab == 0)
             {

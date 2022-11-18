@@ -63,6 +63,7 @@ namespace RaceYa.Views
                     }
                     else
                     {
+                        startButton.IsEnabled = false; //otherwise gets reenabled when the app asks for permissions
                         searchingForGPSLabel.Text = "";
                         for (int times = 5; times > 0; times--)
                         {

@@ -16,5 +16,12 @@ namespace RaceYa.Views
 
             racesListView.ItemsSource = Service.Races;
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            racesListView.ItemsSource = Service.Races;
+        }
     }
 }
