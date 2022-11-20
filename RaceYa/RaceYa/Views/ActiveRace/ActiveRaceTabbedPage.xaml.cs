@@ -5,6 +5,8 @@ using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
 using System;
+using System.Globalization;
+using System.Xml;
 
 namespace RaceYa.Views
 {
@@ -57,8 +59,9 @@ namespace RaceYa.Views
             CurrentParticipant.Result.SetStartingPoint();
 
             //debug
-            Console.WriteLine("Start: Latitude " + currentLocation.Latitude + " , Longitude " + currentLocation.Longitude + 
-                              " , Time " + currentLocation.Timestamp); 
+            Console.WriteLine("Start: Latitude " + currentLocation.Latitude + ", Longitude " + currentLocation.Longitude + 
+                              ", Time " + currentLocation.Timestamp +
+                              ", Accuracy " + currentLocation.Accuracy); 
 
             int counter = 0;
             while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
@@ -73,11 +76,15 @@ namespace RaceYa.Views
                     CurrentParticipant.Result.SetCurrentLocation(currentLocation);
 
                     //debug
-                    Console.WriteLine("Current location: Latitude " + currentLocation.Latitude + " , Longitude" + currentLocation.Longitude +
-                                      " , Time" + currentLocation.Timestamp);
-                    Console.WriteLine("Distance: " + CurrentParticipant.Result.CoveredDistance +
-                                      " , Avg speed" + CurrentParticipant.Result.AverageSpeed + 
-                                      " , GPS speed" + currentLocation.Speed);
+                    CurrentParticipant.Result.Accuracy = (double)currentLocation.Accuracy;
+
+                    Console.WriteLine("Current location: Latitude " + currentLocation.Latitude + ", Longitude " + currentLocation.Longitude +
+                                      ", Time " + currentLocation.Timestamp + 
+                                      ", Formatted time: " + DateTime.SpecifyKind(currentLocation.Timestamp.DateTime, DateTimeKind.Utc).ToString("o", CultureInfo.InvariantCulture));
+                    Console.WriteLine("Distance " + CurrentParticipant.Result.CoveredDistance +
+                                      ", Avg speed " + CurrentParticipant.Result.AverageSpeed + 
+                                      ", GPS speed " + currentLocation.Speed +
+                                      ", Accuracy " + currentLocation.Accuracy);
 
                     if (CurrentParticipant.Result.CoveredDistance != 0)
                     {

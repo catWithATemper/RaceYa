@@ -231,6 +231,20 @@ namespace RaceYa.Models
             }
         }
 
+        private double accuracy;
+        public double Accuracy
+        {
+            get
+            {
+                return accuracy;
+            }
+            set
+            {
+                accuracy = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public RaceResult(Participant participant)
         {
             RaceParticipant = participant;
@@ -248,6 +262,9 @@ namespace RaceYa.Models
             RaceCompleted = false;
 
             LeaderBoardRank = null;
+
+            //Debug
+            Accuracy = 0;
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")

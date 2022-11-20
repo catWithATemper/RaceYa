@@ -46,5 +46,10 @@ namespace RaceYa.Views
                 await Navigation.PopModalAsync();
             }
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
     }
 }

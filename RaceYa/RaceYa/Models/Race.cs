@@ -222,7 +222,7 @@ namespace RaceYa.Models
                     foreach (var p in FinalLeaderBoard)
                     {
                         Console.WriteLine(p.Key.User.Name + " " +
-                                          p.Value + " " +
+                                          p.Key.Result.AverageSpeed + " "+
                                           p.Key.Result.CoveredDistance + " " +
                                           p.Key.Result.TimeSinceStart + " " +
                                           p.Key.Result.EvaluatedDistance + "\n");

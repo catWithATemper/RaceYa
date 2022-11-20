@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
+using System.Threading.Tasks;
 
 namespace RaceYa.Views
 {
@@ -50,5 +51,11 @@ namespace RaceYa.Views
                 await Navigation.PopModalAsync();
             }
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
+        }
+
     }
 }

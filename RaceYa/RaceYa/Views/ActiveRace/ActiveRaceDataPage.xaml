@@ -125,6 +125,11 @@
                         </Label.Text>
                     </Label>
                 </Grid>
+                <Label Text="{Binding Accuracy}"
+                       FontSize="20"
+                       HorizontalTextAlignment="start"
+                       Grid.Row="1"
+                       FontAttributes="Bold"/>
             </StackLayout>
         </StackLayout>
         <Button AbsoluteLayout.LayoutBounds="1, 1, 1, Autosize" 

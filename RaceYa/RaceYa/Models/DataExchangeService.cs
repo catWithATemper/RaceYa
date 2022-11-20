@@ -14,7 +14,7 @@ namespace RaceYa.Models
 
         public bool UserIsAuthenticated = false;
 
-        public Race CurrentRace = new Race(0.5, 
+        public Race CurrentRace = new Race(0.2, 
                                            DateTime.Parse("October 31, 2022 23:59:59"),
                                            DateTime.Parse("November 15, 2022 23:59:59"),
                                            "Test run");
