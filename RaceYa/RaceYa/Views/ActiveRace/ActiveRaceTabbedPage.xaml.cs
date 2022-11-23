@@ -69,7 +69,9 @@ namespace RaceYa.Views
             {
                 await Task.Delay(100); //0.1 seconds
                 counter++;
-
+                
+                //Check if the 1 second counter can be removed, since GetCurrentLocation() has its own
+                //internal 4 seconds timeout.
                 if (counter == 10)
                 {
                     currentLocation = await LocationService.GetCurrentLocation();
@@ -86,6 +88,7 @@ namespace RaceYa.Views
                                       ", GPS speed " + currentLocation.Speed +
                                       ", Accuracy " + currentLocation.Accuracy);
 
+                    //Check whether the if condition is necessary
                     if (CurrentParticipant.Result.CoveredDistance != 0)
                     {
                         Service.CurrentRace.UpdateLeaderBoard();
@@ -96,7 +99,6 @@ namespace RaceYa.Views
 
             if (PageStopWatch != null)
             {
-
                 PageStopWatch.StopTimer();
             }
 

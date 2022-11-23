@@ -9,6 +9,8 @@ namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
+        //TODO: The UpdateLeaderboard() method could be simplified (see below).
+
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
         public double RouteLength { get; set; } //in meters
@@ -108,6 +110,7 @@ namespace RaceYa.Models
 
         public void UpdateLeaderBoard()
         {
+            //Remove code duplication
             if (CurrentParticipant.Result.RaceCompleted == false)
             {
                 foreach (Participant participant in Participants)
@@ -116,6 +119,8 @@ namespace RaceYa.Models
                     {
                         if (participant == CurrentParticipant)
                         {
+                            //Check if you can read the current participant's RaceTimes list and pick the newest element
+                            //instead of creating a new CurrentRaceTime value pair from scratch.
                             LeaderBoard.Remove(participant);
                             participant.Result.CurrentRaceTime = new KeyValuePair<TimeSpan, double>(participant.Result.TimeSinceStart,
                                                                                                     participant.Result.CoveredDistance);

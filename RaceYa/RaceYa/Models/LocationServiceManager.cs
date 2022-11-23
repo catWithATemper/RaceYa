@@ -21,7 +21,7 @@ namespace RaceYa.Models
             {
                 location = await Geolocation.GetLocationAsync(request, cts.Token);
 
-                if (location == null || location.Accuracy > 5)
+                if (location == null || location.Accuracy > 10)
                 {
                     locationIsValid = false;
                 }

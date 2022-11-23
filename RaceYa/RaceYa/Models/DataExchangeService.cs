@@ -32,12 +32,12 @@ namespace RaceYa.Models
         {
             Races.Add(CurrentRace);
 
-            User user1 = new User("Zoe");
-            User User2 = new User("Tom");
-            User User3 = new User("Sam");
-            User User4 = new User("Lin");
-            User User5 = new User("Bob");
-            User User6 = new User("Amy");
+            User user1 = new User("Alice");
+            User User2 = new User("Bob");
+            User User3 = new User("Lin");
+            User User4 = new User("Runner101");
+            User User5 = new User("Greyhound");
+            User User6 = new User("Tom");
 
             Participant participant1 = new Participant(user1, CurrentRace);
             Participant participant2 = new Participant(User2, CurrentRace);
