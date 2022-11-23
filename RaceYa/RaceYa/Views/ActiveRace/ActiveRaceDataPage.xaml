@@ -125,11 +125,12 @@
                         </Label.Text>
                     </Label>
                 </Grid>
-                <Label Text="{Binding Accuracy}"
+                <Label Text="{Binding Accuracy, StringFormat='Accuracy: {0:F2}'}"
                        FontSize="20"
                        HorizontalTextAlignment="start"
                        Grid.Row="1"
-                       FontAttributes="Bold"/>
+                       FontAttributes="Bold"
+                       IsVisible="false"/>
             </StackLayout>
         </StackLayout>
         <Button AbsoluteLayout.LayoutBounds="1, 1, 1, Autosize" 
