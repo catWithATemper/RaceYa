@@ -22,27 +22,27 @@
     <None Remove="DB\20190829_181304.gpx" />
     <None Remove="DB\20201009_175328.gpx" />
     <None Remove="DB\20210526_173957.gpx" />
-    <None Remove="DB\20210530_143238.gpx" />
     <None Remove="DB\20210602_183136.gpx" />
     <None Remove="DB\20210827_181606.gpx" />
-    <None Remove="DB\activity_8915103095.gpx" />
-    <None Remove="DB\activity_8937870612.gpx" />
     <None Remove="DB\activity_9486210614.gpx" />
     <None Remove="DB\activity_9578996388.gpx" />
     <None Remove="DB\activity_9643381559.gpx" />
     <None Remove="DB\activity_9731960401.gpx" />
     <None Remove="DB\activity_9938249693.gpx" />
+    <None Remove="DB\FASTactivity_8915103095.gpx" />
+    <None Remove="DB\FASTactivity_8937870612.gpx" />
+    <None Remove="DB\WALK20210530_143238.gpx" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="DB\20190829_181304.gpx" />
     <EmbeddedResource Include="DB\20201009_175328.gpx" />
     <EmbeddedResource Include="DB\20210526_173957.gpx" />
-    <EmbeddedResource Include="DB\20210530_143238.gpx" />
+    <EmbeddedResource Include="DB\WALK20210530_143238.gpx" />
     <EmbeddedResource Include="DB\20210602_183136.gpx" />
     <EmbeddedResource Include="DB\20210827_181606.gpx" />
-    <EmbeddedResource Include="DB\activity_8915103095.gpx" />
-    <EmbeddedResource Include="DB\activity_8937870612.gpx" />
+    <EmbeddedResource Include="DB\FASTactivity_8915103095.gpx" />
+    <EmbeddedResource Include="DB\FASTactivity_8937870612.gpx" />
     <EmbeddedResource Include="DB\activity_9486210614.gpx" />
     <EmbeddedResource Include="DB\activity_9578996388.gpx" />
     <EmbeddedResource Include="DB\activity_9643381559.gpx" />

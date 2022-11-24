@@ -46,8 +46,8 @@ namespace RaceYa.Models
             Participant participant5 = new Participant(User5, CurrentRace);
             Participant participant6 = new Participant(User6, CurrentRace);
 
-            PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.activity_8915103095.gpx");
-            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.activity_8937870612.gpx");
+            PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.FASTactivity_8915103095.gpx");
+            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.FASTactivity_8937870612.gpx");
             PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.activity_9486210614.gpx");
             PopulateRaceResultFromFile(participant4.Result, "RaceYa.DB.activity_9578996388.gpx");
             PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.activity_9643381559.gpx");
