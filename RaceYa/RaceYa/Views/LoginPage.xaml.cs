@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
+using RaceYa.Helpers;
 
 namespace RaceYa.Views
 {
@@ -20,14 +21,19 @@ namespace RaceYa.Views
 
         private async void LoginButton_Clicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(userNameEntry.Text))
+            if (!string.IsNullOrEmpty(emailEntry.Text) && !string.IsNullOrEmpty(passwordEntry.Text))
             {
-                CurrentUser = new User(userNameEntry.Text);
-                Service.UserIsAuthenticated = true;
-                
-                await Shell.Current.GoToAsync("//MainPage");
+                bool result = await Auth.LogInUser(emailEntry.Text, passwordEntry.Text);
+
+                if (result)
+                {
+                    CurrentUser = new User("CurrentUser");
+                    Service.UserIsAuthenticated = true;
+                    await Shell.Current.GoToAsync("//MainPage");
+                }
             }
         }
+
         protected override bool OnBackButtonPressed()
         {
             return true;

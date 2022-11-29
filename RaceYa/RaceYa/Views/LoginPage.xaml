@@ -27,9 +27,12 @@
             </StackLayout>
             <StackLayout AbsoluteLayout.LayoutBounds="0, 0.6, 1, 0.3"
                          AbsoluteLayout.LayoutFlags="All">
-                <Entry x:Name="userNameEntry"
-                       Placeholder="User Name"
+                <Entry x:Name="emailEntry"
+                       Placeholder="Email"
                        Keyboard="Email"/>
+                <Entry x:Name="passwordEntry"
+                       Placeholder="Password"
+                       IsPassword="True"/>
                 <Button x:Name="LoginButton"
                         Text="Login"
                         Clicked="LoginButton_Clicked"/>

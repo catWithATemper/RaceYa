@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "876306090368",
+    "project_id": "raceya-48e36",
+    "storage_bucket": "raceya-48e36.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:876306090368:android:0a5ded2718f5c16a3e1965",
+        "android_client_info": {
+          "package_name": "com.companyname.raceya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "876306090368-d6iqq26bh8hslmkc82tlm0rjbbqtk1bi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuC0xyqcwaDIS0yjqP48hN_btbfFytS3A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "876306090368-d6iqq26bh8hslmkc82tlm0rjbbqtk1bi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

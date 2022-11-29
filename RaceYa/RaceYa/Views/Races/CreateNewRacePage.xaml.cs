@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 using RaceYa.Models;
+using RaceYa.Helpers;
 
 namespace RaceYa.Views
 {
@@ -157,6 +158,8 @@ namespace RaceYa.Views
 
             if (ValidateRouteLengthResult && ValidateStartDateResult && ValidateEndDateResult && ValidateDesscriptionResult)
             {
+                await saveRace(RouteLength, StartDate, EndDate, Description);
+
                 Service.Races.Add(new Race(RouteLength, StartDate, EndDate, Description));
             }
 
@@ -165,6 +168,37 @@ namespace RaceYa.Views
 
             var tabbedPage = this.Parent as TabbedPage;
             tabbedPage.CurrentPage = tabbedPage.Children[0];
+        }
+
+
+        private async Task saveRace(double routelength, DateTime startDate, DateTime endDate, string description)
+        {
+            try
+            {
+                Race newRace = new Race()
+                {
+                    RouteLength = routelength,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    Description = description,
+                };
+
+                bool result = Firestore.Insert(newRace);
+                if (result)
+                {
+                    await DisplayAlert("Success", "Race saved", "Ok");
+                }
+                else
+                    await DisplayAlert("Failure", "Race was not saved, please try again", "Ok");
+            }
+            catch (NullReferenceException nrex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

@@ -10,6 +10,8 @@ namespace RaceYa.Models
     public class Race : INotifyPropertyChanged
     {
         //TODO: The UpdateLeaderboard() method could be simplified (see below).
+        public string Id { get; set; }
+        public string UserId { get; set; }
 
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
@@ -101,6 +103,17 @@ namespace RaceYa.Models
             Console.WriteLine("Race created:");
             Console.WriteLine("Route Length: " + RouteLength + " Start date: " + StartDate + " End date: " +
                               EndDate + " Description: " + Description);
+        }
+
+        public Race()
+        {
+            RouteLength = RouteLengthInKm * 1000;
+
+            Participants = new List<Participant>();
+            LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
+            ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
+            FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
+            ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
