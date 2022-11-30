@@ -59,5 +59,21 @@ namespace RaceYa.Models
             }
             return location;
         }
+  
+        /*
+        public async Task<Location> GetCurrentLocation()
+        {
+            GeolocationRequest request = new GeolocationRequest(GeolocationAccuracy.High, TimeSpan.FromSeconds(4));
+            cts = new CancellationTokenSource();
+
+
+            Location location = null;
+            while (location == null)
+            {
+                location = await Geolocation.GetLocationAsync(request, cts.Token);
+            }
+            return location;
+        }
+        */
     }
 }

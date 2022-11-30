@@ -50,9 +50,9 @@ namespace RaceYa.Droid.Dependencies
             {
                 Dictionary<string, Java.Lang.Object> raceDocument = new Dictionary<string, Java.Lang.Object>
             {
-                {"routeLength", race.RouteLength },
-                {"startDate", race.StartDate.ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss")},
-                {"endDate", race.EndDate.ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss")},
+                {"routeLengthInKm", race.RouteLengthInKm },
+                {"startDate", race.StartDate.ToString("yyyy-MM-ddTHH:mm:ss")},
+                {"endDate", race.EndDate.ToString("yyyy-MM-ddTHH:mm:ss")},
                 {"description", race.Description},
                 {"userId", Firebase.Auth.FirebaseAuth.Instance.CurrentUser.Uid },
             };
@@ -75,12 +75,12 @@ namespace RaceYa.Droid.Dependencies
                 races.Clear();
                 foreach (DocumentSnapshot doc in documents.Documents)
                 {
-                    double routeLength;
-                    if (double.TryParse(doc.Get("routeLength").ToString(), out routeLength) == true)
+                    double routeLengthInKm;
+                    if (double.TryParse(doc.Get("routeLengthInKm").ToString(), out routeLengthInKm) == true)
                     {
                         Race newRace = new Race()
                         {
-                            RouteLength = routeLength,
+                            RouteLengthInKm = routeLengthInKm,
                             StartDate = DateTime.Parse(doc.Get("startDate").ToString()),
                             EndDate = DateTime.Parse(doc.Get("endDate").ToString()),
                             Description = doc.Get("description").ToString(),
@@ -121,7 +121,7 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (Exception e)
             {
-                return races;
+                return null;
             }
         }
 
@@ -131,7 +131,7 @@ namespace RaceYa.Droid.Dependencies
             {
                 Dictionary<string, Java.Lang.Object> raceDocument = new Dictionary<string, Java.Lang.Object>
             {
-                {"routeLength", race.RouteLength },
+                {"routeLengthInKm", race.RouteLengthInKm },
                 {"startDate", race.StartDate.ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss")},
                 {"endDate", race.EndDate.ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss")},
                 {"description", race.Description},
@@ -144,6 +144,31 @@ namespace RaceYa.Droid.Dependencies
             catch (Exception e)
             {
                 return false;
+            }
+        }
+
+        public async Task<Race> ReadNextRace()
+        {
+            try
+            {
+                hasReadRaces = false;
+                CollectionReference collection = FirebaseFirestore.Instance.Collection("races");
+
+                Query query = collection.OrderBy("endDate").Limit(1);
+                query.Get().AddOnCompleteListener(this);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    await System.Threading.Tasks.Task.Delay(100);
+                    if (hasReadRaces)
+                        break;
+                }
+
+                return races[0];
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
     }

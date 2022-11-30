@@ -245,6 +245,20 @@ namespace RaceYa.Models
             }
         }
 
+        private double gpsSpeed;
+        public double GPSSpeed
+        {
+            get
+            {
+                return gpsSpeed;
+            }
+            set
+            {
+                gpsSpeed = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public RaceResult(Participant participant)
         {
             RaceParticipant = participant;

@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
+using RaceYa.Helpers;
 
 namespace RaceYa.Views
 {
@@ -35,7 +36,9 @@ namespace RaceYa.Views
                     CurrentParticipant.IsCurrentParticipant = true;
                 }
 
-                nextRaceStackLayout.BindingContext = Service.CurrentRace;
+                nextRaceStackLayout.BindingContext = null;
+                nextRaceStackLayout.BindingContext = await Firestore.ReadNextRace();
+
 
                 if (CurrentParticipant.Result.RaceCompleted == true)
                 {

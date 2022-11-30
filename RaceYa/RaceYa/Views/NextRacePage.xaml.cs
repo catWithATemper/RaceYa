@@ -7,6 +7,7 @@ using Xamarin.Forms.Xaml;
 using RaceYa.Models;
 using Xamarin.Essentials;
 using System.Threading;
+using RaceYa.Helpers;
 
 namespace RaceYa.Views
 {
@@ -28,14 +29,19 @@ namespace RaceYa.Views
         {
             InitializeComponent();
 
-            nextRaceStackLayout.BindingContext = Service.CurrentRace;
+            //nextRaceStackLayout.BindingContext = Service.CurrentRace;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
+            nextRaceStackLayout.BindingContext = null;
+            nextRaceStackLayout.BindingContext = await Firestore.ReadNextRace();
+
             startButton.IsEnabled = true;
+
+
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)

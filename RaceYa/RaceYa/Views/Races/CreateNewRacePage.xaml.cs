@@ -56,6 +56,7 @@ namespace RaceYa.Views
 
         private async Task<bool> ValidateRouteLength()
         {
+            ///Route length in km
             double routeLength = 0;
             if (double.TryParse(routeLengthEntry.Text, out routeLength) == true)
             {
@@ -151,6 +152,7 @@ namespace RaceYa.Views
 
         private async void saveButton_Clicked(object sender, EventArgs e)
         {
+            //routelength in km
             bool ValidateRouteLengthResult = await ValidateRouteLength();
             bool ValidateStartDateResult = await ValidateStartDate();
             bool ValidateEndDateResult = await ValidateEndDate();
@@ -173,11 +175,12 @@ namespace RaceYa.Views
 
         private async Task saveRace(double routelength, DateTime startDate, DateTime endDate, string description)
         {
+            //route length in km
             try
             {
                 Race newRace = new Race()
                 {
-                    RouteLength = routelength,
+                    RouteLengthInKm = routelength,
                     StartDate = startDate,
                     EndDate = endDate,
                     Description = description,

@@ -79,6 +79,7 @@ namespace RaceYa.Views
 
                     //debug
                     CurrentParticipant.Result.Accuracy = (double)currentLocation.Accuracy;
+                    CurrentParticipant.Result.GPSSpeed = (double)currentLocation.Speed;
 
                     Console.WriteLine("Current location: Latitude " + currentLocation.Latitude + ", Longitude " + currentLocation.Longitude +
                                       ", Time " + currentLocation.Timestamp + 

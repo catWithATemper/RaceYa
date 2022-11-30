@@ -2,6 +2,7 @@
 using Xamarin.Forms.Xaml;
 
 using RaceYa.Models;
+using RaceYa.Helpers;
 
 namespace RaceYa.Views
 {
@@ -17,11 +18,14 @@ namespace RaceYa.Views
             racesListView.ItemsSource = Service.Races;
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            racesListView.ItemsSource = Service.Races;
+            racesListView.ItemsSource = null;
+            var races = await Firestore.Read();
+            racesListView.ItemsSource = races;
+
         }
     }
 }

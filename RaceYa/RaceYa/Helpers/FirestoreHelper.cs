@@ -13,6 +13,7 @@ namespace RaceYa.Helpers
         Task<bool> Update(Race race);
         Task<bool> Delete(Race race);
         Task<List<Race>> Read();
+        Task<Race> ReadNextRace();
     }
 
     public class Firestore
@@ -37,6 +38,11 @@ namespace RaceYa.Helpers
         public static async Task<List<Race>> Read()
         {
             return await firestore.Read();
+        }
+
+        public static async Task<Race> ReadNextRace()
+        {
+            return await firestore.ReadNextRace();
         }
     }
 }

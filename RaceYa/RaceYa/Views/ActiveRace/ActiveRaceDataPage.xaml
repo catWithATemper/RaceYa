@@ -131,6 +131,12 @@
                        Grid.Row="1"
                        FontAttributes="Bold"
                        IsVisible="false"/>
+                <Label Text="{Binding GPSSpeed, StringFormat='Accuracy: {0:F2}'}"
+                       FontSize="20"
+                       HorizontalTextAlignment="start"
+                       Grid.Row="1"
+                       FontAttributes="Bold"
+                       IsVisible="false"/>
             </StackLayout>
         </StackLayout>
         <Button AbsoluteLayout.LayoutBounds="1, 1, 1, Autosize" 
