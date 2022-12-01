@@ -16,16 +16,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(RaceYa.Droid.Dependencies.Firestore))]
+[assembly: Dependency(typeof(RaceYa.Droid.Dependencies.FirestoreRace))]
 namespace RaceYa.Droid.Dependencies
 {
-    class Firestore : Java.Lang.Object, IFirestore, IOnCompleteListener
+    class FirestoreRace : Java.Lang.Object, IFirestoreRace, IOnCompleteListener
     {
 
         List<Race> races;
         bool hasReadRaces = false;
 
-        public Firestore()
+        public FirestoreRace()
         {
             races = new List<Race>();
         }
@@ -40,6 +40,7 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -62,6 +63,7 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -121,6 +123,7 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }
@@ -143,6 +146,7 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -168,6 +172,7 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 return null;
             }
         }

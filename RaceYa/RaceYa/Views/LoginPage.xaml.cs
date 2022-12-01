@@ -27,7 +27,7 @@ namespace RaceYa.Views
 
                 if (result)
                 {
-                    CurrentUser = new User("CurrentUser");
+                    CurrentUser = new User("CurrentUser", Auth.GetCurrentUserId());
                     Service.UserIsAuthenticated = true;
                     await Shell.Current.GoToAsync("//MainPage");
                 }

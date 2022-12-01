@@ -83,7 +83,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies\Auth.cs" />
-    <Compile Include="Dependencies\Firestore.cs" />
+    <Compile Include="Dependencies\FirestoreRace.cs" />
+    <Compile Include="Dependencies\FirestoreUser.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

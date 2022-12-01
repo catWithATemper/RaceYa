@@ -45,10 +45,12 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (FirebaseAuthInvalidUserException e)
             {
+                Console.WriteLine(e.Message);
                 throw new Exception("There is no user record corresponding to this identifier");
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 throw new Exception("There was an unknown error.");
             }
         }
@@ -74,6 +76,7 @@ namespace RaceYa.Droid.Dependencies
             }
             catch (Exception e)
             {
+                Console.WriteLine(e.Message);
                 throw new Exception("There was an unknown error.");
             }
         }

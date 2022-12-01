@@ -13,6 +13,9 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateNewRacePage : ContentPage
     {
+        //TODO: Add hours and minutes to the race end date, so that the race ends at
+        // 23:59 and not at 00:00
+
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public double RouteLength;
@@ -186,7 +189,7 @@ namespace RaceYa.Views
                     Description = description,
                 };
 
-                bool result = Firestore.Insert(newRace);
+                bool result = FirestoreRace.Insert(newRace);
                 if (result)
                 {
                     await DisplayAlert("Success", "Race saved", "Ok");
@@ -194,13 +197,13 @@ namespace RaceYa.Views
                 else
                     await DisplayAlert("Failure", "Race was not saved, please try again", "Ok");
             }
-            catch (NullReferenceException nrex)
+            catch (NullReferenceException e)
             {
-
+                Console.WriteLine(e.Message);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-
+                Console.WriteLine(e.Message);
             }
         }
     }

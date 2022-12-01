@@ -37,7 +37,7 @@ namespace RaceYa.Views
             base.OnAppearing();
 
             nextRaceStackLayout.BindingContext = null;
-            nextRaceStackLayout.BindingContext = await Firestore.ReadNextRace();
+            nextRaceStackLayout.BindingContext = await FirestoreRace.ReadNextRace();
 
             startButton.IsEnabled = true;
 

@@ -12,7 +12,6 @@ namespace RaceYa.Models
         //TODO: The UpdateLeaderboard() method could be simplified (see below).
         public string Id { get; set; }
         public string UserId { get; set; }
-
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
         public double RouteLength { get; set; } //in meters

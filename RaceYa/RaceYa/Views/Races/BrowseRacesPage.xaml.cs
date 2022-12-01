@@ -23,7 +23,7 @@ namespace RaceYa.Views
             base.OnAppearing();
 
             racesListView.ItemsSource = null;
-            var races = await Firestore.Read();
+            var races = await FirestoreRace.Read();
             racesListView.ItemsSource = races;
 
         }

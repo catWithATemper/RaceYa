@@ -37,7 +37,7 @@ namespace RaceYa.Views
                 }
 
                 nextRaceStackLayout.BindingContext = null;
-                nextRaceStackLayout.BindingContext = await Firestore.ReadNextRace();
+                nextRaceStackLayout.BindingContext = await FirestoreRace.ReadNextRace();
 
 
                 if (CurrentParticipant.Result.RaceCompleted == true)

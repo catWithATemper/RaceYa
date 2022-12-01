@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace RaceYa.Helpers
 {
-    public interface IFirestore
+    public interface IFirestoreRace
     {
         bool Insert(Race race);
         Task<bool> Update(Race race);
@@ -16,33 +16,33 @@ namespace RaceYa.Helpers
         Task<Race> ReadNextRace();
     }
 
-    public class Firestore
+    public class FirestoreRace
     {
-        private static IFirestore firestore = DependencyService.Get<IFirestore>();
+        private static IFirestoreRace firestoreRace = DependencyService.Get<IFirestoreRace>();
 
         public static bool Insert(Race race)
         {
-            return firestore.Insert(race);
+            return firestoreRace.Insert(race);
         }
 
         public static async Task<bool> Update(Race race)
         {
-            return await firestore.Update(race);
+            return await firestoreRace.Update(race);
         }
 
         public static async Task<bool> Delete(Race race)
         {
-            return await firestore.Delete(race);
+            return await firestoreRace.Delete(race);
         }
 
         public static async Task<List<Race>> Read()
         {
-            return await firestore.Read();
+            return await firestoreRace.Read();
         }
 
         public static async Task<Race> ReadNextRace()
         {
-            return await firestore.ReadNextRace();
+            return await firestoreRace.ReadNextRace();
         }
     }
 }
