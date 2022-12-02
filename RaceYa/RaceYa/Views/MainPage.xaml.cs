@@ -14,7 +14,11 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public static GlobalParameters Parameters = GlobalParameters.Instance();
+
         public static Participant CurrentParticipant;
+
+        public Race NextRace;
 
         public MainPage()
         {
@@ -37,8 +41,9 @@ namespace RaceYa.Views
                 }
 
                 nextRaceStackLayout.BindingContext = null;
-                nextRaceStackLayout.BindingContext = await FirestoreRace.ReadNextRace();
-
+                NextRace = await FirestoreRace.ReadNextRace();
+                nextRaceStackLayout.BindingContext = NextRace;
+                Parameters.NextRaceId = NextRace.Id;
 
                 if (CurrentParticipant.Result.RaceCompleted == true)
                 {
@@ -51,11 +56,10 @@ namespace RaceYa.Views
             }
         }
 
-
-
         private async void nextRaceButton_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//NextRacePage");
+            string id = NextRace.Id;
+            await Shell.Current.GoToAsync($"//NextRacePage?raceId={id}");
         }
 
         private async void latestRaceButton_Clicked(object sender, EventArgs e)

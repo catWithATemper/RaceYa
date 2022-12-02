@@ -14,6 +14,8 @@ namespace RaceYa.Helpers
         Task<bool> Delete(Race race);
         Task<List<Race>> Read();
         Task<Race> ReadNextRace();
+
+        Task<Race> ReadRaceById(string id);
     }
 
     public class FirestoreRace
@@ -43,6 +45,11 @@ namespace RaceYa.Helpers
         public static async Task<Race> ReadNextRace()
         {
             return await firestoreRace.ReadNextRace();
+        }
+
+        public static async Task<Race> ReadRaceById(string id)
+        {
+            return await firestoreRace.ReadRaceById(id);
         }
     }
 }

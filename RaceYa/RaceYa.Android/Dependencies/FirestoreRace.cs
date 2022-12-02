@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Firebase.Firestore;
+using Java.Interop;
 using Java.Util;
 using RaceYa.Helpers;
 using RaceYa.Models;
@@ -24,6 +25,9 @@ namespace RaceYa.Droid.Dependencies
 
         List<Race> races;
         bool hasReadRaces = false;
+
+
+        RaceListener raceListener = new RaceListener();          
 
         public FirestoreRace()
         {
@@ -176,5 +180,76 @@ namespace RaceYa.Droid.Dependencies
                 return null;
             }
         }
+
+        public async Task<Race> ReadRaceById(string id)
+        {
+            try
+            {
+                FirebaseFirestore.Instance.Collection("races")
+                    .Document(id).Get().AddOnCompleteListener(raceListener);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    await System.Threading.Tasks.Task.Delay(100);
+                    if (raceListener.hasReadRace)
+                        break;
+                }
+
+                return raceListener.race;
+
+
+
+
+                /*
+                hasReadRaces = false;
+                CollectionReference collection = FirebaseFirestore.Instance.Collection("races");
+
+                Query query = collection.WhereEqualTo("id", id);
+                query.Get().AddOnCompleteListener(this);
+
+                for (int i = 0; i < 50; i++)
+                {
+                    await System.Threading.Tasks.Task.Delay(100);
+                    if (hasReadRaces)
+                        break;
+                }
+                return races[0];
+                */
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
     }
+
+    class RaceListener : Java.Lang.Object, IOnCompleteListener
+    {
+        public Race race;
+        public bool hasReadRace = false;
+
+        public void OnComplete(Android.Gms.Tasks.Task task)
+        {
+            if (task.IsSuccessful)
+            {
+                var doc = (DocumentSnapshot)task.Result;
+                double routeLengthInKm;
+                if (double.TryParse(doc.Get("routeLengthInKm").ToString(), out routeLengthInKm) == true)
+                {
+                    race = new Race()
+                    {
+                        RouteLengthInKm = routeLengthInKm,
+                        StartDate = DateTime.Parse(doc.Get("startDate").ToString()),
+                        EndDate = DateTime.Parse(doc.Get("endDate").ToString()),
+                        Description = doc.Get("description").ToString(),
+                        UserId = doc.Get("userId").ToString(),
+                        Id = doc.Id
+                    };
+                }
+                hasReadRace = true;
+            }
+        }
+    }
+
 }

@@ -8,10 +8,14 @@ using RaceYa.Models;
 using Xamarin.Essentials;
 using System.Threading;
 using RaceYa.Helpers;
+using System.Collections.Generic;
+using System.Web;
 
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+
+    [QueryProperty(nameof(NextRaceId), "raceId")]
     public partial class NextRacePage : ContentPage
     {
         /*
@@ -21,27 +25,35 @@ namespace RaceYa.Views
 
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public static GlobalParameters Parameters = GlobalParameters.Instance();
+
         public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 
+        string nextRaceId = "";
+        public string NextRaceId
+        {
+            get => nextRaceId;
+            set
+            {
+                nextRaceId = Uri.UnescapeDataString(value ?? string.Empty);
+                OnPropertyChanged();
+            }
+        }
+
         public NextRacePage()
         {
             InitializeComponent();
-
-            //nextRaceStackLayout.BindingContext = Service.CurrentRace;
         }
-
+        
         protected override async void OnAppearing()
         {
             base.OnAppearing();
 
-            nextRaceStackLayout.BindingContext = null;
-            nextRaceStackLayout.BindingContext = await FirestoreRace.ReadNextRace();
-
             startButton.IsEnabled = true;
 
-
+            nextRaceStackLayout.BindingContext = await FirestoreRace.ReadRaceById(Parameters.NextRaceId);
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)
