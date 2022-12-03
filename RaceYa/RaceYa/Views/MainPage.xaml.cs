@@ -33,11 +33,16 @@ namespace RaceYa.Views
 
                 if (Service.CurrentRace.Participants.Count == 0)
                 {
-                    await Task.Factory.StartNew(() => { Service.SyncData(); });
+                    await Task.Factory.StartNew(() => { 
+                        Service.SyncData();
+                        CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id);
+                        Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+                        CurrentParticipant.IsCurrentParticipant = true;
+                    });
 
-                    CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace);
-                    Service.CurrentRace.CurrentParticipant = CurrentParticipant;
-                    CurrentParticipant.IsCurrentParticipant = true;
+                    //CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id );
+                    //Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+                    //CurrentParticipant.IsCurrentParticipant = true;
                 }
 
                 nextRaceStackLayout.BindingContext = null;

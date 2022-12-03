@@ -189,8 +189,8 @@ namespace RaceYa.Views
                     Description = description,
                 };
 
-                bool result = FirestoreRace.Insert(newRace);
-                if (result)
+                string id = await FirestoreRace.Insert(newRace);
+                if (id != null)
                 {
                     await DisplayAlert("Success", "Race saved", "Ok");
                 }

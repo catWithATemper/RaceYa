@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaceYa.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -30,6 +31,7 @@ namespace RaceYa.Models
 
         public void SyncData()
         {
+            FirestoreRace.InsertWithCustomId(CurrentRace, "CurrentRace");
             Races.Add(CurrentRace);
 
             User user1 = new User("Alice", "0CjDbthpFmSsIzQfUPnMtGWdZSm1");
@@ -39,9 +41,9 @@ namespace RaceYa.Models
             //User User5 = new User("Greyhound");
             //User User6 = new User("Tom");
 
-            Participant participant1 = new Participant(user1, CurrentRace);
-            Participant participant2 = new Participant(User2, CurrentRace);
-            Participant participant3 = new Participant(User3, CurrentRace);
+            Participant participant1 = new Participant(user1, CurrentRace, "0CjDbthpFmSsIzQfUPnMtGWdZSm1", CurrentRace.Id);
+            Participant participant2 = new Participant(User2, CurrentRace, "QKYX5PVw7LWo3RWBMMglhKlNttX2", CurrentRace.Id);
+            Participant participant3 = new Participant(User3, CurrentRace, "cKNoka7HtXSS5973vEyW2QrQbnD3", CurrentRace.Id);
             //Participant participant4 = new Participant(User4, CurrentRace);
             //Participant participant5 = new Participant(User5, CurrentRace);
             //Participant participant6 = new Participant(User6, CurrentRace);
