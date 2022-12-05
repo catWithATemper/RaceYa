@@ -16,28 +16,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 
 [assembly: Dependency(typeof(RaceYa.Droid.Dependencies.FirestoreRace))]
 namespace RaceYa.Droid.Dependencies
 {
     class FirestoreRace : Java.Lang.Object, IFirestoreRace //,IOnCompleteListener
     {
-        RaceListener raceListener = new RaceListener();
-        RaceListListener raceListListener = new RaceListListener();
-        InsertListener insertListener = new InsertListener();
+        //RaceListener raceListener = new RaceListener();
+        //RaceListListener raceListListener = new RaceListListener();
+        //InsertListener insertListener = new InsertListener();
 
+        //public List<Race> races;
+  
         public FirestoreRace()
         {
-          
+            //races = new List<Race>();
         }
 
         public async Task<bool> Delete(Race race)
         {
             try
             {
+                await CrossCloudFirestore.Current.Instance.Collection("racess").Document(race.Id).DeleteAsync();
+                return true;
+
+                /*
                 var collection = FirebaseFirestore.Instance.Collection("races");
                 collection.Document(race.Id).Delete();
                 return true;
+                */
             }
             catch (Exception e)
             {
@@ -46,10 +55,17 @@ namespace RaceYa.Droid.Dependencies
             }
         }
 
-        public async Task<String> Insert(Race race)
+        public async Task<String> Add(Race race)
         {
             try
             {
+                var documentReference = await CrossCloudFirestore.Current.Instance.Collection("races").AddAsync(race);
+
+                race.Id = documentReference.Id;
+
+                return documentReference.Id;
+
+                /*
                 Dictionary<string, Java.Lang.Object> raceDocument = new Dictionary<string, Java.Lang.Object>
                 {
                     {"routeLengthInKm", race.RouteLengthInKm },
@@ -67,9 +83,8 @@ namespace RaceYa.Droid.Dependencies
                     if (insertListener.hasInserted)
                         break;
                 }
-
-
                 return insertListener.documentId;
+                */
             }
             catch (Exception e)
             {
@@ -82,6 +97,13 @@ namespace RaceYa.Droid.Dependencies
         {
             try
             {
+                var group = await CrossCloudFirestore.Current.Instance.CollectionGroup("races").GetAsync();
+
+                var races = group.ToObjects<Race>();
+
+                return races.ToList();
+
+                /*
                 //hasReadRaces = false;
                 CollectionReference collection = FirebaseFirestore.Instance.Collection("races");
                 //Query query = collection.WhereEqualTo("userId", Firebase.Auth.FirebaseAuth.Instance.CurrentUser.Uid);
@@ -95,8 +117,8 @@ namespace RaceYa.Droid.Dependencies
                     if (raceListListener.hasReadRaces)
                         break;
                 }
-
                 return raceListListener.races;
+                */
             }
             catch (Exception e)
             {
@@ -107,6 +129,12 @@ namespace RaceYa.Droid.Dependencies
 
         public async Task<bool> Update(Race race)
         {
+            try
+            {
+                await CrossCloudFirestore.Current.Instance.Collection("races").Document(race.Id).UpdateAsync(race);
+                return true;
+            }
+            /*
             try
             {
                 Dictionary<string, Java.Lang.Object> raceDocument = new Dictionary<string, Java.Lang.Object>
@@ -121,6 +149,8 @@ namespace RaceYa.Droid.Dependencies
                 collection.Document(race.Id).Update(raceDocument);
                 return true;
             }
+            */
+
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
@@ -132,6 +162,12 @@ namespace RaceYa.Droid.Dependencies
         {
             try
             {
+                var query = await CrossCloudFirestore.Current.Instance.Collection("races").OrderBy("endDate").LimitTo(1).GetAsync();
+                var races = query.ToObjects<Race>();
+
+                return races.ToList()[0];
+
+                /*
                 CollectionReference collection = FirebaseFirestore.Instance.Collection("races");
 
                 Query query = collection.OrderBy("endDate").Limit(1);
@@ -145,6 +181,7 @@ namespace RaceYa.Droid.Dependencies
                 }
 
                 return raceListListener.races[0];
+                */
             }
             catch (Exception e)
             {
@@ -157,6 +194,12 @@ namespace RaceYa.Droid.Dependencies
         {
             try
             {
+                var document = await CrossCloudFirestore.Current.Instance.Collection("races").Document(id).GetAsync();
+                var race = document.ToObject<Race>();
+
+                return race;
+
+                /*
                 FirebaseFirestore.Instance.Collection("races")
                     .Document(id).Get().AddOnCompleteListener(raceListener);
 
@@ -168,6 +211,7 @@ namespace RaceYa.Droid.Dependencies
                 }
 
                 return raceListener.race;
+                */
             }
             catch (Exception e)
             {
@@ -177,6 +221,7 @@ namespace RaceYa.Droid.Dependencies
         }
     }
 
+    /*
     class RaceListener : Java.Lang.Object, IOnCompleteListener
     {
         public Race race;
@@ -204,7 +249,9 @@ namespace RaceYa.Droid.Dependencies
             }
         }
     }
+    */
 
+    /*
     public class RaceListListener : Java.Lang.Object, IOnCompleteListener
     {
         public List<Race> races;
@@ -247,7 +294,9 @@ namespace RaceYa.Droid.Dependencies
             hasReadRaces = true;
         }
     }
+    */
 
+    /*
     class InsertListener : Java.Lang.Object, IOnCompleteListener
     {
         public String documentId;
@@ -263,5 +312,5 @@ namespace RaceYa.Droid.Dependencies
             }
         }
     }
-
+    */
 }

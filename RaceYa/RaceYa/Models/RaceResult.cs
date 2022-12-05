@@ -3,16 +3,29 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Xamarin.Essentials;
+using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 
 namespace RaceYa.Models
 {
     public class RaceResult : INotifyPropertyChanged
     {
+        [Id]
+        public string Id { get; set; }
+
+        [MapTo("participantId")]
+        public string ParticipantId { get; set; }
+
+        [Ignored]
         public Participant RaceParticipant;
 
+        [Ignored]
         public Location CurrentLocation { get; set; }
 
+        [Ignored]
         private string latitude;
+
+        [Ignored]
         public string Latitude
         {
             get
@@ -33,7 +46,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private string longitude;
+
+        [Ignored]
         public string Longitude
         {
             get
@@ -54,12 +70,17 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         Location PreviousLocation { get; set; }
 
+        [Ignored]
         Location StartingPoint;
 
+
+        [Ignored]
         private DateTime startTime;
 
+        [MapTo("startTime")]
         public DateTime StartTime
         {
             get
@@ -73,7 +94,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private TimeSpan timeSinceStart;
+
+        [MapTo("TimeSinceStart")]
         public TimeSpan TimeSinceStart
         {
             get
@@ -87,7 +111,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double coveredDistance;
+
+        [Ignored]
         public double CoveredDistance //meters
         { 
             get 
@@ -101,8 +128,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double coveredDitanceInKm;
 
+        [MapTo("coveredDistanceInKm")]
         public double CoveredDistanceInKm
         {
             get
@@ -116,7 +145,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double averageSpeed; //m/s
+
+        [Ignored]
         public double AverageSpeed
         {
             get
@@ -130,8 +162,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double averageSpeedKmH; // km/h
 
+        [MapTo("averageSpeedKmH")]
         public double AverageSpeedKmH
         {
             get
@@ -145,9 +179,10 @@ namespace RaceYa.Models
             }
         }
 
-
+        [Ignored]
         private TimeSpan averagePace;
 
+        [MapTo("averagePace")]
         public TimeSpan AveragePace
         {
             get
@@ -161,8 +196,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private string averagePaceString;
 
+        [Ignored]
         public string AveragePaceString
         {
             get
@@ -176,8 +213,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double remainingDistance;
 
+        [Ignored]
         public double RemainingDistance //in km
         {
             get
@@ -191,8 +230,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double evaluatedDistance;
-        
+
+        [MapTo("evaluatedDistance")]
         public double EvaluatedDistance
         {
             get
@@ -206,18 +247,24 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         public SortedDictionary<TimeSpan, double> RaceTimes;
 
+        [Ignored]
         public KeyValuePair<TimeSpan, double> CurrentRaceTime;
 
+        [Ignored]
         public int RaceTimeIndex { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [Ignored]
         public bool RaceCompleted;
 
+        [Ignored]
         private int? leaderBoardRank;
 
+        [MapTo("leaderboardRank")]
         public int? LeaderBoardRank
         {
             get
@@ -231,7 +278,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double accuracy;
+
+        [Ignored]
         public double Accuracy
         {
             get
@@ -245,7 +295,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private double gpsSpeed;
+
+        [Ignored]
         public double GPSSpeed
         {
             get

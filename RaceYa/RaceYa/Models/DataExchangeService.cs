@@ -16,8 +16,8 @@ namespace RaceYa.Models
         public bool UserIsAuthenticated = false;
 
         public Race CurrentRace = new Race(0.2, 
-                                           DateTime.Parse("November 20, 2022 23:59:59"),
-                                           DateTime.Parse("December 3, 2022 23:59:59"),
+                                           DateTime.Parse("2022-12-11T00:00:00"),
+                                           DateTime.Parse("2022-12-31T00:00:00"),
                                            "Test run");
 
         public ObservableCollection<Race> Races = new ObservableCollection<Race>();
@@ -31,7 +31,7 @@ namespace RaceYa.Models
 
         public async void SyncData()
         {
-            string raceId = await FirestoreRace.Insert(CurrentRace);
+            string raceId = await FirestoreRace.Add(CurrentRace);
             Races.Add(CurrentRace);
 
             User user1 = new User("Alice", "0CjDbthpFmSsIzQfUPnMtGWdZSm1");
@@ -48,9 +48,9 @@ namespace RaceYa.Models
             //Participant participant5 = new Participant(User5, CurrentRace);
             //Participant participant6 = new Participant(User6, CurrentRace);
 
-            PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.FASTactivity_8915103095.gpx");
-            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.FASTactivity_8937870612.gpx");
-            PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.activity_9486210614.gpx");
+            //PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.FASTactivity_8915103095.gpx");
+            //PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.FASTactivity_8937870612.gpx");
+            //PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.activity_9486210614.gpx");
             //PopulateRaceResultFromFile(participant4.Result, "RaceYa.DB.activity_9578996388.gpx");
             //PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.activity_9643381559.gpx");
             //PopulateRaceResultFromFile(participant6.Result, "RaceYa.DB.activity_9731960401.gpx");

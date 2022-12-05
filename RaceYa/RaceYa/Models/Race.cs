@@ -4,26 +4,47 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 
 namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
         //TODO: The UpdateLeaderboard() method could be simplified (see below).
+
+        [Id]
         public string Id { get; set; }
+
+        [MapTo("userId")]
         public string UserId { get; set; }
+
+        [MapTo("endDate")]
         public DateTime EndDate { get; set; }
+
+        [MapTo("startDate")]
         public DateTime StartDate { get; set; }
+
+        [Ignored]
         public double RouteLength { get; set; } //in meters
 
+        [MapTo("routeLengthinKm")]
         public double RouteLengthInKm { get; set; }
 
+        [MapTo("description")]
         public string Description { get; set; }
+
+        [Ignored]
         public Participant CurrentParticipant { get; set; }
+
+        [Ignored]
         public List<Participant> Participants { get; set; }
 
         //Each pair contains a participant and the distance covered by the participant at the current time
+        [Ignored]
         private SortedDictionary<Participant, double> leaderBoard;
+
+        [Ignored]
         public SortedDictionary<Participant, double> LeaderBoard
         {
             get
@@ -37,8 +58,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private SortedDictionary<Participant, FinalLeaderBoardItem> finalLeaderBoard;
 
+        [Ignored]
         public SortedDictionary<Participant, FinalLeaderBoardItem> FinalLeaderBoard
         {
             get
@@ -52,10 +75,12 @@ namespace RaceYa.Models
             }
         }
 
-
         public event PropertyChangedEventHandler PropertyChanged;
 
+        [Ignored]
         private ObservableCollection<ObservableLeaderBoardItem> observableLeaderBoard;
+
+        [Ignored]
         public ObservableCollection<ObservableLeaderBoardItem> ObservableLeaderBoard
         {
             get
@@ -69,8 +94,10 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
         private ObservableCollection<FinalLeaderBoardItem> observableFinalLeaderBoard;
-        
+
+        [Ignored]
         public ObservableCollection<FinalLeaderBoardItem> ObservableFinalLeaderBoard
         {
             get

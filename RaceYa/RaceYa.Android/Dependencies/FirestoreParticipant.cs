@@ -13,16 +13,25 @@ using System.Text;
 using Xamarin.Forms;
 using RaceYa.Helpers;
 using RaceYa.Models;
+using Plugin.CloudFirestore;
+using System.Threading.Tasks;
 
 [assembly: Dependency(typeof(RaceYa.Droid.Dependencies.FirestoreParticipant))]
 namespace RaceYa.Droid.Dependencies
 {
-    class FirestoreParticipant : Java.Lang.Object, IFirestoreParticipant
+    class FirestoreParticipant : IFirestoreParticipant //Java.Lang.Object
     {
-        public bool Insert(Participant participant)
+        public async Task<string> Add(Participant participant)
         {
             try
             {
+                var documentReference = await CrossCloudFirestore.Current.Instance.Collection("participants").AddAsync(participant);
+
+                participant.Id = documentReference.Id;
+
+                return documentReference.Id;
+
+                /*
                 Dictionary<string, Java.Lang.Object> userDocument = new Dictionary<string, Java.Lang.Object>
                 {
                     {"userId", participant.UserId},
@@ -31,31 +40,12 @@ namespace RaceYa.Droid.Dependencies
                 var collection = FirebaseFirestore.Instance.Collection("participants");
                 collection.Add(new HashMap(userDocument));
                 return true;
+                */
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return false;
-            }
-        }
-
-        public bool InsertWithCustomId(Participant participant, string id)
-        {
-            try
-            {
-                var document = FirebaseFirestore.Instance.Collection("participants").Document(id);
-                Dictionary<string, Java.Lang.Object> userDocument = new Dictionary<string, Java.Lang.Object>
-                {
-                    {"userId", participant.UserId},
-                    {"raceId", participant.RaceId},
-                };
-                document.Update(userDocument);
-                return true;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return false;
+                return null;
             }
         }
     }

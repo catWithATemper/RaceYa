@@ -9,7 +9,7 @@ namespace RaceYa.Helpers
 {
     public interface IFirestoreRace
     {
-        Task<String> Insert(Race race);
+        Task<String> Add(Race race);
         Task<bool> Update(Race race);
         Task<bool> Delete(Race race);
         Task<List<Race>> Read();
@@ -21,9 +21,9 @@ namespace RaceYa.Helpers
     {
         private static IFirestoreRace firestoreRace = DependencyService.Get<IFirestoreRace>();
 
-        public static async Task<string> Insert(Race race)
+        public static async Task<string> Add(Race race)
         {
-            return await firestoreRace.Insert(race);
+            return await firestoreRace.Add(race);
         }
 
         public static async Task<bool> Update(Race race)

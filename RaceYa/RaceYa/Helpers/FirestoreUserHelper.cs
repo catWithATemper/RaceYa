@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace RaceYa.Helpers
@@ -9,16 +10,16 @@ namespace RaceYa.Helpers
 
     public interface IFirestoreUser
     {
-        bool Insert(User user);
+        Task<string> Add(User user);
     }
 
     public class FirestoreUser
     {
         private static IFirestoreUser firestoreUser = DependencyService.Get<IFirestoreUser>();
 
-        public static bool Insert(User user)
+        public static async Task<string> Add(User user)
         {
-            return firestoreUser.Insert(user);
+            return await firestoreUser.Add(user);
         }
     }
 
