@@ -15,7 +15,6 @@ namespace RaceYa.Helpers
         Task<List<Race>> Read();
         Task<Race> ReadNextRace();
         Task<Race> ReadRaceById(string id);
-        bool InsertWithCustomId(Race race, String id);
     }
 
     public class FirestoreRace
@@ -50,11 +49,6 @@ namespace RaceYa.Helpers
         public static async Task<Race> ReadRaceById(string id)
         {
             return await firestoreRace.ReadRaceById(id);
-        }
-
-        public static bool InsertWithCustomId(Race race, String id)
-        {
-            return firestoreRace.InsertWithCustomId(race, id);
         }
     }
 }

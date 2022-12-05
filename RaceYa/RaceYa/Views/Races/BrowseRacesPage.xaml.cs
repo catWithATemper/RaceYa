@@ -11,6 +11,8 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        //TODO: after creating a race, it is not shown immediately in this tab until you leave and return to it. 
+
         public BrowseRacesPage()
         {
             InitializeComponent();
