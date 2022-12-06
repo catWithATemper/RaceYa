@@ -20,8 +20,6 @@ namespace RaceYa.Models
                                            DateTime.Parse("2022-12-31T00:00:00"),
                                            "Test run");
 
-        public ObservableCollection<Race> Races = new ObservableCollection<Race>();
-
         public static DataExchangeService Instance()
         {
             if (instance == null)
@@ -32,18 +30,19 @@ namespace RaceYa.Models
         public async void SyncData()
         {
             string raceId = await FirestoreRace.Add(CurrentRace);
-            Races.Add(CurrentRace);
 
-            User user1 = new User("Alice", "0CjDbthpFmSsIzQfUPnMtGWdZSm1");
-            User User2 = new User("Bob", "QKYX5PVw7LWo3RWBMMglhKlNttX2");
-            User User3 = new User("Runner101", "cKNoka7HtXSS5973vEyW2QrQbnD3");
+            User user1 = await FirestoreUser.ReadUserById("1fg7XZGXXTdpzkOvxVVP");
+            //User user1 = new User("Alice", "0CjDbthpFmSsIzQfUPnMtGWdZSm1");
+            //User User2 = new User("Bob", "QKYX5PVw7LWo3RWBMMglhKlNttX2");
+            //User User3 = new User("Runner101", "cKNoka7HtXSS5973vEyW2QrQbnD3");
             //User User4 = new User("Lin");
             //User User5 = new User("Greyhound");
             //User User6 = new User("Tom");
 
-            Participant participant1 = new Participant(user1, CurrentRace, "0CjDbthpFmSsIzQfUPnMtGWdZSm1", raceId);
-            Participant participant2 = new Participant(User2, CurrentRace, "QKYX5PVw7LWo3RWBMMglhKlNttX2", raceId);
-            Participant participant3 = new Participant(User3, CurrentRace, "cKNoka7HtXSS5973vEyW2QrQbnD3", raceId);
+            Participant participant1 = await FirestoreParticipant.ReadParticipantById("2CPqfFJS2Rh2XyYoNxAr");
+            //Participant participant1 = new Participant(user1, CurrentRace, "0CjDbthpFmSsIzQfUPnMtGWdZSm1", raceId);
+            //Participant participant2 = new Participant(User2, CurrentRace, "QKYX5PVw7LWo3RWBMMglhKlNttX2", raceId);
+            //Participant participant3 = new Participant(User3, CurrentRace, "cKNoka7HtXSS5973vEyW2QrQbnD3", raceId);
             //Participant participant4 = new Participant(User4, CurrentRace);
             //Participant participant5 = new Participant(User5, CurrentRace);
             //Participant participant6 = new Participant(User6, CurrentRace);

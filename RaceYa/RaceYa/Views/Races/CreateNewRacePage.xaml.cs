@@ -165,7 +165,7 @@ namespace RaceYa.Views
             {
                 await saveRace(RouteLength, StartDate, EndDate, Description);
 
-                Service.Races.Add(new Race(RouteLength, StartDate, EndDate, Description));
+                //Service.Races.Add(new Race(RouteLength, StartDate, EndDate, Description));
             }
 
             routeLengthEntry.Text = "";
