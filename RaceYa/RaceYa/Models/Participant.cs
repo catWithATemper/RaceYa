@@ -36,7 +36,7 @@ namespace RaceYa.Models
             UserId = userId;
             RaceId = raceId;
 
-            FirestoreParticipant.Add(this);
+            //FirestoreParticipant.Add(this);
 
             Result = new RaceResult(this);
             Race.Participants.Add(this);

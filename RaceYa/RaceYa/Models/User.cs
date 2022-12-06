@@ -21,7 +21,7 @@ namespace RaceYa.Models
         {
             Name = name;
             UserId = userId;
-            FirestoreUser.Add(this);
+            //FirestoreUser.Add(this);
         }
     }
 }

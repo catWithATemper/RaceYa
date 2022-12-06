@@ -17,7 +17,7 @@ namespace RaceYa.Views
         {
             InitializeComponent();
 
-            racesListView.ItemsSource = Service.Races;
+            //racesListView.ItemsSource = Service.Races;
         }
 
         protected override async void OnAppearing()
