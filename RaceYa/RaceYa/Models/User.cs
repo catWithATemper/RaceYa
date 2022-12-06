@@ -17,6 +17,11 @@ namespace RaceYa.Models
         [MapTo("name")]
         public string Name { get; set; }
 
+        public User()
+        {
+
+        }
+
         public User(string name, string userId)
         {
             Name = name;

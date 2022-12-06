@@ -32,6 +32,8 @@ namespace RaceYa.Models
             string raceId = await FirestoreRace.Add(CurrentRace);
 
             User user1 = await FirestoreUser.ReadUserById("1fg7XZGXXTdpzkOvxVVP");
+            User user2 = await FirestoreUser.ReadUserById("GWSGg18LUi0TG5j8WlT0");
+            User user3 = await FirestoreUser.ReadUserById("iCHsytUAsCgjkf935GkE");
             //User user1 = new User("Alice", "0CjDbthpFmSsIzQfUPnMtGWdZSm1");
             //User User2 = new User("Bob", "QKYX5PVw7LWo3RWBMMglhKlNttX2");
             //User User3 = new User("Runner101", "cKNoka7HtXSS5973vEyW2QrQbnD3");
@@ -40,6 +42,8 @@ namespace RaceYa.Models
             //User User6 = new User("Tom");
 
             Participant participant1 = await FirestoreParticipant.ReadParticipantById("2CPqfFJS2Rh2XyYoNxAr");
+            Participant participant2= await FirestoreParticipant.ReadParticipantById("W2NuVhfqOV3Ao8kFxBYk");
+            Participant participant3 = await FirestoreParticipant.ReadParticipantById("dB6FoyzDPMhW6cULUZT4");
             //Participant participant1 = new Participant(user1, CurrentRace, "0CjDbthpFmSsIzQfUPnMtGWdZSm1", raceId);
             //Participant participant2 = new Participant(User2, CurrentRace, "QKYX5PVw7LWo3RWBMMglhKlNttX2", raceId);
             //Participant participant3 = new Participant(User3, CurrentRace, "cKNoka7HtXSS5973vEyW2QrQbnD3", raceId);
@@ -47,9 +51,9 @@ namespace RaceYa.Models
             //Participant participant5 = new Participant(User5, CurrentRace);
             //Participant participant6 = new Participant(User6, CurrentRace);
 
-            //PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.FASTactivity_8915103095.gpx");
-            //PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.FASTactivity_8937870612.gpx");
-            //PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.activity_9486210614.gpx");
+            PopulateRaceResultFromFile(participant1.Result, "RaceYa.DB.FASTactivity_8915103095.gpx");
+            PopulateRaceResultFromFile(participant2.Result, "RaceYa.DB.FASTactivity_8937870612.gpx");
+            PopulateRaceResultFromFile(participant3.Result, "RaceYa.DB.activity_9486210614.gpx");
             //PopulateRaceResultFromFile(participant4.Result, "RaceYa.DB.activity_9578996388.gpx");
             //PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.activity_9643381559.gpx");
             //PopulateRaceResultFromFile(participant6.Result, "RaceYa.DB.activity_9731960401.gpx");
