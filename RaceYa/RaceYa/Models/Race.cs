@@ -11,6 +11,8 @@ namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
+        //TODO: Call "AddToLeaderboard() for each participant before starting the race
+
         //TODO: The UpdateLeaderboard() method could be simplified (see below).
 
         [Id]

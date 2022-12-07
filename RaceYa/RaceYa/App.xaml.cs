@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using RaceYa.Models;
+using Xamarin.Forms;
 
 namespace RaceYa
 {
@@ -14,6 +15,7 @@ namespace RaceYa
 
         protected override void OnStart()
         {
+            DataExchangeService.Instance().SyncData();
         }
 
         protected override void OnSleep()

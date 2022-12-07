@@ -321,7 +321,7 @@ namespace RaceYa.Models
             AverageSpeed = 0;
             AveragePace = new TimeSpan(0, 0, 0);
             AveragePaceString = "00:00";
-            RemainingDistance = participant.Race.RouteLength / 1000;
+            //RemainingDistance = participant.Race.RouteLength / 1000; //Commented because of empty participant constructor
             RaceTimes = new SortedDictionary<TimeSpan, double>();
             CurrentRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
             RaceTimeIndex = 0;

@@ -18,6 +18,8 @@ namespace RaceYa.Views
 
         public static Participant CurrentParticipant;
 
+        public static RaceResult CurrentParticipantResult = new RaceResult(CurrentParticipant);
+
         public Race NextRace;
 
         public MainPage()
@@ -31,19 +33,41 @@ namespace RaceYa.Views
             {
                 base.OnAppearing();
 
+                if (CurrentParticipant == null)
+                {
+                    CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id);
+                    if (CurrentParticipant.Result == null)
+                    {
+                        CurrentParticipant.AssignRaceResult(CurrentParticipantResult);
+                        CurrentParticipant.AddToParticipantsList(Service.CurrentRace);
+
+                        Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+                        CurrentParticipant.IsCurrentParticipant = true;
+                    }
+
+                }
+
+                /*
                 if (Service.CurrentRace.Participants.Count == 0)
                 {
+                    CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id);
+                    CurrentParticipant.AssignRaceResult(CurrentParticipantResult);
+                    CurrentParticipant.AddToParticipantsList(Service.CurrentRace);
+
+                    Service.CurrentRace.CurrentParticipant = CurrentParticipant;
+                    CurrentParticipant.IsCurrentParticipant = true;
+
                     await Task.Factory.StartNew(() => { 
-                        Service.SyncData();
+                        //Service.SyncData();
+
                         CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id);
+                        CurrentParticipant.AssignRaceResult(CurrentParticipantResult);
+                        CurrentParticipant.AddToRaceLeaderboard(Service.CurrentRace);
+
                         Service.CurrentRace.CurrentParticipant = CurrentParticipant;
                         CurrentParticipant.IsCurrentParticipant = true;
                     });
-
-                    //CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id );
-                    //Service.CurrentRace.CurrentParticipant = CurrentParticipant;
-                    //CurrentParticipant.IsCurrentParticipant = true;
-                }
+                    */
 
                 nextRaceStackLayout.BindingContext = null;
                 NextRace = await FirestoreRace.ReadNextRace();
