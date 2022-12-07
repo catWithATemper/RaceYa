@@ -64,6 +64,16 @@ namespace RaceYa.Models
             Result = result;
         }
 
+        public void AssignRace(Race race)
+        {
+            Race = race;
+        }
+
+        public void AssignUser(User user)
+        {
+            User = user;
+        }
+
         public void AddToRaceLeaderboard(Race race)
         {
             race.LeaderBoard.Add(this, 0);

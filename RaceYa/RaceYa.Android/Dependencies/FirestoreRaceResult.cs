@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 [assembly: Dependency(typeof(RaceYa.Droid.Dependencies.FirestoreRaceResult))]
 namespace RaceYa.Droid.Dependencies
 {
-    class FirestoreRaceResult
+    class FirestoreRaceResult : IFirestoreRaceResult
     {
 
         public async Task<string> Add(RaceResult result, string participantId)

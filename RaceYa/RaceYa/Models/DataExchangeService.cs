@@ -20,6 +20,10 @@ namespace RaceYa.Models
                                            DateTime.Parse("2022-12-31T00:00:00"),
                                            "Test run");
 
+        RaceResult Result1;
+        RaceResult Result2;
+        RaceResult Result3;
+
         public static DataExchangeService Instance()
         {
             if (instance == null)
@@ -45,13 +49,21 @@ namespace RaceYa.Models
             Participant participant2= await FirestoreParticipant.ReadParticipantById("W2NuVhfqOV3Ao8kFxBYk");
             Participant participant3 = await FirestoreParticipant.ReadParticipantById("dB6FoyzDPMhW6cULUZT4");
 
-            RaceResult result1 = new RaceResult(participant1);
-            RaceResult result2 = new RaceResult(participant2);
-            RaceResult result3 = new RaceResult(participant3);
+            participant1.AssignUser(user1);
+            participant2.AssignUser(user2);
+            participant3.AssignUser(user3);
 
-            participant1.AssignRaceResult(result1);
-            participant2.AssignRaceResult(result2);
-            participant3.AssignRaceResult(result3);
+            participant1.AssignRace(CurrentRace);
+            participant2.AssignRace(CurrentRace);
+            participant3.AssignRace(CurrentRace);
+
+            Result1 = new RaceResult(participant1);
+            Result2 = new RaceResult(participant2);
+            Result3 = new RaceResult(participant3);
+
+            participant1.AssignRaceResult(Result1);
+            participant2.AssignRaceResult(Result2);
+            participant3.AssignRaceResult(Result3);
 
             participant1.AddToParticipantsList(CurrentRace);
             participant2.AddToParticipantsList(CurrentRace);
@@ -63,13 +75,20 @@ namespace RaceYa.Models
             //Participant participant4 = new Participant(User4, CurrentRace);
             //Participant participant5 = new Participant(User5, CurrentRace);
             //Participant participant6 = new Participant(User6, CurrentRace);
+        }
 
-            //PopulateRaceResultFromFile(result1, "RaceYa.DB.FASTactivity_8915103095.gpx");
-            //PopulateRaceResultFromFile(result2, "RaceYa.DB.FASTactivity_8937870612.gpx");
-            //PopulateRaceResultFromFile(result3, "RaceYa.DB.activity_9486210614.gpx");
+        public async void PopulateRaceResultsFromFiles()
+        {
+            PopulateRaceResultFromFile(Result1, "RaceYa.DB.FASTactivity_8915103095.gpx");
+            PopulateRaceResultFromFile(Result2, "RaceYa.DB.FASTactivity_8937870612.gpx");
+            PopulateRaceResultFromFile(Result3, "RaceYa.DB.activity_9486210614.gpx");
             //PopulateRaceResultFromFile(participant4.Result, "RaceYa.DB.activity_9578996388.gpx");
             //PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.activity_9643381559.gpx");
             //PopulateRaceResultFromFile(participant6.Result, "RaceYa.DB.activity_9731960401.gpx");
+
+            await FirestoreRaceResult.Add(Result1, "2CPqfFJS2Rh2XyYoNxAr");
+            await FirestoreRaceResult.Add(Result2, "W2NuVhfqOV3Ao8kFxBYk");
+            await FirestoreRaceResult.Add(Result3, "dB6FoyzDPMhW6cULUZT4");
         }
 
         public void PopulateRaceResultFromFile(RaceResult result, string fileName)
