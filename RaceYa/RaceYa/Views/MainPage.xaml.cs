@@ -44,7 +44,7 @@ namespace RaceYa.Views
                         Service.CurrentRace.CurrentParticipant = CurrentParticipant;
                         CurrentParticipant.IsCurrentParticipant = true;
 
-                        Service.PopulateRaceResultsFromFiles();
+                        //Service.PopulateRaceResultsFromFiles();
                     }
 
                 }

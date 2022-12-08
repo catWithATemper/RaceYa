@@ -28,7 +28,10 @@ namespace RaceYa.Models
         public DateTime StartDate { get; set; }
 
         [Ignored]
-        public double RouteLength { get; set; } //in meters
+        public double RouteLength //in meters
+        {
+            get { return RouteLengthInKm * 1000; }
+        }
 
         [MapTo("routeLengthinKm")]
         public double RouteLengthInKm { get; set; }
@@ -116,7 +119,7 @@ namespace RaceYa.Models
         public Race(double routeLengthInKm, DateTime startDate, DateTime endDate, string description)
         {
             RouteLengthInKm = routeLengthInKm;
-            RouteLength = RouteLengthInKm * 1000;
+            //RouteLength = RouteLengthInKm * 1000;
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
@@ -135,7 +138,7 @@ namespace RaceYa.Models
 
         public Race()
         {
-            RouteLength = RouteLengthInKm * 1000;
+            //RouteLength = RouteLengthInKm * 1000; This line can be removed, because the RouteLengthInKm is 0 at this point
 
             Participants = new List<Participant>();
             LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
@@ -143,6 +146,13 @@ namespace RaceYa.Models
             FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
             ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
         }
+
+        /*
+        public void SetRouteLengthInMeters()
+        {
+            RouteLength = RouteLengthInKm * 1000;
+        }
+        */
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {

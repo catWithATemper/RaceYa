@@ -39,6 +39,7 @@ namespace RaceYa.Models
         {
             //string raceId = await FirestoreRace.Add(CurrentRace);
             CurrentRace = await FirestoreRace.ReadRaceById("raULrKmSdQMeLYeiLwjr");
+            //CurrentRace.SetRouteLengthInMeters();
 
             User user1 = await FirestoreUser.ReadUserById("1fg7XZGXXTdpzkOvxVVP");
             User user2 = await FirestoreUser.ReadUserById("GWSGg18LUi0TG5j8WlT0");
