@@ -9,9 +9,9 @@ namespace RaceYa.Models
             //Participants who completed the race have all run the same distance. Non-finishers 
             //(i.e. those who ran a shorter distance) are added to the bottom of the leaderboard. 
             //The result is negated.
-            if (part1.Result.EvaluatedDistance.CompareTo(part2.Result.EvaluatedDistance) != 0)
+            if (part1.Result.EvaluatedDistanceInMeters.CompareTo(part2.Result.EvaluatedDistanceInMeters) != 0)
             {
-                return - part1.Result.EvaluatedDistance.CompareTo(part2.Result.EvaluatedDistance);
+                return - part1.Result.EvaluatedDistanceInMeters.CompareTo(part2.Result.EvaluatedDistanceInMeters);
             }
             else if(part1.Result.AverageSpeedKmH.CompareTo(part2.Result.AverageSpeedKmH) != 0)
             {

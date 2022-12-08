@@ -6,7 +6,8 @@ namespace RaceYa.Models
 {
     public class Participant
     {
-        //TODO: Call "AddToLeaderboard() before starting the race
+        //TODO: participantId is saved as null in firestore. Covered distance si in km while 
+        // evaluated distance is in meters
 
         [Id]
         public string Id { get; set; }
@@ -62,6 +63,7 @@ namespace RaceYa.Models
         public void AssignRaceResult(RaceResult result)
         {
             Result = result;
+            Result.ParticipantId = Id;
         }
 
         public void AssignRace(Race race)

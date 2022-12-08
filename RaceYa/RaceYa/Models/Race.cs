@@ -263,7 +263,7 @@ namespace RaceYa.Models
 
                     //debug
                     Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
-                    Console.WriteLine("Name Speed Distance Time EvaluatedDistance");
+                    Console.WriteLine("Name Speed Distance Time EvaluatedDistanceInMeters");
                     //debug
                     foreach (var p in FinalLeaderBoard)
                     {
@@ -271,7 +271,7 @@ namespace RaceYa.Models
                                           p.Key.Result.AverageSpeed + " "+
                                           p.Key.Result.CoveredDistance + " " +
                                           p.Key.Result.TimeSinceStart + " " +
-                                          p.Key.Result.EvaluatedDistance + "\n");
+                                          p.Key.Result.EvaluatedDistanceInMeters + "\n");
                     }
                 }
 

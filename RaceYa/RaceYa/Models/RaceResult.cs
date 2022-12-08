@@ -231,18 +231,18 @@ namespace RaceYa.Models
         }
 
         [Ignored]
-        private double evaluatedDistance;
+        private double evaluatedDistanceInMeters;
 
-        [MapTo("evaluatedDistance")]
-        public double EvaluatedDistance
+        [MapTo("evaluatedDistanceInMeters")]
+        public double EvaluatedDistanceInMeters
         {
             get
             {
-                return evaluatedDistance;
+                return evaluatedDistanceInMeters;
             }
             set
             {
-                evaluatedDistance = value;
+                evaluatedDistanceInMeters = value;
                 NotifyPropertyChanged();
             }
         }
@@ -426,11 +426,11 @@ namespace RaceYa.Models
         {
             if (CoveredDistance <= RaceParticipant.Race.RouteLength)
             {
-                EvaluatedDistance = CoveredDistance;
+                EvaluatedDistanceInMeters = CoveredDistance;
             }
             else
             {
-                EvaluatedDistance = RaceParticipant.Race.RouteLength;
+                EvaluatedDistanceInMeters = RaceParticipant.Race.RouteLength;
             }
         }
     }
