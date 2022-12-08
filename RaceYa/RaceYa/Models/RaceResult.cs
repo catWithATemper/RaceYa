@@ -94,19 +94,31 @@ namespace RaceYa.Models
             }
         }
 
-        [Ignored]
-        private TimeSpan timeSinceStart;
+        private double timeSinceStartInMillis;
 
-        [MapTo("TimeSinceStart")]
+        [MapTo("timeSinceStartInMillis")]
+        public double TimeSinceStartInMillis
+        {
+            get
+            {
+                return timeSinceStartInMillis;
+            }
+            set
+            {
+                timeSinceStartInMillis = value;
+            }
+        }
+
+        [Ignored]
         public TimeSpan TimeSinceStart
         {
             get
             {
-                return timeSinceStart;
+                return TimeSpan.FromMilliseconds(timeSinceStartInMillis);
             }
             set
             {
-                timeSinceStart = value;
+                timeSinceStartInMillis = value.TotalMilliseconds;
                 NotifyPropertyChanged();
             }
         }
@@ -136,7 +148,7 @@ namespace RaceYa.Models
         {
             get
             {
-                return coveredDitanceInKm;
+                return coveredDitanceInKm; 
             }
             set
             {
@@ -180,18 +192,31 @@ namespace RaceYa.Models
         }
 
         [Ignored]
-        private TimeSpan averagePace;
+        private double averagePaceInMillis;
 
-        [MapTo("averagePace")]
+        [MapTo("averagePaceInMillis")]
+        public double AveragePaceInMillis
+        {
+            get
+            {
+                return averagePaceInMillis;
+            }
+            set
+            {
+                averagePaceInMillis = value;
+            }
+        }
+
+        [Ignored]
         public TimeSpan AveragePace
         {
             get
             {
-                return averagePace;
+                return TimeSpan.FromMilliseconds(averagePaceInMillis);
             }
             set
             {
-                averagePace = value;
+                averagePaceInMillis = value.TotalMilliseconds;
                 NotifyPropertyChanged();
             }
         }
@@ -312,6 +337,11 @@ namespace RaceYa.Models
             }
         }
 
+        public RaceResult()
+        {
+           
+        }
+
         public RaceResult(Participant participant)
         {
             RaceParticipant = participant;
@@ -380,7 +410,7 @@ namespace RaceYa.Models
 
             RemainingDistance = (RaceParticipant.Race.RouteLength - CoveredDistance) / 1000;
 
-            CoveredDistanceInKm = CoveredDistance / 1000;
+            //CoveredDistanceInKm = CoveredDistance / 1000;
             CalculateAveragePace();
 
             return CoveredDistance;

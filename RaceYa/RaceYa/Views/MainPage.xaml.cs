@@ -49,28 +49,6 @@ namespace RaceYa.Views
 
                 }
 
-                /*
-                if (Service.CurrentRace.Participants.Count == 0)
-                {
-                    CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id);
-                    CurrentParticipant.AssignRaceResult(CurrentParticipantResult);
-                    CurrentParticipant.AddToParticipantsList(Service.CurrentRace);
-
-                    Service.CurrentRace.CurrentParticipant = CurrentParticipant;
-                    CurrentParticipant.IsCurrentParticipant = true;
-
-                    await Task.Factory.StartNew(() => { 
-                        //Service.SyncData();
-
-                        CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id);
-                        CurrentParticipant.AssignRaceResult(CurrentParticipantResult);
-                        CurrentParticipant.AddToRaceLeaderboard(Service.CurrentRace);
-
-                        Service.CurrentRace.CurrentParticipant = CurrentParticipant;
-                        CurrentParticipant.IsCurrentParticipant = true;
-                    });
-                    */
-
                 nextRaceStackLayout.BindingContext = null;
                 NextRace = await FirestoreRace.ReadNextRace();
                 nextRaceStackLayout.BindingContext = NextRace;

@@ -85,6 +85,11 @@ namespace RaceYa.Models
             participant1.AddToRaceLeaderboard(CurrentRace);
             participant2.AddToRaceLeaderboard(CurrentRace);
             participant3.AddToRaceLeaderboard(CurrentRace);
+
+            
+            Result1 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("AAUM0tuVFzywkArMoOsl");
+            Result2 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("Gy3YGoVnqZr3ggCB0WzB");
+            Result3 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("rgWjjYeq6jHmCz9vee9m");
         }
 
         public async void PopulateRaceResultsFromFiles()
