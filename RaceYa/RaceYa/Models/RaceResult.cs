@@ -128,7 +128,7 @@ namespace RaceYa.Models
         [Ignored]
         private double coveredDistance;
 
-        [Ignored]
+        [MapTo("coveredDistance")]
         public double CoveredDistance //meters
         { 
             get 
@@ -145,12 +145,12 @@ namespace RaceYa.Models
         [Ignored]
         private double coveredDitanceInKm;
 
-        [MapTo("coveredDistanceInKm")]
+        [Ignored]
         public double CoveredDistanceInKm
         {
             get
             {
-                return coveredDitanceInKm; 
+                return CoveredDistance / 1000; 
             }
             set
             {
@@ -162,7 +162,7 @@ namespace RaceYa.Models
         [Ignored]
         private double averageSpeed; //m/s
 
-        [Ignored]
+        [MapTo("averageSpeedMeterSecond")]
         public double AverageSpeed
         {
             get
@@ -179,12 +179,12 @@ namespace RaceYa.Models
         [Ignored]
         private double averageSpeedKmH; // km/h
 
-        [MapTo("averageSpeedKmH")]
+        [Ignored]
         public double AverageSpeedKmH
         {
             get
             {
-                return averageSpeedKmH;
+                return AverageSpeed * 3.6;
             }
             set
             {
@@ -424,7 +424,7 @@ namespace RaceYa.Models
             {
                 AverageSpeed = CoveredDistance / TimeSinceStart.TotalSeconds;
 
-                AverageSpeedKmH = AverageSpeed * 3.6;
+                //AverageSpeedKmH = AverageSpeed * 3.6; //Moved to properties
 
                 return AverageSpeed;
             }
@@ -436,7 +436,7 @@ namespace RaceYa.Models
 
         public void CalculateAveragePace()
         {
-            if (CoveredDistanceInKm != 0 && CoveredDistance !=0)
+            if (CoveredDistanceInKm != 0 && CoveredDistance != 0)
             {
                 double paceAsDouble = TimeSinceStart.TotalMinutes / CoveredDistanceInKm;
 

@@ -13,6 +13,8 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActiveRaceTabbedPage : TabbedPage
     {
+        //TODO: At the end of the race set IsCurrentParticipant = false in RaceResult
+
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public static Participant CurrentParticipant;
