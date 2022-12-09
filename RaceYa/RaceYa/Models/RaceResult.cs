@@ -277,6 +277,29 @@ namespace RaceYa.Models
         [Ignored]
         public SortedDictionary<TimeSpan, double> RaceTimes;
 
+        [MapTo("raceTimesMillis")]
+        public SortedDictionary<double, double> RaceTimesInMillis
+        {
+            get
+            {
+                SortedDictionary<double, double> convertedDictionary = new SortedDictionary<double, double>();
+                foreach (TimeSpan key in RaceTimes.Keys)
+                {
+                    convertedDictionary.Add(key.TotalMilliseconds, RaceTimes[key]);
+                }
+                return convertedDictionary;
+            }
+            set
+            {
+                SortedDictionary<TimeSpan, double> convertedDictionary = new SortedDictionary<TimeSpan, double>();
+                foreach (double key in value.Keys)
+                {
+                    convertedDictionary.Add(TimeSpan.FromMilliseconds(key), value[key]);
+                }
+                RaceTimes = convertedDictionary;
+            }
+        }
+
         [Ignored]
         public KeyValuePair<TimeSpan, double> CurrentRaceTime;
 
