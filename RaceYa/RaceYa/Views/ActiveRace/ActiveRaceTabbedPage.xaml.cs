@@ -35,10 +35,12 @@ namespace RaceYa.Views
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
                 Service.CurrentRace.CalculateFinalLeaderBoard();
+                Service.CurrentRace.CalculateIdFinalLeaderBoard();
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
                 Service.CurrentRace.CalculateFinalLeaderBoard();
+                Service.CurrentRace.CalculateIdFinalLeaderBoard();
             });
         }
 
@@ -118,6 +120,7 @@ namespace RaceYa.Views
             CurrentParticipant.Result.RaceCompleted = true;
 
             Service.CurrentRace.CalculateFinalLeaderBoard();
+            Service.CurrentRace.CalculateIdFinalLeaderBoard();
 
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
             await Navigation.PopModalAsync();

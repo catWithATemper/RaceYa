@@ -78,7 +78,6 @@ namespace RaceYa.Models
         [Ignored]
         Location StartingPoint;
 
-
         [Ignored]
         private DateTime startTime;
 
@@ -143,7 +142,7 @@ namespace RaceYa.Models
         }
 
         [Ignored]
-        private double coveredDitanceInKm;
+        private double coveredDistanceInKm;
 
         [Ignored]
         public double CoveredDistanceInKm
@@ -154,7 +153,7 @@ namespace RaceYa.Models
             }
             set
             {
-                coveredDitanceInKm = value;
+                coveredDistanceInKm = value;
                 NotifyPropertyChanged();
             }
         }
@@ -372,7 +371,7 @@ namespace RaceYa.Models
             RaceParticipant = participant;
 
             CoveredDistance = 0;
-            coveredDitanceInKm = 0;
+            coveredDistanceInKm = 0;
             AverageSpeed = 0;
             AveragePace = new TimeSpan(0, 0, 0);
             AveragePaceString = "00:00";

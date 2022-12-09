@@ -52,7 +52,7 @@ namespace RaceYa.Models
 
             await SetUpParticipantsRelations();
 
-            await LoadRaceResults();
+            //await LoadRaceResults();
         }
 
         private async Task LoadUsers()
@@ -74,7 +74,7 @@ namespace RaceYa.Models
 
         private async Task LoadRaces()
         {
-            CurrentRace = await FirestoreRace.ReadRaceById("OBuEEWO0g7Pc2jFRtY8d");
+            CurrentRace = await FirestoreRace.ReadRaceById("QkZQfw90KI6GHjVP2ITu");
         }
 
         private async Task CreateParticipants()
@@ -90,9 +90,9 @@ namespace RaceYa.Models
         //Also sets up the relationships with the participant's user and race
         private async Task LoadParticipants()
         {
-            Participant1 = await FirestoreParticipant.ReadParticipantById("Fp7Hv3pCrB4eEHHNmXho");
-            Participant2 = await FirestoreParticipant.ReadParticipantById("OwKgkutFL5Yqfd2xWGeM");
-            Participant3 = await FirestoreParticipant.ReadParticipantById("SI1VjxufeFETILo7obVk");
+            Participant1 = await FirestoreParticipant.ReadParticipantById("SwQ7s3WhfgkwxcJQJM2y");
+            Participant2 = await FirestoreParticipant.ReadParticipantById("Tpu4JmkHYBNiGDDYMUvq");
+            Participant3 = await FirestoreParticipant.ReadParticipantById("VYrp1kTlS1DanQRiIHK7");
 
             Participant1.AssignUser(User1);
             Participant2.AssignUser(User2);
@@ -110,7 +110,7 @@ namespace RaceYa.Models
             Result3 = new RaceResult(Participant3);
         }
 
-        //Run both when rading results from database and when creating new ones
+        //Run both when reading results from database and when creating new ones
         private async Task SetUpParticipantsRelations()
         {
             Participant1.AssignRaceResult(Result1);
@@ -128,9 +128,9 @@ namespace RaceYa.Models
 
         private async Task LoadRaceResults()
         {
-            Result1 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("Fp7Hv3pCrB4eEHHNmXho");
-            Result2 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("OwKgkutFL5Yqfd2xWGeM");
-            Result3 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("SI1VjxufeFETILo7obVk");
+            Result1 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("SwQ7s3WhfgkwxcJQJM2y");
+            Result2 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("Tpu4JmkHYBNiGDDYMUvq");
+            Result3 = await FirestoreRaceResult.ReadRaceRaesultByParticipantId("VYrp1kTlS1DanQRiIHK7");
         }
 
         public async void PopulateRaceResultsFromFiles()
@@ -142,9 +142,9 @@ namespace RaceYa.Models
             //PopulateRaceResultFromFile(participant5.Result, "RaceYa.DB.activity_9643381559.gpx");
             //PopulateRaceResultFromFile(participant6.Result, "RaceYa.DB.activity_9731960401.gpx");
 
-            await FirestoreRaceResult.Add(Result1, "Fp7Hv3pCrB4eEHHNmXho");
-            await FirestoreRaceResult.Add(Result2, "OwKgkutFL5Yqfd2xWGeM");
-            await FirestoreRaceResult.Add(Result3, "SI1VjxufeFETILo7obVk");
+            await FirestoreRaceResult.Add(Result1, "SwQ7s3WhfgkwxcJQJM2y");
+            await FirestoreRaceResult.Add(Result2, "Tpu4JmkHYBNiGDDYMUvq");
+            await FirestoreRaceResult.Add(Result3, "VYrp1kTlS1DanQRiIHK7");
         }
 
         public void PopulateRaceResultFromFile(RaceResult result, string fileName)

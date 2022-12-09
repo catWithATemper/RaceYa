@@ -17,7 +17,7 @@ namespace RaceYa.Models
         public string Id { get; set; }
 
         [MapTo("userId")]
-        public string UserId { get; set; }
+        public string UserId { get; set; } //The user who created the race
 
         [MapTo("endDate")]
         public DateTime EndDate { get; set; }
@@ -61,7 +61,14 @@ namespace RaceYa.Models
             }
         }
 
-        [Ignored]
+        [MapTo("idFinalLeaderBoard")]
+        public SortedDictionary<int, string> IdFinalLeaderBoard
+        {
+            get;
+            set;
+        }
+
+        
         private SortedDictionary<Participant, FinalLeaderBoardItem> finalLeaderBoard;
 
         [Ignored]
@@ -128,6 +135,8 @@ namespace RaceYa.Models
             FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
             ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
 
+            IdFinalLeaderBoard = new SortedDictionary<int, string>();
+
             //Debug
             Console.WriteLine("Race created:");
             Console.WriteLine("Route Length: " + RouteLength + " Start date: " + StartDate + " End date: " +
@@ -144,13 +153,6 @@ namespace RaceYa.Models
             FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
             ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
         }
-
-        /*
-        public void SetRouteLengthInMeters()
-        {
-            RouteLength = RouteLengthInKm * 1000;
-        }
-        */
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
@@ -291,6 +293,14 @@ namespace RaceYa.Models
                                                                             participant.Result.AverageSpeedKmH,
                                                                             participant.Result.AveragePace));
                 }
+            }
+        }
+
+        public void CalculateIdFinalLeaderBoard()
+        {
+            foreach (Participant participant in FinalLeaderBoard.Keys)
+            {
+                IdFinalLeaderBoard.Add(FinalLeaderBoard[participant].Rank, participant.Id);
             }
         }
     }
