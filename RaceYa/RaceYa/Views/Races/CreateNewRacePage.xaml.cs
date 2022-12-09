@@ -189,6 +189,8 @@ namespace RaceYa.Views
                     Description = description,
                 };
 
+                newRace.UserId = LoginPage.CurrentUser.Id;
+
                 string id = await FirestoreRace.Add(newRace);
                 if (id != null)
                 {

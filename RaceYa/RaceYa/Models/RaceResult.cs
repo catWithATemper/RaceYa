@@ -10,6 +10,8 @@ namespace RaceYa.Models
 {
     public class RaceResult : INotifyPropertyChanged
     {
+        //TODO: Covered distance (meters) equals 0 when results are read from database
+
         [Id]
         public string Id { get; set; }
 
