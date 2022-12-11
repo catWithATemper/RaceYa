@@ -11,6 +11,7 @@ namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
+        //TDDO fix CalculateFinalLEaderboard() and CalculateIDFinalLeaderboard(): change conddition for the if statement
         //TODO: The UpdateLeaderboard() method could be simplified (see below).
 
         [Id]
@@ -256,17 +257,17 @@ namespace RaceYa.Models
 
         public void CalculateFinalLeaderBoard()
         {
-            //First erify that the final leaderboard hasn't been populated yet.
+            //This condition prevents a race from being updated
             if (FinalLeaderBoard.Count == 0)
             {
                 foreach (Participant participant in Participants)
                 {
                     FinalLeaderBoard.Add(participant,
-                                         new FinalLeaderBoardItem(Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1,
+                                         new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
                                                                   participant.User.Name,
                                                                   participant.Result.AverageSpeedKmH,
                                                                   participant.Result.AveragePace));
-                    participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
+                    participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
 
                     //debug
                     Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
@@ -295,12 +296,14 @@ namespace RaceYa.Models
 
         public void CalculateIdFinalLeaderBoard()
         {
+            //This condition prevents a race from being updated
             if (IdFinalLeaderBoard.Count == 0)
             {
                 foreach (Participant participant in FinalLeaderBoard.Keys)
                 {
-                    //IdFinalLeaderBoard.Add((int)participant.Result.LeaderBoardRank, participant.Id);
-                    IdFinalLeaderBoard.Add(FinalLeaderBoard[participant].Rank, participant.Id);
+                    int LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
+      
+                    IdFinalLeaderBoard.Add(LeaderBoardRank, participant.Id);
                 }
             }
         }
