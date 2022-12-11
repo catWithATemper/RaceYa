@@ -33,6 +33,8 @@ namespace RaceYa.Models
                           Result3,
                           CurrentParticipantResult;
 
+        public RaceResultGPX CurrentParticipantResultGPX;
+
         public static DataExchangeService Instance()
         {
             if (instance == null)
@@ -69,6 +71,8 @@ namespace RaceYa.Models
 
             await SetRaceCurrentParticipant();
 
+            await LoadResultGPX();
+
         }
 
         private async Task CreateCurrentUser()
@@ -100,6 +104,13 @@ namespace RaceYa.Models
         {
             CurrentRace.CurrentParticipant = CurrentParticipant;
             CurrentParticipant.IsCurrentParticipant = true;
+            CurrentParticipantResult.GPXRequired = true;
+        }
+
+        private async Task LoadResultGPX()
+        {
+            CurrentParticipantResultGPX = await FirestoreRaceResultGPX.ReadRaceResultGPXByParticipantAndResultIds(CurrentParticipant.Id, CurrentParticipantResult.Id);
+            Console.WriteLine("GPX");       
         }
 
         private async Task LoadUsers()

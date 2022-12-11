@@ -136,6 +136,11 @@ namespace RaceYa.Views
             foreach (Participant participant in Service.CurrentRace.Participants)
             {
                 await FirestoreRaceResult.Update(participant.Result, participant.Id);
+
+                RaceResultGPX resultGPX = new RaceResultGPX();
+                resultGPX.Track.TrackSegment = participant.Result.TrackSegment;
+
+                await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
             }
         }
 

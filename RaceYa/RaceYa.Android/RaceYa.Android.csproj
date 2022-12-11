@@ -89,6 +89,7 @@
     <Compile Include="Dependencies\FirestoreParticipant.cs" />
     <Compile Include="Dependencies\FirestoreRace.cs" />
     <Compile Include="Dependencies\FirestoreRaceResult.cs" />
+    <Compile Include="Dependencies\FirestoreRaceResultGPX.cs" />
     <Compile Include="Dependencies\FirestoreUser.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />

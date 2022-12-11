@@ -361,9 +361,16 @@ namespace RaceYa.Models
             }
         }
 
+        [Ignored]
+        public bool GPXRequired;
+
+        [Ignored]
+        public TrackSegment TrackSegment { get; set; }
+
         public RaceResult()
         {
-           
+            TrackSegment = new TrackSegment();
+            
         }
 
         public RaceResult(Participant participant)
@@ -388,6 +395,10 @@ namespace RaceYa.Models
 
             //Debug
             Accuracy = 0;
+
+            GPXRequired = false;
+            TrackSegment = new TrackSegment();
+            
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -409,6 +420,14 @@ namespace RaceYa.Models
 
             Latitude = Math.Round(CurrentLocation.Latitude, 6).ToString();
             Longitude = Math.Round(CurrentLocation.Longitude, 6).ToString();
+
+            if (GPXRequired)
+            {
+                TrackPoint trackPoint = new TrackPoint();
+                trackPoint.Coordinates = new GeoPoint(newReading.Latitude, newReading.Longitude);
+                trackPoint.Time = newReading.Timestamp.DateTime;
+                TrackSegment.TrackPoints.Add(trackPoint);
+            }
         }
 
         public void SetStartingPoint()
