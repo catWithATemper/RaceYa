@@ -11,8 +11,9 @@ namespace RaceYa.Helpers
     public interface IFirestoreUser
     {
         Task<string> Add(User user);
-
         Task<User> ReadUserById(string id);
+        Task<User> ReadUserByUserId(string uId);
+
     }
 
     public class FirestoreUser
@@ -27,6 +28,11 @@ namespace RaceYa.Helpers
         public static async Task<User> ReadUserById(string id)
         {
             return await firestoreUser.ReadUserById(id);
+        }
+
+        public static async Task<User> ReadUserByUserId(string uId)
+        {
+            return await firestoreUser.ReadUserByUserId(uId);
         }
     }
 

@@ -65,5 +65,25 @@ namespace RaceYa.Droid.Dependencies
                 return null;
             }
         }
+
+        public async Task<Participant> ReadParticipantByUserAndRace(string userId, string raceId)
+        {
+            try
+            {
+                var query = await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                                      .WhereEqualsTo("userId", userId)
+                                                                      .WhereEqualsTo("raceId", raceId)
+                                                                      .LimitTo(1)
+                                                                      .GetAsync();
+                var participants = query.ToObjects<Participant>();
+
+                return participants.ToList()[0];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
     }
 }

@@ -384,6 +384,8 @@ namespace RaceYa.Models
 
             LeaderBoardRank = null;
 
+            StartTime = DateTime.Now;
+
             //Debug
             Accuracy = 0;
         }

@@ -15,7 +15,7 @@ namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
-    [QueryProperty(nameof(NextRaceId), "raceId")]
+    //[QueryProperty(nameof(NextRaceId), "raceId")]
     public partial class NextRacePage : ContentPage
     {
         /*
@@ -31,7 +31,8 @@ namespace RaceYa.Views
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 
-        string nextRaceId = "";
+        //string nextRaceId = "";
+        /*
         public string NextRaceId
         {
             get => nextRaceId;
@@ -41,6 +42,7 @@ namespace RaceYa.Views
                 OnPropertyChanged();
             }
         }
+        */
 
         public NextRacePage()
         {
@@ -53,7 +55,7 @@ namespace RaceYa.Views
 
             startButton.IsEnabled = true;
 
-            nextRaceStackLayout.BindingContext = await FirestoreRace.ReadRaceById(Parameters.NextRaceId);
+            nextRaceStackLayout.BindingContext = Parameters.NextRace;
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)

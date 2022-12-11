@@ -14,6 +14,11 @@ namespace RaceYa.Models
             return instance;
         }
 
-        public string NextRaceId { get; set; }
+        public Race NextRace { get; set; }
+
+        public User CurrentUser { get; set; }
+
+        public Participant CurrentParticipant { get; set; }
+        public RaceResult CurrentParticipantResult { get; set; }
     }
 }

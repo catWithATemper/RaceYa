@@ -16,9 +16,13 @@ namespace RaceYa.Views
 
         public static GlobalParameters Parameters = GlobalParameters.Instance();
 
-        public static Participant CurrentParticipant;
+        public static Race CurrentRace = Service.CurrentRace;
 
-        public static RaceResult CurrentParticipantResult = new RaceResult(CurrentParticipant);
+        public static User CurrentUser = Service.CurrentUser;
+
+        public static Participant CurrentParticipant = Service.CurrentParticipant;
+
+        public static RaceResult CurrentParticipantResult = Service.CurrentParticipantResult;
 
         public Race NextRace;
 
@@ -33,9 +37,10 @@ namespace RaceYa.Views
             {
                 base.OnAppearing();
 
+                /*
                 if (CurrentParticipant == null)
-                {
-                    CurrentParticipant = new Participant(LoginPage.CurrentUser, Service.CurrentRace, LoginPage.CurrentUser.UserId, Service.CurrentRace.Id);
+                {        
+                    CurrentParticipant = new Participant(Parameters.CurrentUser, Service.CurrentRace, Parameters.CurrentUser.UserId, Service.CurrentRace.Id);
                     if (CurrentParticipant.Result == null)
                     {
                         CurrentParticipant.AssignRaceResult(CurrentParticipantResult);
@@ -44,15 +49,26 @@ namespace RaceYa.Views
                         Service.CurrentRace.CurrentParticipant = CurrentParticipant;
                         CurrentParticipant.IsCurrentParticipant = true;
 
-                        Service.PopulateRaceResultsFromFiles();
+                        //Service.PopulateRaceResultsFromFiles();
                     }
-
                 }
+                */
 
                 nextRaceStackLayout.BindingContext = null;
                 NextRace = await FirestoreRace.ReadNextRace();
                 nextRaceStackLayout.BindingContext = NextRace;
-                Parameters.NextRaceId = NextRace.Id;
+                Parameters.NextRace = NextRace;
+
+                CurrentRace = Service.CurrentRace;
+                CurrentUser = Service.CurrentUser;
+                CurrentParticipant = Service.CurrentParticipant;
+                CurrentParticipantResult = Service.CurrentParticipantResult;
+
+                //Debug
+                Parameters.NextRace = Service.CurrentRace;
+                Parameters.CurrentUser = Service.CurrentUser;
+                Parameters.CurrentParticipant = Service.CurrentParticipant;
+                Parameters.CurrentParticipantResult = Service.CurrentParticipantResult;
 
                 if (CurrentParticipant.Result.RaceCompleted == true)
                 {
@@ -67,8 +83,10 @@ namespace RaceYa.Views
 
         private async void nextRaceButton_Clicked(object sender, EventArgs e)
         {
-            string id = NextRace.Id;
-            await Shell.Current.GoToAsync($"//NextRacePage?raceId={id}");
+            await Shell.Current.GoToAsync($"//NextRacePage");
+
+            //string id = NextRace.Id;
+            //await Shell.Current.GoToAsync($"//NextRacePage?raceId={id}");
         }
 
         private async void latestRaceButton_Clicked(object sender, EventArgs e)

@@ -12,6 +12,8 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public static GlobalParameters Parameters = GlobalParameters.Instance();
+
         public static User CurrentUser;
 
         public LoginPage()
@@ -23,11 +25,13 @@ namespace RaceYa.Views
         {
             if (!string.IsNullOrEmpty(emailEntry.Text) && !string.IsNullOrEmpty(passwordEntry.Text))
             {
+                //Console.WriteLine("Authenticated? " + Auth.IsAuthenticated()); //Returns true, was expecting false
+
                 bool result = await Auth.LogInUser(emailEntry.Text, passwordEntry.Text);
 
                 if (result)
                 {
-                    CurrentUser = new User("CurrentUser", Auth.GetCurrentUserId());
+                    Parameters.CurrentUser = await FirestoreUser.ReadUserByUserId(Auth.GetCurrentUserId());
                     Service.UserIsAuthenticated = true;
                     await Shell.Current.GoToAsync("//MainPage");
                 }
