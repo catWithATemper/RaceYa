@@ -436,7 +436,8 @@ namespace RaceYa.Models
 
             RemainingDistance = (RaceParticipant.Race.RouteLength - CoveredDistance) / 1000;
 
-            //CoveredDistanceInKm = CoveredDistance / 1000;
+            //
+            CoveredDistanceInKm = CoveredDistance / 1000;
             CalculateAveragePace();
 
             return CoveredDistance;
@@ -448,7 +449,8 @@ namespace RaceYa.Models
             {
                 AverageSpeed = CoveredDistance / TimeSinceStart.TotalSeconds;
 
-                //AverageSpeedKmH = AverageSpeed * 3.6; //Moved to properties
+                //
+                AverageSpeedKmH = AverageSpeed * 3.6; //Moved to properties
 
                 return AverageSpeed;
             }
