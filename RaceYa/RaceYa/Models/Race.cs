@@ -136,11 +136,6 @@ namespace RaceYa.Models
             ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
 
             IdFinalLeaderBoard = new SortedDictionary<int, string>();
-
-            //Debug
-            Console.WriteLine("Race created:");
-            Console.WriteLine("Route Length: " + RouteLength + " Start date: " + StartDate + " End date: " +
-                              EndDate + " Description: " + Description);
         }
 
         public Race()
@@ -152,6 +147,8 @@ namespace RaceYa.Models
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
             FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
             ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
+
+            IdFinalLeaderBoard = new SortedDictionary<int, string>();
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -265,7 +262,7 @@ namespace RaceYa.Models
                 foreach (Participant participant in Participants)
                 {
                     FinalLeaderBoard.Add(participant,
-                                         new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
+                                         new FinalLeaderBoardItem(Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1,
                                                                   participant.User.Name,
                                                                   participant.Result.AverageSpeedKmH,
                                                                   participant.Result.AveragePace));
@@ -298,9 +295,13 @@ namespace RaceYa.Models
 
         public void CalculateIdFinalLeaderBoard()
         {
-            foreach (Participant participant in FinalLeaderBoard.Keys)
+            if (IdFinalLeaderBoard.Count == 0)
             {
-                IdFinalLeaderBoard.Add(FinalLeaderBoard[participant].Rank, participant.Id);
+                foreach (Participant participant in FinalLeaderBoard.Keys)
+                {
+                    //IdFinalLeaderBoard.Add((int)participant.Result.LeaderBoardRank, participant.Id);
+                    IdFinalLeaderBoard.Add(FinalLeaderBoard[participant].Rank, participant.Id);
+                }
             }
         }
     }
