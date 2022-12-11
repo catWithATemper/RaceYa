@@ -44,6 +44,24 @@ namespace RaceYa.Droid.Dependencies
             }
         }
 
+        public async Task<bool> Update(RaceResult result, string participantId)
+        {
+            try
+            {
+                await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                          .Document(participantId)
+                                                          .Collection("raceResults")
+                                                          .Document(result.Id)
+                                                          .UpdateAsync(result);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
         public async Task<RaceResult> ReadRaceResultByParticipantId(string participantId)
         {
             try

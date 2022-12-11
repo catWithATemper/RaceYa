@@ -11,6 +11,7 @@ namespace RaceYa.Helpers
     {
         Task<string> Add(RaceResult result, string particpantId);
         Task<RaceResult> ReadRaceResultByParticipantId(string participantId);
+        Task<bool> Update(RaceResult result, string participantId);
     }
 
     public class FirestoreRaceResult
@@ -25,6 +26,11 @@ namespace RaceYa.Helpers
         public static async Task<RaceResult> ReadRaceRaesultByParticipantId(string participantId)
         {
             return await firestoreRaceResult.ReadRaceResultByParticipantId(participantId);
+        }
+
+        public static async Task<bool> Update(RaceResult result, string participantId)
+        {
+            return await firestoreRaceResult.Update(result, participantId);
         }
     }
 }

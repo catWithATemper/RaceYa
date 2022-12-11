@@ -48,11 +48,11 @@ namespace RaceYa.Views
 
                         Service.CurrentRace.CurrentParticipant = CurrentParticipant;
                         CurrentParticipant.IsCurrentParticipant = true;
-
-                        //Service.PopulateRaceResultsFromFiles();
                     }
                 }
                 */
+
+                //Service.PopulateRaceResultsFromFiles();
 
                 nextRaceStackLayout.BindingContext = null;
                 NextRace = await FirestoreRace.ReadNextRace();

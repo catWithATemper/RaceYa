@@ -7,6 +7,7 @@ using RaceYa.Models;
 using System;
 using System.Globalization;
 using System.Xml;
+using RaceYa.Helpers;
 
 namespace RaceYa.Views
 {
@@ -122,9 +123,22 @@ namespace RaceYa.Views
             Service.CurrentRace.CalculateFinalLeaderBoard();
             Service.CurrentRace.CalculateIdFinalLeaderBoard();
 
+            await SaveUpdatedData();
+
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
             await Navigation.PopModalAsync();
         }
+        
+        public async Task SaveUpdatedData()
+        {
+            await FirestoreRace.Update(Service.CurrentRace);
+
+            foreach (Participant participant in Service.CurrentRace.Participants)
+            {
+                await FirestoreRaceResult.Update(participant.Result, participant.Id);
+            }
+        }
+
 
         protected override void OnDisappearing()
         {

@@ -266,7 +266,7 @@ namespace RaceYa.Models
                                                                   participant.User.Name,
                                                                   participant.Result.AverageSpeedKmH,
                                                                   participant.Result.AveragePace));
-                    participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
+                    participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
 
                     //debug
                     Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
