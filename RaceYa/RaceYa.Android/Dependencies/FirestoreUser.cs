@@ -31,18 +31,6 @@ namespace RaceYa.Droid.Dependencies
                 user.Id = documentReference.Id;
 
                 return documentReference.Id;
-
-                /*
-                Dictionary<string, Java.Lang.Object> userDocument = new Dictionary<string, Java.Lang.Object>
-            {
-                {"name", user.Name },
-                {"userId", user.UserId},
-                
-            };
-                var collection = FirebaseFirestore.Instance.Collection("users");
-                collection.Add(new HashMap(userDocument));
-                return true;
-                */
             }
             catch (Exception e)
             {
@@ -75,6 +63,23 @@ namespace RaceYa.Droid.Dependencies
                 var users = query.ToObjects<Models.User>();
 
                 return users.ToList()[0];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<Models.User>> Read()
+        {
+            try
+            {
+                var group = await CrossCloudFirestore.Current.Instance.CollectionGroup("users").GetAsync();
+
+                var users = group.ToObjects<Models.User>();
+
+                return users.ToList();
             }
             catch (Exception e)
             {

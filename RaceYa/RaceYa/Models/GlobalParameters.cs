@@ -14,7 +14,7 @@ namespace RaceYa.Models
             return instance;
         }
 
-        public Race NextRace { get; set; }
+        public Race CurrentRace { get; set; }
 
         public User CurrentUser { get; set; }
 

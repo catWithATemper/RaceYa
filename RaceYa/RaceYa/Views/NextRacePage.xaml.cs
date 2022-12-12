@@ -55,7 +55,7 @@ namespace RaceYa.Views
 
             startButton.IsEnabled = true;
 
-            nextRaceStackLayout.BindingContext = Parameters.NextRace;
+            nextRaceStackLayout.BindingContext = Parameters.CurrentRace;
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)

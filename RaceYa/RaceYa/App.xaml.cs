@@ -1,10 +1,12 @@
-﻿using RaceYa.Models;
+﻿using RaceYa.Helpers;
+using RaceYa.Models;
 using Xamarin.Forms;
 
 namespace RaceYa
 {
     public partial class App : Application
     {
+        public static GlobalParameters Parameters = GlobalParameters.Instance();
 
         public App()
         {
@@ -13,9 +15,13 @@ namespace RaceYa
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
-            DataExchangeService.Instance().SyncData();
+            Race NextRace = await FirestoreRace.ReadNextRace();
+            Parameters.CurrentRace = NextRace;
+            DataExchangeService.LoadRaceData(NextRace);
+
+            //DataExchangeService.Instance().SyncData();
         }
 
         protected override void OnSleep()

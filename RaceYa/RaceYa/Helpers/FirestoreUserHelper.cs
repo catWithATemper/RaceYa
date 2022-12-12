@@ -13,6 +13,7 @@ namespace RaceYa.Helpers
         Task<string> Add(User user);
         Task<User> ReadUserById(string id);
         Task<User> ReadUserByUserId(string uId);
+        Task<List<User>> Read();
 
     }
 
@@ -34,6 +35,10 @@ namespace RaceYa.Helpers
         {
             return await firestoreUser.ReadUserByUserId(uId);
         }
-    }
 
+        public static async Task<List<User>> Read()
+        {
+            return await firestoreUser.Read();
+        }
+    }
 }

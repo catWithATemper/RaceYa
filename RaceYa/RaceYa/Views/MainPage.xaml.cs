@@ -16,15 +16,13 @@ namespace RaceYa.Views
 
         public static GlobalParameters Parameters = GlobalParameters.Instance();
 
-        public static Race CurrentRace = Service.CurrentRace;
+        public static Race CurrentRace;
 
-        public static User CurrentUser = Service.CurrentUser;
+        public static User CurrentUser;
 
-        public static Participant CurrentParticipant = Service.CurrentParticipant;
+        public static Participant CurrentParticipant;
 
-        public static RaceResult CurrentParticipantResult = Service.CurrentParticipantResult;
-
-        public Race NextRace;
+        public static RaceResult CurrentParticipantResult;
 
         public MainPage()
         {
@@ -37,42 +35,31 @@ namespace RaceYa.Views
             {
                 base.OnAppearing();
 
-                /*
-                if (CurrentParticipant == null)
-                {        
-                    CurrentParticipant = new Participant(Parameters.CurrentUser, Service.CurrentRace, Parameters.CurrentUser.UserId, Service.CurrentRace.Id);
-                    if (CurrentParticipant.Result == null)
-                    {
-                        CurrentParticipant.AssignRaceResult(CurrentParticipantResult);
-                        CurrentParticipant.AddToParticipantsList(Service.CurrentRace);
-
-                        Service.CurrentRace.CurrentParticipant = CurrentParticipant;
-                        CurrentParticipant.IsCurrentParticipant = true;
-                    }
-                }
-                */
-
                 //Service.PopulateRaceResultsFromFiles();
 
                 nextRaceStackLayout.BindingContext = null;
-                NextRace = await FirestoreRace.ReadNextRace();
-                nextRaceStackLayout.BindingContext = NextRace;
-                Parameters.NextRace = NextRace;
-
-                CurrentRace = Service.CurrentRace;
-                CurrentUser = Service.CurrentUser;
-                CurrentParticipant = Service.CurrentParticipant;
-                CurrentParticipantResult = Service.CurrentParticipantResult;
-
-                //Debug
-                Parameters.NextRace = Service.CurrentRace;
-                Parameters.CurrentUser = Service.CurrentUser;
-                Parameters.CurrentParticipant = Service.CurrentParticipant;
-                Parameters.CurrentParticipantResult = Service.CurrentParticipantResult;
-
-                if (CurrentParticipant.Result.RaceCompleted == true)
+                if (Parameters.CurrentRace != null)
                 {
-                    latestRaceStackLayout.BindingContext = CurrentParticipant.Result;
+                    nextRaceStackLayout.BindingContext = Parameters.CurrentRace;
+                }
+
+                Parameters.CurrentParticipant = await FirestoreParticipant.ReadParticpantByUserAndRace(Parameters.CurrentUser.Id, Parameters.CurrentRace.Id);
+                if (Parameters.CurrentParticipant != null )
+                {
+                    Parameters.CurrentParticipant.AssignRace(Parameters.CurrentRace);
+                    Parameters.CurrentParticipant.AssignUser(Parameters.CurrentUser);
+                    Parameters.CurrentParticipantResult = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Parameters.CurrentParticipant.Id);
+                    Parameters.CurrentParticipantResult.RaceParticipant = Parameters.CurrentParticipant;
+                    Parameters.CurrentParticipant.Result = Parameters.CurrentParticipantResult;
+                    Parameters.CurrentParticipantResult.GPXRequired = true;
+
+                    Parameters.CurrentRace.CurrentParticipant = Parameters.CurrentParticipant;
+                    Parameters.CurrentParticipant.IsCurrentParticipant = true;
+                }
+
+                if (Parameters.CurrentParticipant.Result.RaceCompleted == true)
+                {
+                    latestRaceStackLayout.BindingContext = Parameters.CurrentParticipant.Result;
                 }
             }
             else
@@ -84,9 +71,6 @@ namespace RaceYa.Views
         private async void nextRaceButton_Clicked(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync($"//NextRacePage");
-
-            //string id = NextRace.Id;
-            //await Shell.Current.GoToAsync($"//NextRacePage?raceId={id}");
         }
 
         private async void latestRaceButton_Clicked(object sender, EventArgs e)
