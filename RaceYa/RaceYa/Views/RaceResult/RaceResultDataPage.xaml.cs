@@ -10,14 +10,19 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+        public static GlobalContext Context = GlobalContext.Instance();
+
+        //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
         public RaceResultDataPage()
         {
             InitializeComponent();
 
-            raceDataLayout.BindingContext = Service.CurrentRace;
+            raceDataLayout.BindingContext = Context.CurrentRace;
 
-            personalResultLayout.BindingContext = CurrentParticipant.Result;
+            if (Context.CurrentParticipant != null && Context.CurrentParticipant.Result != null)
+            {
+                personalResultLayout.BindingContext = Context.CurrentParticipant.Result;
+            }
         }
     }
 }

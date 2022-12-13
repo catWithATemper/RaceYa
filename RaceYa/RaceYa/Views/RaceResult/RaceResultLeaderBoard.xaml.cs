@@ -10,11 +10,13 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public static GlobalContext Context = GlobalContext.Instance();
+
         public RaceResultLeaderBoard()
         {
             InitializeComponent();
 
-            leaderBoardView.ItemsSource = Service.CurrentRace.ObservableFinalLeaderBoard;
+            leaderBoardView.ItemsSource = Context.CurrentRace.ObservableFinalLeaderBoard;
 
 
         }

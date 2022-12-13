@@ -11,7 +11,9 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+        public static GlobalContext Context = GlobalContext.Instance();
+
+        //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
         public static TextToSpeechServiceManager TextToSpeechService = ActiveRaceTabbedPage.TextToSpeechService;
 
@@ -19,14 +21,14 @@ namespace RaceYa.Views
         {
             InitializeComponent();
 
-            leaderBoardView.ItemsSource = Service.CurrentRace.ObservableLeaderBoard;
+            leaderBoardView.ItemsSource = Context.CurrentRace.ObservableLeaderBoard;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            Service.CurrentRace.UpdateObservableLeaderboard();
+            Context.CurrentRace.UpdateObservableLeaderboard();
         }
 
         private async void leaderBoardPageButton_Clicked(object sender, EventArgs e)
@@ -35,7 +37,7 @@ namespace RaceYa.Views
             if (response)
             {
                 MessagingCenter.Send(this, "Quit race");
-                CurrentParticipant.Result.RaceCompleted = true;
+                Context.CurrentParticipant.Result.RaceCompleted = true;
 
                 if (TextToSpeechService != null)
                 {

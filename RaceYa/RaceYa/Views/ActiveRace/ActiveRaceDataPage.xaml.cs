@@ -12,6 +12,8 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public static GlobalContext Context = GlobalContext.Instance();
+
         public static Participant CurrentParticipant;
 
         public StopWatch PageStopWatch = ActiveRaceTabbedPage.PageStopWatch;
@@ -22,9 +24,9 @@ namespace RaceYa.Views
         {
             InitializeComponent();
 
-            CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+            //CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
-            BindingContext = CurrentParticipant.Result;
+            BindingContext = Context.CurrentParticipant.Result;
             timerLabel.BindingContext = PageStopWatch;
         }
 
@@ -34,7 +36,7 @@ namespace RaceYa.Views
             if (response)
             {
                 MessagingCenter.Send(this, "Quit race");
-                CurrentParticipant.Result.RaceCompleted = true;
+                Context.CurrentParticipant.Result.RaceCompleted = true;
 
                 if (PageStopWatch != null)
                 {

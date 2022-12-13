@@ -18,6 +18,8 @@ namespace RaceYa.Views
 
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public static GlobalContext Context = GlobalContext.Instance();
+
         public static Participant CurrentParticipant;
 
         public static StopWatch PageStopWatch = new StopWatch();
@@ -30,18 +32,18 @@ namespace RaceYa.Views
         {
             InitializeComponent();
 
-            CurrentParticipant = Service.CurrentRace.CurrentParticipant;
-            TextToSpeechService = new TextToSpeechServiceManager(CurrentParticipant.Result);
+            //CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+            TextToSpeechService = new TextToSpeechServiceManager(Context.CurrentParticipant.Result);
 
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
-                Service.CurrentRace.CalculateFinalLeaderBoard();
-                Service.CurrentRace.CalculateIdFinalLeaderBoard();
+                Context.CurrentRace.CalculateFinalLeaderBoard();
+                Context.CurrentRace.CalculateIdFinalLeaderBoard();
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
-                Service.CurrentRace.CalculateFinalLeaderBoard();
-                Service.CurrentRace.CalculateIdFinalLeaderBoard();
+                Context.CurrentRace.CalculateFinalLeaderBoard();
+                Context.CurrentRace.CalculateIdFinalLeaderBoard();
             });
         }
 
@@ -60,8 +62,8 @@ namespace RaceYa.Views
         {
             Location currentLocation = await LocationService.GetCurrentLocation();
 
-            CurrentParticipant.Result.SetCurrentLocation(currentLocation);
-            CurrentParticipant.Result.SetStartingPoint();
+            Context.CurrentParticipant.Result.SetCurrentLocation(currentLocation);
+            Context.CurrentParticipant.Result.SetStartingPoint();
 
             //debug
             Console.WriteLine("Start: Latitude " + currentLocation.Latitude + ", Longitude " + currentLocation.Longitude + 
@@ -69,8 +71,8 @@ namespace RaceYa.Views
                               ", Accuracy " + currentLocation.Accuracy); 
 
             int counter = 0;
-            while (CurrentParticipant.Result.CoveredDistance <= Service.CurrentRace.RouteLength &&
-                   CurrentParticipant.Result.RaceCompleted == false)
+            while (Context.CurrentParticipant.Result.CoveredDistance <= Context.CurrentRace.RouteLength &&
+                   Context.CurrentParticipant.Result.RaceCompleted == false)
             {
                 await Task.Delay(100); //0.1 seconds
                 counter++;
@@ -80,24 +82,24 @@ namespace RaceYa.Views
                 if (counter == 10)
                 {
                     currentLocation = await LocationService.GetCurrentLocation();
-                    CurrentParticipant.Result.SetCurrentLocation(currentLocation);
+                   Context.CurrentParticipant.Result.SetCurrentLocation(currentLocation);
 
                     //debug
-                    CurrentParticipant.Result.Accuracy = (double)currentLocation.Accuracy;
-                    CurrentParticipant.Result.GPSSpeed = (double)currentLocation.Speed;
+                    Context.CurrentParticipant.Result.Accuracy = (double)currentLocation.Accuracy;
+                    Context.CurrentParticipant.Result.GPSSpeed = (double)currentLocation.Speed;
 
                     Console.WriteLine("Current location: Latitude " + currentLocation.Latitude + ", Longitude " + currentLocation.Longitude +
                                       ", Time " + currentLocation.Timestamp + 
                                       ", Formatted time: " + DateTime.SpecifyKind(currentLocation.Timestamp.DateTime, DateTimeKind.Utc).ToString("o", CultureInfo.InvariantCulture));
-                    Console.WriteLine("Distance " + CurrentParticipant.Result.CoveredDistance +
-                                      ", Avg speed " + CurrentParticipant.Result.AverageSpeed + 
+                    Console.WriteLine("Distance " + Context.CurrentParticipant.Result.CoveredDistance +
+                                      ", Avg speed " + Context.CurrentParticipant.Result.AverageSpeed + 
                                       ", GPS speed " + currentLocation.Speed +
                                       ", Accuracy " + currentLocation.Accuracy);
 
                     //Check whether the if condition is necessary
-                    if (CurrentParticipant.Result.CoveredDistance != 0)
+                    if (Context.CurrentParticipant.Result.CoveredDistance != 0)
                     {
-                        Service.CurrentRace.UpdateLeaderBoard();
+                        Context.CurrentRace.UpdateLeaderBoard();
                     }
                     counter = 0;
                 }
@@ -113,34 +115,52 @@ namespace RaceYa.Views
                 TextToSpeechService.StopTextToSpeech();
             }
 
-            if (CurrentParticipant.Result.CoveredDistance >= Service.CurrentRace.RouteLength)
+            if (Context.CurrentParticipant.Result.CoveredDistance >= Context.CurrentRace.RouteLength)
             {
                 await DisplayAlert("Race Complete!", "Tap \"OK\" to view your result.", "OK");
             }
 
-            CurrentParticipant.Result.RaceCompleted = true;
+            Context.CurrentParticipant.Result.RaceCompleted = true;
 
-            Service.CurrentRace.CalculateFinalLeaderBoard();
-            Service.CurrentRace.CalculateIdFinalLeaderBoard();
+            Context.CurrentRace.CalculateFinalLeaderBoard();
+            Context.CurrentRace.CalculateIdFinalLeaderBoard();
 
             await SaveUpdatedData();
 
+            //reset binding context for landing page
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
             await Navigation.PopModalAsync();
         }
         
         public async Task SaveUpdatedData()
         {
-            await FirestoreRace.Update(Service.CurrentRace);
+            await FirestoreRace.Update(Context.CurrentRace);
 
-            foreach (Participant participant in Service.CurrentRace.Participants)
+            foreach (Participant participant in Context.CurrentRace.Participants)
             {
-                await FirestoreRaceResult.Update(participant.Result, participant.Id);
+                if (participant.Id == Context.CurrentParticipant.Id)
+                {
+                    //Context.CurrentParticipant.Result.Id = "TTJIHhDGxNa8NUbZYr9W";
 
-                RaceResultGPX resultGPX = new RaceResultGPX();
-                resultGPX.Track.TrackSegment = participant.Result.TrackSegment;
+                    RaceResult existingRecord = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Context.CurrentParticipant.Id);
+                    Context.CurrentParticipant.Result.Id = existingRecord.Id;
 
-                await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
+                    await FirestoreRaceResult.Update(Context.CurrentParticipant.Result, Context.CurrentParticipant.Id);
+                    
+                    RaceResultGPX resultGPX = new RaceResultGPX();
+                    resultGPX.Track.TrackSegment = participant.Result.TrackSegment;
+
+                    await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
+                }
+                else
+                {
+                    await FirestoreRaceResult.Update(participant.Result, participant.Id);
+
+                    RaceResultGPX resultGPX = new RaceResultGPX();
+                    resultGPX.Track.TrackSegment = participant.Result.TrackSegment;
+
+                    await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
+                }
             }
         }
 

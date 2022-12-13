@@ -111,8 +111,7 @@ namespace RaceYa.Droid.Dependencies
             }
         }
 
-        /*
-        public async Task<bool> Update(RaceResult result, string participantId)
+        public async Task<bool> Delete(RaceResult result, string participantId)
         {
             try
             {
@@ -120,17 +119,15 @@ namespace RaceYa.Droid.Dependencies
                                                           .Document(participantId)
                                                           .Collection("raceResults")
                                                           .Document(result.Id)
-                                                          .UpdateAsync(result);
+                                                          .DeleteAsync();
                 return true;
             }
-
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return false;
             }
         }
-        */
 
     }
 }
