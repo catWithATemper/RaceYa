@@ -14,7 +14,7 @@ namespace RaceYa.Views
     {
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static GlobalParameters Parameters = GlobalParameters.Instance();
+        public static GlobalContext Context = GlobalContext.Instance();
 
         public static Race CurrentRace;
 
@@ -35,33 +35,34 @@ namespace RaceYa.Views
             {
                 base.OnAppearing();
 
-                Service.CreateData();
-
-                //Service.PopulateRaceResultsFromFiles();
+                if (Service.dataCreated == false)
+                {
+                    //Service.CreateData();
+                }
 
                 nextRaceStackLayout.BindingContext = null;
-                if (Parameters.CurrentRace != null)
+                if (Context.CurrentRace != null)
                 {
-                    nextRaceStackLayout.BindingContext = Parameters.CurrentRace;
+                    nextRaceStackLayout.BindingContext = Context.CurrentRace;
                 }
 
-                Parameters.CurrentParticipant = await FirestoreParticipant.ReadParticpantByUserAndRace(Parameters.CurrentUser.Id, Parameters.CurrentRace.Id);
-                if (Parameters.CurrentParticipant != null )
+                Context.CurrentParticipant = await FirestoreParticipant.ReadParticpantByUserAndRace(Context.CurrentUser.Id, Context.CurrentRace.Id);
+                if (Context.CurrentParticipant != null )
                 {
-                    Parameters.CurrentParticipant.AssignRace(Parameters.CurrentRace);
-                    Parameters.CurrentParticipant.AssignUser(Parameters.CurrentUser);
-                    Parameters.CurrentParticipantResult = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Parameters.CurrentParticipant.Id);
-                    Parameters.CurrentParticipantResult.RaceParticipant = Parameters.CurrentParticipant;
-                    Parameters.CurrentParticipant.Result = Parameters.CurrentParticipantResult;
-                    Parameters.CurrentParticipantResult.GPXRequired = true;
+                    Context.CurrentParticipant.AssignRace(Context.CurrentRace);
+                    Context.CurrentParticipant.AssignUser(Context.CurrentUser);
+                    Context.CurrentParticipantResult = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Context.CurrentParticipant.Id);
+                    Context.CurrentParticipantResult.RaceParticipant = Context.CurrentParticipant;
+                    Context.CurrentParticipant.Result = Context.CurrentParticipantResult;
+                    Context.CurrentParticipantResult.GPXRequired = true;
 
-                    Parameters.CurrentRace.CurrentParticipant = Parameters.CurrentParticipant;
-                    Parameters.CurrentParticipant.IsCurrentParticipant = true;
+                    Context.CurrentRace.CurrentParticipant = Context.CurrentParticipant;
+                    Context.CurrentParticipant.IsCurrentParticipant = true;
                 }
 
-                if (Parameters.CurrentParticipant.Result.RaceCompleted == true)
+                if (Context.CurrentParticipant.Result.RaceCompleted == true)
                 {
-                    latestRaceStackLayout.BindingContext = Parameters.CurrentParticipant.Result;
+                    latestRaceStackLayout.BindingContext = Context.CurrentParticipant.Result;
                 }
             }
             else

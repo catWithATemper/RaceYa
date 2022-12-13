@@ -25,7 +25,7 @@ namespace RaceYa.Views
 
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static GlobalParameters Parameters = GlobalParameters.Instance();
+        public static GlobalContext Context = GlobalContext.Instance();
 
         //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
@@ -55,7 +55,7 @@ namespace RaceYa.Views
 
             startButton.IsEnabled = true;
 
-            nextRaceStackLayout.BindingContext = Parameters.CurrentRace;
+            nextRaceStackLayout.BindingContext = Context.CurrentRace;
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)

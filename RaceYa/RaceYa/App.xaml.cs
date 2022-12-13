@@ -6,7 +6,7 @@ namespace RaceYa
 {
     public partial class App : Application
     {
-        public static GlobalParameters Parameters = GlobalParameters.Instance();
+        public static GlobalContext Context = GlobalContext.Instance();
         public static DataExchangeService Service = DataExchangeService.Instance();
 
         public App()
@@ -20,7 +20,7 @@ namespace RaceYa
         {
             
             Race NextRace = await FirestoreRace.ReadNextRace();
-            Parameters.CurrentRace = NextRace;
+            Context.CurrentRace = NextRace;
             Service.LoadRaceData(NextRace);
                
 

@@ -4,13 +4,13 @@ using System.Text;
 
 namespace RaceYa.Models
 {
-    public class GlobalParameters
+    public class GlobalContext
     {
-        public static GlobalParameters instance = null;
-        public static GlobalParameters Instance()
+        public static GlobalContext instance = null;
+        public static GlobalContext Instance()
         {
             if (instance == null)
-                instance = new GlobalParameters();
+                instance = new GlobalContext();
             return instance;
         }
 

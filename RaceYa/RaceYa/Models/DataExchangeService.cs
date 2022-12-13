@@ -16,7 +16,7 @@ namespace RaceYa.Models
 
         public bool UserIsAuthenticated = false;
 
-        public static GlobalParameters Parameters = GlobalParameters.Instance();
+        public static GlobalContext Context = GlobalContext.Instance();
 
         public Race CurrentRace;
 
@@ -36,6 +36,8 @@ namespace RaceYa.Models
                           CurrentParticipantResult;
 
         public RaceResultGPX CurrentParticipantResultGPX;
+
+        public bool dataCreated = false;
 
         public static DataExchangeService Instance()
         {
@@ -92,7 +94,7 @@ namespace RaceYa.Models
                 RaceResult result = new RaceResult(participant);
                 await FirestoreRaceResult.Add(result, participant.Id);
 
-                if (participant.UserId != Parameters.CurrentUser.Id)
+                if (participant.UserId != Context.CurrentUser.Id)
                 {
                     sampleResults.Add(result);
 
@@ -101,6 +103,7 @@ namespace RaceYa.Models
                     index++;
                 }
             }
+            dataCreated = true;
         }
 
         public async void SyncData()
@@ -334,7 +337,6 @@ namespace RaceYa.Models
                 }
             }
         }
-
 
         public void PopulateRaceResultFromFile(RaceResult result, string fileName)
         {

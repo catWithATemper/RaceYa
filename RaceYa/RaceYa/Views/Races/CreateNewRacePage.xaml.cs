@@ -18,7 +18,7 @@ namespace RaceYa.Views
 
         public static DataExchangeService Service = DataExchangeService.Instance();
 
-        public static GlobalParameters Parameters = GlobalParameters.Instance();
+        public static GlobalContext Parameters = GlobalContext.Instance();
 
         public double RouteLength;
 
