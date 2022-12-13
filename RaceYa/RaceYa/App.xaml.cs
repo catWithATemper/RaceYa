@@ -7,6 +7,7 @@ namespace RaceYa
     public partial class App : Application
     {
         public static GlobalParameters Parameters = GlobalParameters.Instance();
+        public static DataExchangeService Service = DataExchangeService.Instance();
 
         public App()
         {
@@ -17,11 +18,13 @@ namespace RaceYa
 
         protected override async void OnStart()
         {
+            
             Race NextRace = await FirestoreRace.ReadNextRace();
             Parameters.CurrentRace = NextRace;
-            DataExchangeService.LoadRaceData(NextRace);
+            Service.LoadRaceData(NextRace);
+               
 
-            //DataExchangeService.Instance().SyncData();
+            //Service.SyncData();
         }
 
         protected override void OnSleep()

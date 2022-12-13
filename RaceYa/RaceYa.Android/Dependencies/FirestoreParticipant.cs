@@ -30,17 +30,6 @@ namespace RaceYa.Droid.Dependencies
                 participant.Id = documentReference.Id;
 
                 return documentReference.Id;
-
-                /*
-                Dictionary<string, Java.Lang.Object> userDocument = new Dictionary<string, Java.Lang.Object>
-                {
-                    {"userId", participant.UserId},
-                    {"raceId", participant.RaceId},
-                };
-                var collection = FirebaseFirestore.Instance.Collection("participants");
-                collection.Add(new HashMap(userDocument));
-                return true;
-                */
             }
             catch (Exception e)
             {

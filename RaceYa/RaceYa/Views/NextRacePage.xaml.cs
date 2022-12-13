@@ -27,7 +27,7 @@ namespace RaceYa.Views
 
         public static GlobalParameters Parameters = GlobalParameters.Instance();
 
-        public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+        //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
 
         public static LocationServiceManager LocationService = new LocationServiceManager();
 

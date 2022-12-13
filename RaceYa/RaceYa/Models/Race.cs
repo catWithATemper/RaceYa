@@ -69,7 +69,7 @@ namespace RaceYa.Models
             set;
         }
 
-        
+        [Ignored]
         private SortedDictionary<Participant, FinalLeaderBoardItem> finalLeaderBoard;
 
         [Ignored]

@@ -82,5 +82,55 @@ namespace RaceYa.Droid.Dependencies
             }
         }
 
+        public async Task<List<RaceResult>> Read()
+        {
+            List<RaceResult> allResults = new List<RaceResult>();
+
+            try
+            {
+                var participantGroup = await CrossCloudFirestore.Current.Instance.CollectionGroup("participants").GetAsync();
+                var participants = participantGroup.ToObjects<Participant>();
+
+                foreach (Participant participant in participants.ToList())
+                {
+                    var resultsGroup = await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                                 .Document(participant.Id)
+                                                                 .Collection("raceResults")
+                                                                 .GetAsync();
+                    var results = resultsGroup.ToObjects<RaceResult>();
+
+                    RaceResult result = results.ToList()[0];
+                    allResults.Add(result);
+                }
+                return allResults;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        /*
+        public async Task<bool> Update(RaceResult result, string participantId)
+        {
+            try
+            {
+                await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                          .Document(participantId)
+                                                          .Collection("raceResults")
+                                                          .Document(result.Id)
+                                                          .UpdateAsync(result);
+                return true;
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+        */
+
     }
 }

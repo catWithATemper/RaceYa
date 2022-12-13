@@ -18,6 +18,8 @@ namespace RaceYa.Views
 
         public static DataExchangeService Service = DataExchangeService.Instance();
 
+        public static GlobalParameters Parameters = GlobalParameters.Instance();
+
         public double RouteLength;
 
         public DateTime StartDate = DateTime.Today;
@@ -189,7 +191,7 @@ namespace RaceYa.Views
                     Description = description,
                 };
 
-                newRace.UserId = LoginPage.CurrentUser.Id;
+                newRace.UserId = Parameters.CurrentUser.Id;
 
                 string id = await FirestoreRace.Add(newRace);
                 if (id != null)

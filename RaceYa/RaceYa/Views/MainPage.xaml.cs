@@ -35,6 +35,8 @@ namespace RaceYa.Views
             {
                 base.OnAppearing();
 
+                Service.CreateData();
+
                 //Service.PopulateRaceResultsFromFiles();
 
                 nextRaceStackLayout.BindingContext = null;
