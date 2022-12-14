@@ -14,6 +14,8 @@ namespace RaceYa.Models
             return instance;
         }
 
+        public bool UserIsAuthenticated = false;
+
         public Race CurrentRace { get; set; }
 
         public User CurrentUser { get; set; }

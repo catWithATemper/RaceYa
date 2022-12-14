@@ -12,7 +12,7 @@ namespace RaceYa.Helpers
         Task<bool> LoginUser(string email, string password);
         bool IsAuthenticated();
         string GetCurrentUserId();
-
+        bool LogOutUser();
     }
 
     public class Auth
@@ -57,6 +57,11 @@ namespace RaceYa.Helpers
         public static string GetCurrentUserId()
         {
             return auth.GetCurrentUserId();
+        }
+
+        public static bool LogOutUser()
+        {
+            return auth.LogOutUser();
         }
     }
 }

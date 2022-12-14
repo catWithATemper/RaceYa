@@ -12,7 +12,7 @@ namespace RaceYa.Views
     {
         public static DBQuickStartService DBQuickStart = DBQuickStartService.Instance();
 
-        public static GlobalContext Parameters = GlobalContext.Instance();
+        public static GlobalContext Context = GlobalContext.Instance();
 
         public static User CurrentUser;
 
@@ -25,14 +25,14 @@ namespace RaceYa.Views
         {
             if (!string.IsNullOrEmpty(emailEntry.Text) && !string.IsNullOrEmpty(passwordEntry.Text))
             {
-                //Console.WriteLine("Authenticated? " + Auth.IsAuthenticated()); //Returns true, was expecting false
+                //Console.WriteLine("Authenticated? " + Auth.IsAuthenticated());
 
                 bool result = await Auth.LogInUser(emailEntry.Text, passwordEntry.Text);
 
                 if (result)
                 {
-                    Parameters.CurrentUser = await FirestoreUser.ReadUserByUserId(Auth.GetCurrentUserId());
-                    DBQuickStart.UserIsAuthenticated = true;
+                    Context.CurrentUser = await FirestoreUser.ReadUserByUserId(Auth.GetCurrentUserId());
+                    Context.UserIsAuthenticated = true;
                     await Shell.Current.GoToAsync("//MainPage");
                 }
             }

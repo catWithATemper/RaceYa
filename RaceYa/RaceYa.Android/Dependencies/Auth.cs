@@ -80,5 +80,19 @@ namespace RaceYa.Droid.Dependencies
                 throw new Exception("There was an unknown error.");
             }
         }
+
+        public bool LogOutUser()
+        {
+            try
+            {
+                FirebaseAuth.Instance.SignOut();
+;                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw new Exception("There was an unknown error.");
+            }
+        }
     }
 }

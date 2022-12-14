@@ -32,7 +32,7 @@ namespace RaceYa.Views
 
         protected override async void OnAppearing()
         {
-            if (DBQuickStart.UserIsAuthenticated)
+            if (Context.UserIsAuthenticated)
             {
                 base.OnAppearing();
 
