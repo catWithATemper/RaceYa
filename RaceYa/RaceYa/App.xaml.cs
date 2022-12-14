@@ -7,7 +7,8 @@ namespace RaceYa
     public partial class App : Application
     {
         public static GlobalContext Context = GlobalContext.Instance();
-        public static DataExchangeService Service = DataExchangeService.Instance();
+
+        public static DBQuickStartService DBQuickStart = DBQuickStartService.Instance();
 
         public App()
         {
@@ -18,13 +19,9 @@ namespace RaceYa
 
         protected override async void OnStart()
         {
-            
             Race NextRace = await FirestoreRace.ReadNextRace();
             Context.CurrentRace = NextRace;
-            Service.LoadRaceData(NextRace);
-               
-
-            //Service.SyncData();
+            DBQuickStart.LoadRaceData(NextRace);
         }
 
         protected override void OnSleep()

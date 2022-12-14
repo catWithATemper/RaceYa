@@ -16,9 +16,9 @@ namespace RaceYa.Views
         //TODO: Add hours and minutes to the race end date, so that the race ends at
         // 23:59 and not at 00:00
 
-        public static DataExchangeService Service = DataExchangeService.Instance();
+        //public static DBQuickStartService Service = DBQuickStartService.Instance();
 
-        public static GlobalContext Parameters = GlobalContext.Instance();
+        public static GlobalContext Context = GlobalContext.Instance();
 
         public double RouteLength;
 
@@ -166,8 +166,6 @@ namespace RaceYa.Views
             if (ValidateRouteLengthResult && ValidateStartDateResult && ValidateEndDateResult && ValidateDesscriptionResult)
             {
                 await saveRace(RouteLength, StartDate, EndDate, Description);
-
-                //Service.Races.Add(new Race(RouteLength, StartDate, EndDate, Description));
             }
 
             routeLengthEntry.Text = "";
@@ -191,7 +189,7 @@ namespace RaceYa.Views
                     Description = description,
                 };
 
-                newRace.UserId = Parameters.CurrentUser.Id;
+                newRace.UserId = Context.CurrentUser.Id;
 
                 string id = await FirestoreRace.Add(newRace);
                 if (id != null)

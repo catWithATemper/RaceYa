@@ -9,8 +9,6 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActiveRaceLeaderboardPage : ContentPage
     {
-        public static DataExchangeService Service = DataExchangeService.Instance();
-
         public static GlobalContext Context = GlobalContext.Instance();
 
         //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;

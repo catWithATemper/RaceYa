@@ -13,7 +13,7 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
-        public static DataExchangeService Service = DataExchangeService.Instance();
+        public static DBQuickStartService DBQuickStart = DBQuickStartService.Instance();
 
         public static GlobalContext Context = GlobalContext.Instance();
 
@@ -32,13 +32,13 @@ namespace RaceYa.Views
 
         protected override async void OnAppearing()
         {
-            if (Service.UserIsAuthenticated)
+            if (DBQuickStart.UserIsAuthenticated)
             {
                 base.OnAppearing();
 
-                if (Service.dataCreated == false)
+                if (DBQuickStart.dataCreated == false)
                 {
-                    //Service.CreateData();
+                    //DBQuickStart.CreateData();
                 }
                 
                 nextRaceStackLayout.BindingContext = null;

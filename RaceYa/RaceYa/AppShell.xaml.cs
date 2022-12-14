@@ -8,7 +8,7 @@ namespace RaceYa
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
-        public static DataExchangeService Service = DataExchangeService.Instance();
+        public static DBQuickStartService DBQuickStart = DBQuickStartService.Instance();
         public AppShell()
         {
             InitializeComponent();
@@ -17,7 +17,7 @@ namespace RaceYa
         
         private async void OnLogoutClicked(object sender, EventArgs e)
         {
-            Service.UserIsAuthenticated = false;
+            DBQuickStart.UserIsAuthenticated = false;
             await Shell.Current.GoToAsync("//LoginPage");
         }
         

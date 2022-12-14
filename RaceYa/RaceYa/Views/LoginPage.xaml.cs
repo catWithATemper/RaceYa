@@ -10,7 +10,7 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public static DataExchangeService Service = DataExchangeService.Instance();
+        public static DBQuickStartService DBQuickStart = DBQuickStartService.Instance();
 
         public static GlobalContext Parameters = GlobalContext.Instance();
 
@@ -32,7 +32,7 @@ namespace RaceYa.Views
                 if (result)
                 {
                     Parameters.CurrentUser = await FirestoreUser.ReadUserByUserId(Auth.GetCurrentUserId());
-                    Service.UserIsAuthenticated = true;
+                    DBQuickStart.UserIsAuthenticated = true;
                     await Shell.Current.GoToAsync("//MainPage");
                 }
             }

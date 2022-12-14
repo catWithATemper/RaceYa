@@ -23,7 +23,7 @@ namespace RaceYa.Views
          * 
          */
 
-        public static DataExchangeService Service = DataExchangeService.Instance();
+        //public static DBQuickStartService Service = DBQuickStartService.Instance();
 
         public static GlobalContext Context = GlobalContext.Instance();
 

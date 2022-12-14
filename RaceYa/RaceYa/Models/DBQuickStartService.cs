@@ -10,14 +10,15 @@ using Xamarin.Essentials;
 
 namespace RaceYa.Models
 {
-    public class DataExchangeService
+    public class DBQuickStartService
     {
-        public static DataExchangeService instance = null;
+        public static DBQuickStartService instance = null;
 
         public bool UserIsAuthenticated = false;
 
         public static GlobalContext Context = GlobalContext.Instance();
 
+        /*
         public Race CurrentRace;
 
         public User User1,
@@ -36,13 +37,14 @@ namespace RaceYa.Models
                           CurrentParticipantResult;
 
         public RaceResultGPX CurrentParticipantResultGPX;
+        */
 
         public bool dataCreated = false;
 
-        public static DataExchangeService Instance()
+        public static DBQuickStartService Instance()
         {
             if (instance == null)
-                instance = new DataExchangeService();
+                instance = new DBQuickStartService();
             return instance;
         }
 
@@ -106,6 +108,7 @@ namespace RaceYa.Models
             dataCreated = true;
         }
 
+        /*
         public async void SyncData()
         {
             //await CreateCurrentUser();
@@ -138,7 +141,8 @@ namespace RaceYa.Models
 
             //await LoadResultGPX();
         }
-
+        */
+        /*
         private async Task CreateCurrentUser()
         {
             User currentUser = new User("Giulia", "FyvaJPbLpUVnrBgW4j51fO4NVuG3");
@@ -284,6 +288,7 @@ namespace RaceYa.Models
             await FirestoreRaceResult.Add(Result2, "nL3gwvrBQaG1pqZzBMFw");
             await FirestoreRaceResult.Add(Result3, "sRuntZTUsGKyro6qaHnA");
         }
+        */
 
         public void PopulateRaceResultFromFile(RaceResult result, string fileName, double routeLength)
         {
@@ -338,6 +343,7 @@ namespace RaceYa.Models
             }
         }
 
+        /*
         public void PopulateRaceResultFromFile(RaceResult result, string fileName)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -390,6 +396,7 @@ namespace RaceYa.Models
                 }
             }
         }
+        */
     }
 }
 

@@ -10,8 +10,6 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActiveRaceDataPage : ContentPage
     {
-        public static DataExchangeService Service = DataExchangeService.Instance();
-
         public static GlobalContext Context = GlobalContext.Instance();
 
         public static Participant CurrentParticipant;
