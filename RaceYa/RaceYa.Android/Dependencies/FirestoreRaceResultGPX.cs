@@ -63,5 +63,25 @@ namespace RaceYa.Droid.Dependencies
                 return null;
             }
         }
+
+        public async Task<bool> Update(RaceResultGPX resultGPX, string participantId, string resultId)
+        {
+            try
+            {
+                await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                          .Document(participantId)
+                                                          .Collection("raceResults")
+                                                          .Document(resultId)
+                                                          .Collection("raceResultGPX")
+                                                          .Document(resultGPX.Id)
+                                                          .UpdateAsync(resultGPX);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
     }
 }

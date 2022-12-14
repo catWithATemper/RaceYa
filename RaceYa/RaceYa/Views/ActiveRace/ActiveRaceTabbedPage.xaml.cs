@@ -14,7 +14,7 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ActiveRaceTabbedPage : TabbedPage
     {
-        //public static DBQuickStartService Service = DBQuickStartService.Instance();
+        //TODO: SaveUpdatedData(): updating result and result GPX requires a previous db reading to recover the id.
 
         public static GlobalContext Context = GlobalContext.Instance();
 
@@ -138,17 +138,17 @@ namespace RaceYa.Views
             {
                 if (participant.Id == Context.CurrentParticipant.Id)
                 {
-                    //Context.CurrentParticipant.Result.Id = "TTJIHhDGxNa8NUbZYr9W";
-
-                    RaceResult existingRecord = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Context.CurrentParticipant.Id);
-                    Context.CurrentParticipant.Result.Id = existingRecord.Id;
+                    RaceResult existingResult = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Context.CurrentParticipant.Id);
+                    Context.CurrentParticipant.Result.Id = existingResult.Id;
 
                     await FirestoreRaceResult.Update(Context.CurrentParticipant.Result, Context.CurrentParticipant.Id);
-                    
+
+                    RaceResultGPX existingResultGPX = await FirestoreRaceResultGPX.ReadRaceResultGPXByParticipantAndResultIds(Context.CurrentParticipant.Id, Context.CurrentParticipant.Result.Id);
                     RaceResultGPX resultGPX = new RaceResultGPX();
                     resultGPX.Track.TrackSegment = participant.Result.TrackSegment;
+                    resultGPX.Id = existingResultGPX.Id;
 
-                    await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
+                    await FirestoreRaceResultGPX.Update(resultGPX, participant.Id, participant.Result.Id);
                 }
                 else
                 {
@@ -157,7 +157,8 @@ namespace RaceYa.Views
                     RaceResultGPX resultGPX = new RaceResultGPX();
                     resultGPX.Track.TrackSegment = participant.Result.TrackSegment;
 
-                    await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
+                    //not  necessary
+                    //await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
                 }
             }
         }

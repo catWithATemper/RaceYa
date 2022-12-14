@@ -12,6 +12,7 @@ namespace RaceYa.Helpers
     {
         Task<string> Add(RaceResultGPX resultGPX, string particpantId, string resultId);
         Task<RaceResultGPX> ReadRaceResultGPXByParticipantAndResultIds(string participantId, string resultId);
+        Task<bool> Update(RaceResultGPX resultGPX, string participantId, string resultId);
     }
 
     class FirestoreRaceResultGPX
@@ -26,6 +27,11 @@ namespace RaceYa.Helpers
         public static async Task<RaceResultGPX> ReadRaceResultGPXByParticipantAndResultIds(string participantId, string resultId)
         {
             return await firestoreRaceResultGPX.ReadRaceResultGPXByParticipantAndResultIds(participantId, resultId);
+        }
+
+        public static async Task<bool> Update(RaceResultGPX resultGPX, string participantId, string resultId)
+        {
+            return await firestoreRaceResultGPX.Update(resultGPX, participantId, resultId);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace RaceYa.Models
 
     public class Track
     {
-        [MapTo("TrackSegment")]
+        [MapTo("trackSegment")]
         public TrackSegment TrackSegment { get; set; }
 
         public Track()

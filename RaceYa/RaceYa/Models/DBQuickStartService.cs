@@ -94,7 +94,10 @@ namespace RaceYa.Models
                 await FirestoreParticipant.Add(participant);
 
                 RaceResult result = new RaceResult(participant);
+                result.GPXRequired = true;
                 await FirestoreRaceResult.Add(result, participant.Id);
+                RaceResultGPX resultGPX = new RaceResultGPX();
+                await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, result.Id);
 
                 if (participant.UserId != Context.CurrentUser.Id)
                 {
@@ -102,6 +105,12 @@ namespace RaceYa.Models
 
                     PopulateRaceResultFromFile(result, FileNames[index], currentRace.RouteLength);
                     FirestoreRaceResult.Update(result, participant.Id);
+
+                    resultGPX.Track.TrackSegment = result.TrackSegment;
+                    FirestoreRaceResultGPX.Update(resultGPX, participant.Id, result.Id);
+
+                    result.GPXRequired = false;
+
                     index++;
                 }
             }
