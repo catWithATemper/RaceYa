@@ -6,13 +6,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Plugin.CloudFirestore;
 using Plugin.CloudFirestore.Attributes;
+using RaceYa.Models.CollectionItems;
 
 namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
         //TDDO fix CalculateFinalLEaderboard() and CalculateIDFinalLeaderboard(): change conddition for the if statement
-        //TODO: The UpdateLeaderboard() method could be simplified (see below).
 
         [Id]
         public string Id { get; set; }
@@ -62,7 +62,7 @@ namespace RaceYa.Models
             }
         }
 
-        [MapTo("idFinalLeaderBoard")]
+        [Ignored]
         public SortedDictionary<int, string> IdFinalLeaderBoard
         {
             get;
@@ -70,10 +70,27 @@ namespace RaceYa.Models
         }
 
         [Ignored]
-        private SortedDictionary<Participant, FinalLeaderBoardItem> finalLeaderBoard;
+        public SortedSet<Participant> finalLeaderBoardSet;
 
         [Ignored]
-        public SortedDictionary<Participant, FinalLeaderBoardItem> FinalLeaderBoard
+        public SortedSet<Participant> FinalLeaderBoardSet
+        {
+            get
+            {
+                return finalLeaderBoardSet;
+            }
+            set
+            {
+                finalLeaderBoardSet = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        [Ignored]
+        private List<FinalLeaderBoardItem> finalLeaderBoard;
+
+        [MapTo("finalLeaderBoard")]
+        public List<FinalLeaderBoardItem> FinalLeaderBoard
         {
             get
             {
@@ -106,10 +123,10 @@ namespace RaceYa.Models
         }
 
         [Ignored]
-        private ObservableCollection<FinalLeaderBoardItem> observableFinalLeaderBoard;
+        private ObservableCollection<ObservableFinalLeaderBoardItem> observableFinalLeaderBoard;
 
         [Ignored]
-        public ObservableCollection<FinalLeaderBoardItem> ObservableFinalLeaderBoard
+        public ObservableCollection<ObservableFinalLeaderBoardItem> ObservableFinalLeaderBoard
         {
             get
             {
@@ -125,7 +142,6 @@ namespace RaceYa.Models
         public Race(double routeLengthInKm, DateTime startDate, DateTime endDate, string description)
         {
             RouteLengthInKm = routeLengthInKm;
-            //RouteLength = RouteLengthInKm * 1000;
             StartDate = startDate;
             EndDate = endDate;
             Description = description;
@@ -133,21 +149,21 @@ namespace RaceYa.Models
             Participants = new List<Participant>();
             LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
-            FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
-            ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
+            finalLeaderBoardSet = new SortedSet<Participant>(new FinalLeaderBoardSetComparer());
+            FinalLeaderBoard = new List<FinalLeaderBoardItem>();//
+            ObservableFinalLeaderBoard = new ObservableCollection<ObservableFinalLeaderBoardItem>();
 
             IdFinalLeaderBoard = new SortedDictionary<int, string>();
         }
 
         public Race()
         {
-            //RouteLength = RouteLengthInKm * 1000; This line can be removed, because the RouteLengthInKm is 0 at this point
-
             Participants = new List<Participant>();
             LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
-            FinalLeaderBoard = new SortedDictionary<Participant, FinalLeaderBoardItem>(new FinalLeaderBoardComparer());
-            ObservableFinalLeaderBoard = new ObservableCollection<FinalLeaderBoardItem>();
+            finalLeaderBoardSet = new SortedSet<Participant>(new FinalLeaderBoardSetComparer());
+            FinalLeaderBoard = new List<FinalLeaderBoardItem>();//
+            ObservableFinalLeaderBoard = new ObservableCollection<ObservableFinalLeaderBoardItem>();
 
             IdFinalLeaderBoard = new SortedDictionary<int, string>();
         }
@@ -159,7 +175,6 @@ namespace RaceYa.Models
 
         public void UpdateLeaderBoard()
         {
-            //Remove code duplication
             if (CurrentParticipant.Result.RaceCompleted == false)
             {
                 foreach (Participant participant in Participants)
@@ -221,7 +236,6 @@ namespace RaceYa.Models
             }
         }
 
-
         public void SynchronizeRaceResults(Participant participant, int index)
         {
             //Find the difference between the current participant's stopwatch value and the participant's 
@@ -255,20 +269,41 @@ namespace RaceYa.Models
             }
         }
 
+        public void CalculateFinalLeaderBoardSet()
+        {
+            //Add a boolean to check that the set hasn't been calculated yet.
+            foreach (Participant participant in Participants)
+            {
+                FinalLeaderBoardSet.Add(participant);
+            }
+
+            /*
+            ObservableFinalLeaderBoard.Clear();
+            foreach (Participant participant in FinalLeaderBoardSet)
+            {
+                ObservableFinalLeaderBoard.Add(new ObservableFinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoardSet.ToArray(), participant) + 1,
+                                                                        participant.User.Name,
+                                                                        participant.Result.AverageSpeedKmH,
+                                                                        participant.Result.AveragePace));
+            }
+            */
+        }
+
         public void CalculateFinalLeaderBoard()
         {
             //This condition prevents a race from being updated
             if (FinalLeaderBoard.Count == 0)
             {
-                foreach (Participant participant in Participants)
+                foreach (Participant participant in FinalLeaderBoardSet)
                 {
-                    FinalLeaderBoard.Add(participant,
-                                         new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
+                    FinalLeaderBoard.Add(new FinalLeaderBoardItem(participant.Id,
                                                                   participant.User.Name,
                                                                   participant.Result.AverageSpeedKmH,
-                                                                  participant.Result.AveragePace));
-                    participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
+                                                                  participant.Result.AveragePaceInMillis));
+         
+                    participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoardSet.ToArray(), participant) + 1;
 
+                    /*
                     //debug
                     Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
                     Console.WriteLine("Name Speed Distance Time EvaluatedDistanceInMeters");
@@ -281,15 +316,16 @@ namespace RaceYa.Models
                                           p.Key.Result.TimeSinceStart + " " +
                                           p.Key.Result.EvaluatedDistanceInMeters + "\n");
                     }
+                    */
                 }
-
+                
                 ObservableFinalLeaderBoard.Clear();
-                foreach (Participant participant in FinalLeaderBoard.Keys)
+                foreach (FinalLeaderBoardItem item in FinalLeaderBoard)
                 {
-                    ObservableFinalLeaderBoard.Add(new FinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1,
-                                                                            participant.User.Name,
-                                                                            participant.Result.AverageSpeedKmH,
-                                                                            participant.Result.AveragePace));
+                    ObservableFinalLeaderBoard.Add(new ObservableFinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.ToArray(), item) + 1,
+                                                                                      item.Name,
+                                                                                      item.AverageSpeedKmH,
+                                                                                      TimeSpan.FromMilliseconds(item.AveragePaceInMillis)));
                 }
             }
         }
@@ -297,6 +333,8 @@ namespace RaceYa.Models
         public void CalculateIdFinalLeaderBoard()
         {
             //This condition prevents a race from being updated
+
+            /*
             if (IdFinalLeaderBoard.Count == 0)
             {
                 foreach (Participant participant in FinalLeaderBoard.Keys)
@@ -306,6 +344,7 @@ namespace RaceYa.Models
                     IdFinalLeaderBoard.Add(LeaderBoardRank, participant.Id);
                 }
             }
+            */
         }
     }
 }

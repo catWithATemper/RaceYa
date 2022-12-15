@@ -1,37 +1,28 @@
-﻿using Plugin.CloudFirestore.Attributes;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 
-namespace RaceYa.Models.CollectionItems
+namespace RaceYa.Models
 {
-    public class FinalLeaderBoardItem : INotifyPropertyChanged
+    public class ObservableFinalLeaderBoardItem : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [Ignored]
-        private string participantId;
-
-        [MapTo("participantId")]
-        public string ParticipantId
+        private int rank;
+        public int Rank
         {
             get
             {
-                return participantId;
+                return rank;
             }
             set
             {
-                participantId = value;
+                rank = value;
                 NotifyPropertyChanged();
             }
         }
 
-        [Ignored]
         private string name;
-
-        [MapTo("name")]
         public string Name
         {
             get
@@ -45,10 +36,8 @@ namespace RaceYa.Models.CollectionItems
             }
         }
 
-        [Ignored]
         private double averageSpeedKmH;
-
-        [MapTo("averageSpeedKmH")]
+        
         public double AverageSpeedKmH
         {
             get
@@ -62,33 +51,27 @@ namespace RaceYa.Models.CollectionItems
             }
         }
 
-        [Ignored]
-        private double averagePacInMillise;
+        private TimeSpan averagePace;
 
-        [MapTo("averagePaceInMillis")]
-        public double AveragePaceInMillis
+        public TimeSpan AveragePace
         {
             get
             {
-                return averagePacInMillise;
+                return averagePace;
             }
             set
             {
-                averagePacInMillise = value;
+                averagePace = value;
                 NotifyPropertyChanged();
             }
         }
 
-        public FinalLeaderBoardItem()
+        public ObservableFinalLeaderBoardItem(int rank, string name, double averageSpeedKmH, TimeSpan averagePace)
         {
-        }
-
-        public FinalLeaderBoardItem(string participantId, string name, double averageSpeedKmH, double averagePaceInMillis)
-        {
-            ParticipantId = participantId;
+            Rank = rank;
             Name = name;
             AverageSpeedKmH = averageSpeedKmH;
-            AveragePaceInMillis = averagePaceInMillis;
+            AveragePace = averagePace;
         }
 
 

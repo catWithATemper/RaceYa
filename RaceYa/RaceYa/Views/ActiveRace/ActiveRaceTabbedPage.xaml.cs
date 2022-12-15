@@ -15,6 +15,7 @@ namespace RaceYa.Views
     public partial class ActiveRaceTabbedPage : TabbedPage
     {
         //TODO: SaveUpdatedData(): updating result and result GPX requires a previous db reading to recover the id.
+        //TODO: Manage update data when race is ended ahead of time ("Quit race")
 
         public static GlobalContext Context = GlobalContext.Instance();
 
@@ -120,8 +121,9 @@ namespace RaceYa.Views
 
             Context.CurrentParticipant.Result.RaceCompleted = true;
 
+            Context.CurrentRace.CalculateFinalLeaderBoardSet();
             Context.CurrentRace.CalculateFinalLeaderBoard();
-            Context.CurrentRace.CalculateIdFinalLeaderBoard();
+            //Context.CurrentRace.CalculateIdFinalLeaderBoard();
 
             await SaveUpdatedData();
 

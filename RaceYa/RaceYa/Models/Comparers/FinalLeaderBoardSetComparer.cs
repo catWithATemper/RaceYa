@@ -2,7 +2,7 @@
 
 namespace RaceYa.Models
 {
-    class FinalLeaderBoardComparer : IComparer<Participant>
+    class FinalLeaderBoardSetComparer : IComparer<Participant>
     {
         public int Compare(Participant part1, Participant part2)
         {
