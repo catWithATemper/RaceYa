@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RaceYa.Models
 {
@@ -23,6 +24,27 @@ namespace RaceYa.Models
 
         public Participant CurrentParticipant { get; set; }
         public RaceResult CurrentParticipantResult { get; set; }
+
+        public async Task LoadRaceData(Race race)
+        {
+            List<User> users = await FirestoreUser.Read();
+            foreach (User user in users)
+            {
+                Participant participant = await FirestoreParticipant.ReadParticpantByUserAndRace(user.Id, race.Id);
+                if (participant != null)
+                {
+                    participant.AssignRace(race);
+                    participant.AssignUser(user);
+                    RaceResult result = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(participant.Id);
+                    result.RaceParticipant = participant;
+                    participant.Result = result;
+                    participant.AddToParticipantsList(race);
+                    participant.AddToRaceLeaderboard(race);
+
+                    RaceResultGPX resultGPX = await FirestoreRaceResultGPX.ReadRaceResultGPXByParticipantAndResultIds(participant.Id, result.Id);
+                }
+            }
+        }
 
         public async void SetUpNextParticipantContext()
         {
