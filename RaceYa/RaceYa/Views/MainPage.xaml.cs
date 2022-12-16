@@ -45,45 +45,13 @@ namespace RaceYa.Views
                 if (Context.CurrentRace != null)
                 {
                     nextRaceStackLayout.BindingContext = Context.CurrentRace;
+
+                    Context.SetUpNextParticipantContext();
                 }
 
-                Context.CurrentParticipant = await FirestoreParticipant.ReadParticpantByUserAndRace(Context.CurrentUser.Id, Context.CurrentRace.Id);
-                if (Context.CurrentParticipant != null )
-                {
-                    Context.CurrentParticipant.AssignRace(Context.CurrentRace);
-                    Context.CurrentParticipant.AssignUser(Context.CurrentUser);
-
-                    Context.CurrentParticipantResult = new RaceResult(CurrentParticipant);
-                    
-                    Context.CurrentParticipantResult.RaceParticipant = Context.CurrentParticipant;
-                    Context.CurrentParticipant.Result = Context.CurrentParticipantResult;
-                    Context.CurrentParticipantResult.GPXRequired = true;
-
-                    foreach (Participant participant in Context.CurrentRace.Participants)
-                    {
-                        if (participant.Id == Context.CurrentParticipant.Id)
-                        {
-                            Context.CurrentRace.Participants.Remove(participant);
-                            Context.CurrentRace.Participants.Add(Context.CurrentParticipant);
-                            break;
-                        }
-                    }
-
-                    foreach (Participant participant in Context.CurrentRace.LeaderBoard)
-                    {
-                        if (participant.Id == Context.CurrentParticipant.Id)
-                        {
-                            Context.CurrentRace.LeaderBoard.Remove(participant);
-                            Context.CurrentRace.LeaderBoard.Add(Context.CurrentParticipant);
-                            break;
-                        }
-                    }
-
-                    Context.CurrentRace.CurrentParticipant = Context.CurrentParticipant;
-                    Context.CurrentParticipant.IsCurrentParticipant = true;
-                }
-
-                if (Context.CurrentParticipant.Result.RaceCompleted == true)
+                latestRaceStackLayout.BindingContext = null;
+                if (Context.CurrentParticipant != null && Context.CurrentParticipant.Result != null &&
+                    Context.CurrentParticipant.Result.RaceCompleted == true)
                 {
                     latestRaceStackLayout.BindingContext = Context.CurrentParticipant.Result;
                 }
