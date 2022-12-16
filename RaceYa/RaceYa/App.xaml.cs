@@ -19,9 +19,6 @@ namespace RaceYa
 
         protected override async void OnStart()
         {
-            Race NextRace = await FirestoreRace.ReadNextRace();
-            Context.CurrentRace = NextRace;
-            DBQuickStart.LoadRaceData(NextRace);
         }
 
         protected override void OnSleep()

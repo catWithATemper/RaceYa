@@ -11,8 +11,6 @@ namespace RaceYa.Views
     {
         public static GlobalContext Context = GlobalContext.Instance();
 
-        //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
-
         public static TextToSpeechServiceManager TextToSpeechService = ActiveRaceTabbedPage.TextToSpeechService;
 
         public ActiveRaceLeaderboardPage()

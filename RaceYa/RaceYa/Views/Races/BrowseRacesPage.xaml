@@ -47,10 +47,12 @@
                                                Grid.Row="1"/>
                                     </Grid>
                                     <Button Text="Sign up"
-                                        x:Name="signUpButton"
-                                        HeightRequest="40"
-                                       VerticalOptions="End"
-                                        HorizontalOptions="End"/>
+                                            x:Name="signUpButton"
+                                            HeightRequest="40"
+                                            VerticalOptions="End"
+                                            HorizontalOptions="End"
+                                            Clicked="signUpButton_Clicked" 
+                                            CommandParameter="{Binding .}"/>
                                 </StackLayout>
                                 <Label Grid.Row="1"
                                         Text="{Binding Description}"
