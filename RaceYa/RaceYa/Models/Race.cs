@@ -46,10 +46,10 @@ namespace RaceYa.Models
 
         //Each pair contains a participant and the distance covered by the participant at the current time
         [Ignored]
-        private SortedDictionary<Participant, double> leaderBoard;
+        private SortedSet<Participant> leaderBoard;
 
         [Ignored]
-        public SortedDictionary<Participant, double> LeaderBoard
+        public SortedSet<Participant> LeaderBoard
         {
             get
             {
@@ -60,13 +60,6 @@ namespace RaceYa.Models
                 leaderBoard = value;
                 NotifyPropertyChanged();
             }
-        }
-
-        [Ignored]
-        public SortedDictionary<int, string> IdFinalLeaderBoard
-        {
-            get;
-            set;
         }
 
         [Ignored]
@@ -147,25 +140,21 @@ namespace RaceYa.Models
             Description = description;
 
             Participants = new List<Participant>();
-            LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
+            LeaderBoard = new SortedSet<Participant>(new LeaderBoardComparer());
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
             finalLeaderBoardSet = new SortedSet<Participant>(new FinalLeaderBoardSetComparer());
             FinalLeaderBoard = new List<FinalLeaderBoardItem>();//
             ObservableFinalLeaderBoard = new ObservableCollection<ObservableFinalLeaderBoardItem>();
-
-            IdFinalLeaderBoard = new SortedDictionary<int, string>();
         }
 
         public Race()
         {
             Participants = new List<Participant>();
-            LeaderBoard = new SortedDictionary<Participant, double>(new LeaderBoardComparer());
+            LeaderBoard = new SortedSet<Participant>(new LeaderBoardComparer());
             ObservableLeaderBoard = new ObservableCollection<ObservableLeaderBoardItem>();
             finalLeaderBoardSet = new SortedSet<Participant>(new FinalLeaderBoardSetComparer());
             FinalLeaderBoard = new List<FinalLeaderBoardItem>();//
             ObservableFinalLeaderBoard = new ObservableCollection<ObservableFinalLeaderBoardItem>();
-
-            IdFinalLeaderBoard = new SortedDictionary<int, string>();
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -188,12 +177,13 @@ namespace RaceYa.Models
                             LeaderBoard.Remove(participant);
                             participant.Result.CurrentRaceTime = new KeyValuePair<TimeSpan, double>(participant.Result.TimeSinceStart,
                                                                                                     participant.Result.CoveredDistance);
-                            LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
+                            LeaderBoard.Add(participant);
 
                             UpdateObservableLeaderboard();
 
-                            participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
+                            participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.ToArray(), participant) + 1;
 
+                            /*
                             Console.WriteLine("Leaderboard " + LeaderBoard.Count);
                             Console.WriteLine("Name Time Distance");
                             foreach (var p in LeaderBoard)
@@ -202,6 +192,7 @@ namespace RaceYa.Models
                                                   p.Key.Result.CurrentRaceTime.Key + " " +
                                                   p.Key.Result.CurrentRaceTime.Value);
                             }
+                            */
                         }
                         else
                         {
@@ -213,12 +204,13 @@ namespace RaceYa.Models
 
                                     SynchronizeRaceResults(participant, index);
 
-                                    LeaderBoard.Add(participant, participant.Result.CurrentRaceTime.Value);
+                                    LeaderBoard.Add(participant);
 
                                     UpdateObservableLeaderboard();
 
-                                    participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1;
+                                    participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.ToArray(), participant) + 1;
 
+                                    /*
                                     Console.WriteLine("Leaderboard " + LeaderBoard.Count);
                                     Console.WriteLine("Name Time Distance");
                                     foreach (var p in LeaderBoard)
@@ -227,6 +219,7 @@ namespace RaceYa.Models
                                                           p.Key.Result.CurrentRaceTime.Key + " " +
                                                           p.Key.Result.CurrentRaceTime.Value);
                                     }
+                                    */
                                     break;
                                 }
                             }
@@ -260,12 +253,21 @@ namespace RaceYa.Models
         public void UpdateObservableLeaderboard()
         {
             ObservableLeaderBoard.Clear();
-            foreach (Participant participant in LeaderBoard.Keys)
+            foreach (Participant participant in LeaderBoard)
             {
-                ObservableLeaderBoard.Add(new ObservableLeaderBoardItem(Array.IndexOf(LeaderBoard.Keys.ToArray(), participant) + 1,
+                ObservableLeaderBoard.Add(new ObservableLeaderBoardItem(Array.IndexOf(LeaderBoard.ToArray(), participant) + 1,
                                                                         participant.User.Name,
-                                                                        Math.Round(LeaderBoard[participant] / 1000, 2),
+                                                                        participant.Result.CurrentRaceTime.Value / 1000,
                                                                         participant.IsCurrentParticipant));
+            }
+
+            Console.WriteLine("Leaderboard: ");
+            foreach (Participant participant in LeaderBoard)
+            {
+                Console.WriteLine("Position: " + (Array.IndexOf(LeaderBoard.ToArray(), participant) + 1) +
+                                   " Name: " + participant.User.Name +
+                                   " Time: " + participant.Result.CurrentRaceTime.Key +
+                                   " Distance: " + participant.Result.CurrentRaceTime.Value);
             }
         }
 
@@ -276,17 +278,6 @@ namespace RaceYa.Models
             {
                 FinalLeaderBoardSet.Add(participant);
             }
-
-            /*
-            ObservableFinalLeaderBoard.Clear();
-            foreach (Participant participant in FinalLeaderBoardSet)
-            {
-                ObservableFinalLeaderBoard.Add(new ObservableFinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoardSet.ToArray(), participant) + 1,
-                                                                        participant.User.Name,
-                                                                        participant.Result.AverageSpeedKmH,
-                                                                        participant.Result.AveragePace));
-            }
-            */
         }
 
         public void CalculateFinalLeaderBoard()
@@ -328,23 +319,6 @@ namespace RaceYa.Models
                                                                                       TimeSpan.FromMilliseconds(item.AveragePaceInMillis)));
                 }
             }
-        }
-
-        public void CalculateIdFinalLeaderBoard()
-        {
-            //This condition prevents a race from being updated
-
-            /*
-            if (IdFinalLeaderBoard.Count == 0)
-            {
-                foreach (Participant participant in FinalLeaderBoard.Keys)
-                {
-                    int LeaderBoardRank = Array.IndexOf(FinalLeaderBoard.Keys.ToArray(), participant) + 1;
-      
-                    IdFinalLeaderBoard.Add(LeaderBoardRank, participant.Id);
-                }
-            }
-            */
         }
     }
 }

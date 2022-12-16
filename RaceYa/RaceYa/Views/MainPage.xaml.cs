@@ -69,12 +69,12 @@ namespace RaceYa.Views
                         }
                     }
 
-                    foreach (KeyValuePair<Participant, double> participant in Context.CurrentRace.LeaderBoard)
+                    foreach (Participant participant in Context.CurrentRace.LeaderBoard)
                     {
-                        if (participant.Key.Id == Context.CurrentParticipant.Id)
+                        if (participant.Id == Context.CurrentParticipant.Id)
                         {
-                            Context.CurrentRace.LeaderBoard.Remove(participant.Key);
-                            Context.CurrentRace.LeaderBoard.Add(Context.CurrentParticipant, 0);
+                            Context.CurrentRace.LeaderBoard.Remove(participant);
+                            Context.CurrentRace.LeaderBoard.Add(Context.CurrentParticipant);
                             break;
                         }
                     }

@@ -78,7 +78,7 @@ namespace RaceYa.Models
 
         public void AddToRaceLeaderboard(Race race)
         {
-            race.LeaderBoard.Add(this, 0);
+            race.LeaderBoard.Add(this);
         }
     }
 }

@@ -95,7 +95,7 @@
                                     </Label>
                                     <Label Grid.Column="2"
                                            x:Name="distanceLabel"
-                                           Text="{Binding CoveredDistance}"
+                                           Text="{Binding CoveredDistance, StringFormat='{0:F2}'}"
                                            FontSize="18"
                                            FontAttributes="Bold"
                                            VerticalTextAlignment="Center"

@@ -37,12 +37,10 @@ namespace RaceYa.Views
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
                 Context.CurrentRace.CalculateFinalLeaderBoard();
-                Context.CurrentRace.CalculateIdFinalLeaderBoard();
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
                 Context.CurrentRace.CalculateFinalLeaderBoard();
-                Context.CurrentRace.CalculateIdFinalLeaderBoard();
             });
         }
 
@@ -123,7 +121,6 @@ namespace RaceYa.Views
 
             Context.CurrentRace.CalculateFinalLeaderBoardSet();
             Context.CurrentRace.CalculateFinalLeaderBoard();
-            //Context.CurrentRace.CalculateIdFinalLeaderBoard();
 
             await SaveUpdatedData();
 
