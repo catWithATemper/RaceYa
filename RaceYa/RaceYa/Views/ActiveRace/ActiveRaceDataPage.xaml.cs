@@ -18,8 +18,6 @@ namespace RaceYa.Views
 
         public static TextToSpeechServiceManager TextToSpeechService = ActiveRaceTabbedPage.TextToSpeechService;
 
-        public static bool DataUpdated = ActiveRaceTabbedPage.DataUpdated;
-
         public ActiveRaceDataPage()
         {
             InitializeComponent();
