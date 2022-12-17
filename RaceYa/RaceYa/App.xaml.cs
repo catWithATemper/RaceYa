@@ -19,6 +19,9 @@ namespace RaceYa
 
         protected override async void OnStart()
         {
+            Race NextRace = await FirestoreRace.ReadNextRace();
+            Context.CurrentRace = NextRace;
+            Context.LoadRaceData(NextRace);
         }
 
         protected override void OnSleep()

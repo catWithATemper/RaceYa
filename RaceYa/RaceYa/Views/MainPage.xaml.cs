@@ -41,9 +41,6 @@ namespace RaceYa.Views
                     //DBQuickStart.CreateData();
                 }
 
-                Context.CurrentRace = await FirestoreRace.ReadNextRace();
-                Context.LoadRaceData(Context.CurrentRace);//move method to GlobalContext
-
                 nextRaceStackLayout.BindingContext = null;
                 if (Context.CurrentRace != null)
                 {
