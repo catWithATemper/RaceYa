@@ -261,6 +261,7 @@ namespace RaceYa.Models
         {
             if (FinalLeaderBoardSetCalculated == false)
             {
+                FinalLeaderBoardSet.Clear();
                 foreach (Participant participant in Participants)
                 {
                     FinalLeaderBoardSet.Add(participant);
@@ -273,6 +274,7 @@ namespace RaceYa.Models
         {
             if (FinalLeaderBoardCalculated == false)
             {
+                finalLeaderBoard.Clear();
                 foreach (Participant participant in FinalLeaderBoardSet)
                 {
                     FinalLeaderBoard.Add(new FinalLeaderBoardItem(participant.Id,

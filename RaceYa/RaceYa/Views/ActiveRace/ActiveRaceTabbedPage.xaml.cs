@@ -19,7 +19,7 @@ namespace RaceYa.Views
 
         public static GlobalContext Context = GlobalContext.Instance();
 
-        public static Participant CurrentParticipant;
+        //public static Participant CurrentParticipant;
 
         public static StopWatch PageStopWatch = new StopWatch();
 
