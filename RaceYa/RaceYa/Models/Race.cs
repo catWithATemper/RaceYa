@@ -13,6 +13,7 @@ namespace RaceYa.Models
     public class Race : INotifyPropertyChanged
     {
         //TDDO fix CalculateFinalLEaderboard() and CalculateIDFinalLeaderboard(): change conddition for the if statement
+        //TODO: Consider changing the update frequency for the ObservableLeaderBoard
 
         [Id]
         public string Id { get; set; }
@@ -80,6 +81,9 @@ namespace RaceYa.Models
         }
 
         [Ignored]
+        public bool FinalLeaderBoardSetCalculated = false;
+
+        [Ignored]
         private List<FinalLeaderBoardItem> finalLeaderBoard;
 
         [MapTo("finalLeaderBoard")]
@@ -95,6 +99,9 @@ namespace RaceYa.Models
                 NotifyPropertyChanged();
             }
         }
+
+        [Ignored]
+        public bool FinalLeaderBoardCalculated = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -182,17 +189,6 @@ namespace RaceYa.Models
                             UpdateObservableLeaderboard();
 
                             participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.ToArray(), participant) + 1;
-
-                            /*
-                            Console.WriteLine("Leaderboard " + LeaderBoard.Count);
-                            Console.WriteLine("Name Time Distance");
-                            foreach (var p in LeaderBoard)
-                            {
-                                Console.WriteLine(p.Key.User.Name + " " +
-                                                  p.Key.Result.CurrentRaceTime.Key + " " +
-                                                  p.Key.Result.CurrentRaceTime.Value);
-                            }
-                            */
                         }
                         else
                         {
@@ -210,16 +206,6 @@ namespace RaceYa.Models
 
                                     participant.Result.LeaderBoardRank = Array.IndexOf(LeaderBoard.ToArray(), participant) + 1;
 
-                                    /*
-                                    Console.WriteLine("Leaderboard " + LeaderBoard.Count);
-                                    Console.WriteLine("Name Time Distance");
-                                    foreach (var p in LeaderBoard)
-                                    {
-                                        Console.WriteLine(p.Key.User.Name + " " +
-                                                          p.Key.Result.CurrentRaceTime.Key + " " +
-                                                          p.Key.Result.CurrentRaceTime.Value);
-                                    }
-                                    */
                                     break;
                                 }
                             }
@@ -273,17 +259,19 @@ namespace RaceYa.Models
 
         public void CalculateFinalLeaderBoardSet()
         {
-            //Add a boolean to check that the set hasn't been calculated yet.
-            foreach (Participant participant in Participants)
+            if (FinalLeaderBoardSetCalculated == false)
             {
-                FinalLeaderBoardSet.Add(participant);
+                foreach (Participant participant in Participants)
+                {
+                    FinalLeaderBoardSet.Add(participant);
+                }
             }
+            FinalLeaderBoardSetCalculated = true;
         }
 
         public void CalculateFinalLeaderBoard()
         {
-            //This condition prevents a race from being updated
-            if (FinalLeaderBoard.Count == 0)
+            if (FinalLeaderBoardCalculated == false)
             {
                 foreach (Participant participant in FinalLeaderBoardSet)
                 {
@@ -293,22 +281,9 @@ namespace RaceYa.Models
                                                                   participant.Result.AveragePaceInMillis));
          
                     participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoardSet.ToArray(), participant) + 1;
-
-                    /*
-                    //debug
-                    Console.WriteLine("Final leaderboard " + FinalLeaderBoard.Count);
-                    Console.WriteLine("Name Speed Distance Time EvaluatedDistanceInMeters");
-                    //debug
-                    foreach (var p in FinalLeaderBoard)
-                    {
-                        Console.WriteLine(p.Key.User.Name + " " +
-                                          p.Key.Result.AverageSpeed + " "+
-                                          p.Key.Result.CoveredDistance + " " +
-                                          p.Key.Result.TimeSinceStart + " " +
-                                          p.Key.Result.EvaluatedDistanceInMeters + "\n");
-                    }
-                    */
                 }
+
+                FinalLeaderBoardCalculated = true;
                 
                 ObservableFinalLeaderBoard.Clear();
                 foreach (FinalLeaderBoardItem item in FinalLeaderBoard)

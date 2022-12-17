@@ -20,29 +20,11 @@ namespace RaceYa.Views
     {
         /*
          * TODO: Check again for location availability at regular intervals
-         * 
          */
-
-        //public static DBQuickStartService Service = DBQuickStartService.Instance();
 
         public static GlobalContext Context = GlobalContext.Instance();
 
-        //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
-
         public static LocationServiceManager LocationService = new LocationServiceManager();
-
-        //string nextRaceId = "";
-        /*
-        public string NextRaceId
-        {
-            get => nextRaceId;
-            set
-            {
-                nextRaceId = Uri.UnescapeDataString(value ?? string.Empty);
-                OnPropertyChanged();
-            }
-        }
-        */
 
         public NextRacePage()
         {
@@ -56,6 +38,9 @@ namespace RaceYa.Views
             startButton.IsEnabled = true;
 
             nextRaceStackLayout.BindingContext = Context.CurrentRace;
+
+            Context.CurrentRace.FinalLeaderBoardSetCalculated = false;
+            Context.CurrentRace.FinalLeaderBoardCalculated = false;
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)

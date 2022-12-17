@@ -31,15 +31,16 @@ namespace RaceYa.Views
         {
             InitializeComponent();
 
-            //CurrentParticipant = Service.CurrentRace.CurrentParticipant;
             TextToSpeechService = new TextToSpeechServiceManager(Context.CurrentParticipant.Result);
 
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
+                Context.CurrentRace.CalculateFinalLeaderBoardSet();
                 Context.CurrentRace.CalculateFinalLeaderBoard();
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
+                Context.CurrentRace.CalculateFinalLeaderBoardSet();
                 Context.CurrentRace.CalculateFinalLeaderBoard();
             });
         }
@@ -129,7 +130,7 @@ namespace RaceYa.Views
             await Navigation.PopModalAsync();
         }
         
-        public async Task SaveUpdatedData()
+        public static async Task SaveUpdatedData()
         {
             await FirestoreRace.Update(Context.CurrentRace);
 
