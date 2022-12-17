@@ -411,22 +411,25 @@ namespace RaceYa.Models
             PreviousLocation = CurrentLocation;
             CurrentLocation = newReading;
 
-            CalculateTimeSinceStart();
-
-            if (PreviousLocation != null)
+            if (RaceCompleted == false)
             {
-                CalculateCoveredDistance();
-            }
+                CalculateTimeSinceStart();
 
-            Latitude = Math.Round(CurrentLocation.Latitude, 6).ToString();
-            Longitude = Math.Round(CurrentLocation.Longitude, 6).ToString();
+                if (PreviousLocation != null)
+                {
+                    CalculateCoveredDistance();
+                }
 
-            if (GPXRequired)
-            {
-                TrackPoint trackPoint = new TrackPoint();
-                trackPoint.Coordinates = new GeoPoint(newReading.Latitude, newReading.Longitude);
-                trackPoint.Time = newReading.Timestamp.DateTime;
-                TrackSegment.TrackPoints.Add(trackPoint);
+                Latitude = Math.Round(CurrentLocation.Latitude, 6).ToString();
+                Longitude = Math.Round(CurrentLocation.Longitude, 6).ToString();
+
+                if (GPXRequired)
+                {
+                    TrackPoint trackPoint = new TrackPoint();
+                    trackPoint.Coordinates = new GeoPoint(newReading.Latitude, newReading.Longitude);
+                    trackPoint.Time = newReading.Timestamp.DateTime;
+                    TrackSegment.TrackPoints.Add(trackPoint);
+                }
             }
         }
 

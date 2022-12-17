@@ -35,13 +35,21 @@ namespace RaceYa.Views
 
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
-                Context.CurrentRace.CalculateFinalLeaderBoardSet();
-                Context.CurrentRace.CalculateFinalLeaderBoard();
+                //Context.CurrentRace.CalculateFinalLeaderBoardSet();
+                //Context.CurrentRace.CalculateFinalLeaderBoard();
+                if (TextToSpeechService != null)
+                {
+                    TextToSpeechService.StopTextToSpeech();
+                }
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
-                Context.CurrentRace.CalculateFinalLeaderBoardSet();
-                Context.CurrentRace.CalculateFinalLeaderBoard();
+                //Context.CurrentRace.CalculateFinalLeaderBoardSet();
+                //Context.CurrentRace.CalculateFinalLeaderBoard();
+                if (TextToSpeechService != null)
+                {
+                    TextToSpeechService.StopTextToSpeech();
+                }
             });
         }
 
@@ -120,10 +128,10 @@ namespace RaceYa.Views
 
             Context.CurrentParticipant.Result.RaceCompleted = true;
 
-            Context.CurrentRace.CalculateFinalLeaderBoardSet();
-            Context.CurrentRace.CalculateFinalLeaderBoard();
+            //Context.CurrentRace.CalculateFinalLeaderBoardSet();
+            //Context.CurrentRace.CalculateFinalLeaderBoard();
 
-            await SaveUpdatedData();
+            //await SaveUpdatedData(); //moved to OnDisappearing()
 
             //reset binding context for landing page
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
@@ -163,10 +171,14 @@ namespace RaceYa.Views
             }
         }
 
-
-        protected override void OnDisappearing()
+        protected override async void OnDisappearing()
         {
             base.OnDisappearing();
+
+            Context.CurrentRace.CalculateFinalLeaderBoardSet();
+            Context.CurrentRace.CalculateFinalLeaderBoard();
+
+            await SaveUpdatedData();
 
             if (TextToSpeechService != null)
             {
