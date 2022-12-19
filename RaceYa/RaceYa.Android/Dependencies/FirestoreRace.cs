@@ -149,5 +149,35 @@ namespace RaceYa.Droid.Dependencies
                 return null;
             }
         }
+
+        public async Task<List<Race>> ReadRacesForSigningUp(string userId)
+        {
+            List<Race> allRaces = await Read();
+            List<Race> availableRaces = new List<Race>();
+
+            try
+            {
+                foreach (Race race in allRaces)
+                {
+                    var query = await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                                          .WhereEqualsTo("userId", userId)
+                                                                          .WhereEqualsTo("raceId", race.Id)
+                                                                          .LimitTo(1)
+                                                                          .GetAsync();
+                    var participants = query.ToObjects<Participant>();
+
+                    if (participants.ToList().Count == 0)
+                    {
+                        availableRaces.Add(race);
+                    }
+                }
+                return availableRaces;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
     }
 }

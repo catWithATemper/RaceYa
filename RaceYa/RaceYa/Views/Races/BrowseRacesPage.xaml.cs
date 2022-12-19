@@ -11,6 +11,8 @@ namespace RaceYa.Views
     {
         public static GlobalContext Context = GlobalContext.Instance();
 
+        //TODO: Create a race result for the participant when signing up
+
         public BrowseRacesPage()
         {
             InitializeComponent();
@@ -21,7 +23,7 @@ namespace RaceYa.Views
             base.OnAppearing();
 
             racesListView.ItemsSource = null;
-            var races = await FirestoreRace.Read();
+            var races = await FirestoreRace.ReadRacesForSigningUp(Context.CurrentUser.Id);
             racesListView.ItemsSource = races;
         }
 

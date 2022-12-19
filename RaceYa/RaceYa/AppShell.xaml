@@ -86,7 +86,7 @@
         <ShellContent Route="SignUpForARacePage"
                       Title="Races"
                       Icon="calendar.png"
-                      ContentTemplate="{DataTemplate local:SignUpForARaceTabbedPage}"/>
+                      ContentTemplate="{DataTemplate local:RacesTabbedPage}"/>
         <ShellContent Route="NextRacePage" 
                       ContentTemplate="{DataTemplate local:NextRacePage}"
                       Title="Next race"

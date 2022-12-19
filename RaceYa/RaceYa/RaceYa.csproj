@@ -74,6 +74,9 @@
     <Compile Update="Views\ActiveRace\ActiveRaceTabbedPage.xaml.cs">
       <DependentUpon>ActiveRaceTabbedPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Races\RacesTabbedPage.xaml.cs">
+      <DependentUpon>RacesTabbedPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -113,7 +116,7 @@
     <EmbeddedResource Update="Views\Races\EnteredRacesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Races\SignUpForARaceTabbedPage.xaml">
+    <EmbeddedResource Update="Views\Races\RacesTabbedPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

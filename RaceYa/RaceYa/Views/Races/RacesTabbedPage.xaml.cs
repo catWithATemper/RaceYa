@@ -4,11 +4,11 @@ using Xamarin.Forms.Xaml;
 namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpForARaceTabbedPage : TabbedPage
+    public partial class RacesTabbedPage : TabbedPage
     {
         public static int? SelectedTab;
 
-        public SignUpForARaceTabbedPage()
+        public RacesTabbedPage()
         {
             InitializeComponent();
         }
