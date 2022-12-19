@@ -39,6 +39,11 @@ namespace RaceYa.Views
 
             nextRaceStackLayout.BindingContext = Context.CurrentRace;
 
+            if (Context.CurrentRace != null)
+            {
+                Context.SetUpNextParticipantContext();
+            }
+
             Context.CurrentRace.FinalLeaderBoardSetCalculated = false;
             Context.CurrentRace.FinalLeaderBoardCalculated = false;
         }
@@ -83,6 +88,15 @@ namespace RaceYa.Views
                 Console.WriteLine(ex.Source + ex.Message + ex.StackTrace + ex.InnerException);
                 await DisplayAlert("Exception", "Unable to get location", "OK");
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            startButton.IsEnabled = true;
+            searchingForGPSLabel.Text = "";
+            Shell.Current.GoToAsync($"//MainPage");
+
+            return true;
         }
     }
 }

@@ -23,13 +23,7 @@ using Plugin.CloudFirestore.Attributes;
 namespace RaceYa.Droid.Dependencies
 {
     class FirestoreRace : Java.Lang.Object, IFirestoreRace //,IOnCompleteListener
-    {
-        //RaceListener raceListener = new RaceListener();
-        //RaceListListener raceListListener = new RaceListListener();
-        //InsertListener insertListener = new InsertListener();
-
-        //public List<Race> races;
-  
+    {  
         public FirestoreRace()
         {
             //races = new List<Race>();
@@ -41,12 +35,6 @@ namespace RaceYa.Droid.Dependencies
             {
                 await CrossCloudFirestore.Current.Instance.Collection("racess").Document(race.Id).DeleteAsync();
                 return true;
-
-                /*
-                var collection = FirebaseFirestore.Instance.Collection("races");
-                collection.Document(race.Id).Delete();
-                return true;
-                */
             }
             catch (Exception e)
             {
@@ -130,6 +118,30 @@ namespace RaceYa.Droid.Dependencies
                 var race = document.ToObject<Race>();
 
                 return race;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+        public async Task<List<Race>> ReadRacesByUserId(string userId)
+        {
+            List<Race> enteredRaces = new List<Race>();
+            try
+            {
+                IQuerySnapshot query = await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                                                 .WhereEqualsTo("userId", userId)
+                                                                                 .GetAsync();
+                IEnumerable<Participant> participants = query.ToObjects<Participant>();
+
+                foreach (Participant participant in participants)
+                {
+                    Race race = await ReadRaceById(participant.RaceId);
+                    enteredRaces.Add(race);
+                }
+                return enteredRaces;
             }
             catch (Exception e)
             {

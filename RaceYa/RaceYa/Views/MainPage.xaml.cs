@@ -46,7 +46,7 @@ namespace RaceYa.Views
                 {
                     nextRaceStackLayout.BindingContext = Context.CurrentRace;
 
-                    Context.SetUpNextParticipantContext();
+                    //Context.SetUpNextParticipantContext();
                 }
 
                 latestRaceStackLayout.BindingContext = null;

@@ -32,6 +32,11 @@ namespace RaceYa.Views
                 CurrentPage = Children[1];
                 SelectedTab = null;
             }
+            else if (SelectedTab == 2)
+            {
+                CurrentPage = Children[2];
+                SelectedTab = null;
+            }
         }
     }
 }
