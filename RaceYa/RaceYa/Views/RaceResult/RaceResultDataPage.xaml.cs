@@ -19,7 +19,7 @@ namespace RaceYa.Views
 
             if (Context.CurrentParticipant != null && Context.CurrentParticipant.Result != null)
             {
-                personalResultLayout.BindingContext = Context.CurrentParticipant.Result;
+                personalResultLayout.BindingContext = Context.LatestResult;
             }
         }
     }

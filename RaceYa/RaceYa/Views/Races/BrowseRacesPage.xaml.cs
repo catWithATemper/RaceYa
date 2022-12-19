@@ -29,14 +29,23 @@ namespace RaceYa.Views
 
         private async void signUpButton_Clicked(object sender, System.EventArgs e)
         {
-            var selectedRace = (Race)((Button)sender).CommandParameter;
+            Race selectedRace = (Race)((Button)sender).CommandParameter;
             Participant newParticipant = new Participant(Context.CurrentUser, selectedRace,
                                                          Context.CurrentUser.Id, selectedRace.Id);
-            string id = await FirestoreParticipant.Add(newParticipant);
+            string participantId = await FirestoreParticipant.Add(newParticipant);
 
-            if (id != null)
+            RaceResult newResult = new RaceResult(newParticipant);
+            string resultId = await FirestoreRaceResult.Add(newResult, newParticipant.Id);
+
+            RaceResultGPX newResultGPX = new RaceResultGPX();
+            string newResultGPXId = await FirestoreRaceResultGPX.Add(newResultGPX, newParticipant.Id, newResult.Id);
+
+            if (participantId != null && resultId != null && newResultGPXId != null)
             {
                 await DisplayAlert("Success", "You successfully signed up for this race.", "Ok");
+
+                var tabbedPage = this.Parent as TabbedPage;
+                tabbedPage.CurrentPage = tabbedPage.Children[2];
             }
             else
                 await DisplayAlert("Failure", "We could not sign you up. Please try again", "Ok");

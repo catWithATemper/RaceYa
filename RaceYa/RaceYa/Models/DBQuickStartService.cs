@@ -25,6 +25,7 @@ namespace RaceYa.Models
             return instance;
         }
 
+        //Populates the database with all necessary data for a race, with the exception of users
         public async Task CreateData()
         {
             List<RaceResult> sampleResults = new List<RaceResult>();

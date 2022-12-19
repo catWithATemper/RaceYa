@@ -25,6 +25,8 @@ namespace RaceYa.Models
         public Participant CurrentParticipant { get; set; }
         public RaceResult CurrentParticipantResult { get; set; }
 
+        public RaceResult LatestResult { get; set; }
+
         public async Task LoadRaceData(Race race)
         {
             List<User> users = await FirestoreUser.Read();

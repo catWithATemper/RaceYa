@@ -128,6 +128,8 @@ namespace RaceYa.Views
 
             Context.CurrentParticipant.Result.RaceCompleted = true;
 
+            Context.LatestResult = Context.CurrentParticipant.Result;
+
             //Context.CurrentRace.CalculateFinalLeaderBoardSet();
             //Context.CurrentRace.CalculateFinalLeaderBoard();
 

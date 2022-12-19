@@ -96,7 +96,7 @@ namespace RaceYa.Views
             searchingForGPSLabel.Text = "";
             Shell.Current.GoToAsync($"//MainPage");
 
-            return true;
+            return false;
         }
     }
 }

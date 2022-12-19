@@ -5,8 +5,8 @@
             xmlns:races="clr-namespace:RaceYa.Views.Races"
             x:Class="RaceYa.Views.RacesTabbedPage"
             BarBackgroundColor="{StaticResource Primary}"
-            Title="Sign up for a race">
+            Title="Races">
     <views:BrowseRacesPage Title="Browse races"/>
     <views:CreateNewRacePage Title="Create new race"/>
-    <races:EnteredRacesPage Title="Select a race"/>
+    <races:EnteredRacesPage Title="Run a race"/>
 </TabbedPage>

@@ -50,10 +50,9 @@ namespace RaceYa.Views
                 }
 
                 latestRaceStackLayout.BindingContext = null;
-                if (Context.CurrentParticipant != null && Context.CurrentParticipant.Result != null &&
-                    Context.CurrentParticipant.Result.RaceCompleted == true)
+                if (Context.LatestResult != null && Context.LatestResult.CoveredDistance > 0)
                 {
-                    latestRaceStackLayout.BindingContext = Context.CurrentParticipant.Result;
+                    latestRaceStackLayout.BindingContext = Context.LatestResult;
                 }
             }
             else

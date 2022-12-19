@@ -50,6 +50,7 @@
                                             HeightRequest="40"
                                             VerticalOptions="End"
                                             HorizontalOptions="End"
+                                            BackgroundColor="#e3ff00"
                                             Clicked="runButton_Clicked" 
                                             CommandParameter="{Binding .}"/>
                                 </StackLayout>

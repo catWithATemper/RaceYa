@@ -33,6 +33,9 @@ namespace RaceYa.Views
                 {
                     Context.CurrentUser = await FirestoreUser.ReadUserByUserId(Auth.GetCurrentUserId());
                     Context.UserIsAuthenticated = true;
+
+                    Context.LatestResult = await FirestoreRaceResult.ReadLatestRaceResult(Context.CurrentUser.Id);
+
                     await Shell.Current.GoToAsync("//MainPage");
                 }
             }

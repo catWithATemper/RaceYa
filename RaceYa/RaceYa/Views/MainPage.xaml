@@ -87,7 +87,7 @@
                          Padding="10, 10, 10, 20">
                     <Label TextColor="#33343a"
                        FontSize="20"
-                       Text="LATEST RACE"
+                       Text="LATEST RACE RESULT"
                        FontAttributes="Bold, Italic"
                        />
                     <StackLayout HorizontalOptions="Center"
