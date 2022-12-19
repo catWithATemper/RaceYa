@@ -28,17 +28,19 @@ namespace RaceYa.Views.Races
             var enteredRaces = await FirestoreRace.ReadRacesByUserId(Context.CurrentUser.Id);
             racesListView.ItemsSource = enteredRaces;
 
+            /*
             foreach (Race race in enteredRaces)
             {
                 Context.LoadRaceData(race);
             }
+            */
         }
 
         private async void runButton_Clicked(object sender, EventArgs e)
         {
             Context.CurrentRace = (Race)((Button)sender).CommandParameter;
 
-            //Context.LoadRaceData(selectedRace);
+            await Context.LoadRaceData(Context.CurrentRace);
 
             await Shell.Current.GoToAsync($"//NextRacePage");
         }

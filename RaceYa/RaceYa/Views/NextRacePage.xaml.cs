@@ -42,10 +42,10 @@ namespace RaceYa.Views
             if (Context.CurrentRace != null)
             {
                 Context.SetUpNextParticipantContext();
-            }
 
-            Context.CurrentRace.FinalLeaderBoardSetCalculated = false;
-            Context.CurrentRace.FinalLeaderBoardCalculated = false;
+                Context.CurrentRace.FinalLeaderBoardSetCalculated = false;
+                Context.CurrentRace.FinalLeaderBoardCalculated = false;
+            }
         }
 
         private async void startButton_Clicked(object sender, EventArgs e)
