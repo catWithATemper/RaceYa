@@ -221,7 +221,8 @@ namespace RaceYa.Models
             //stopwatch value identified by the RaceTimeIndex property. Then do the same with the stopwatch
             //value identified by RaceTimeIndex - 1. Finally use the participant's stopwatch value with the
             //smaller difference for the speed comparison.          
-            if ((participant.Result.RaceTimes.ElementAt(index).Key -
+            if (index > 0 &&
+                (participant.Result.RaceTimes.ElementAt(index).Key -
                 CurrentParticipant.Result.TimeSinceStart).Duration() >
                 (participant.Result.RaceTimes.ElementAt(index - 1).Key -
                 CurrentParticipant.Result.TimeSinceStart).Duration())

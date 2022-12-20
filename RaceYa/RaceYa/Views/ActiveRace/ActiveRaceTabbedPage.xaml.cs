@@ -129,6 +129,7 @@ namespace RaceYa.Views
             Context.CurrentParticipant.Result.RaceCompleted = true;
 
             Context.LatestResult = Context.CurrentParticipant.Result;
+            Context.LatestResult = Context.CurrentParticipantResult;
 
             Context.CurrentParticipant.IsCurrentParticipant = false;
 
