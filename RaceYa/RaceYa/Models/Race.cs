@@ -12,7 +12,7 @@ namespace RaceYa.Models
 {
     public class Race : INotifyPropertyChanged
     {
-        //TDDO fix CalculateFinalLEaderboard() and CalculateIDFinalLeaderboard(): change conddition for the if statement
+        //TDDO add EvaluatedDistance to FinalLeaderBoard
         //TODO: Consider changing the update frequency for the ObservableLeaderBoard
 
         [Id]

@@ -130,10 +130,7 @@ namespace RaceYa.Views
 
             Context.LatestResult = Context.CurrentParticipant.Result;
 
-            //Context.CurrentRace.CalculateFinalLeaderBoardSet();
-            //Context.CurrentRace.CalculateFinalLeaderBoard();
-
-            //await SaveUpdatedData(); //moved to OnDisappearing()
+            Context.CurrentParticipant.IsCurrentParticipant = false;
 
             //reset binding context for landing page
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");

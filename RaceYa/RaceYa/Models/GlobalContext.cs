@@ -48,7 +48,7 @@ namespace RaceYa.Models
             }
         }
 
-        public async void SetUpNextParticipantContext()
+        public async Task SetUpNextParticipantContext()
         {
             CurrentParticipant = await FirestoreParticipant.ReadParticpantByUserAndRace(CurrentUser.Id, CurrentRace.Id);
             if (CurrentParticipant != null)

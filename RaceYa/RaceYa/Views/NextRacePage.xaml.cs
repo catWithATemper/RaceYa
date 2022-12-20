@@ -41,7 +41,7 @@ namespace RaceYa.Views
 
             if (Context.CurrentRace != null)
             {
-                Context.SetUpNextParticipantContext();
+                await Context.SetUpNextParticipantContext();
 
                 Context.CurrentRace.FinalLeaderBoardSetCalculated = false;
                 Context.CurrentRace.FinalLeaderBoardCalculated = false;
