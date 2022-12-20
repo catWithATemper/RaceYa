@@ -162,5 +162,41 @@ namespace RaceYa.Droid.Dependencies
             }
         }
 
+        public async Task<List<RaceResult>> ReadAllResultsForUser(string userId)
+        {
+            List<RaceResult> allResults = new List<RaceResult>();
+
+            try
+            {
+                IQuerySnapshot participantGroup = await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                                                            .WhereEqualsTo("userId", userId)
+                                                                                            .GetAsync();
+                var participants = participantGroup.ToObjects<Participant>();
+
+                foreach (Participant participant in participants.ToList())
+                {
+                    var resultsGroup = await CrossCloudFirestore.Current.Instance.Collection("participants")
+                                                                 .Document(participant.Id)
+                                                                 .Collection("raceResults")
+                                                                 .GetAsync();
+                    var results = resultsGroup.ToObjects<RaceResult>();
+
+                    RaceResult result = results.ToList()[0];
+
+                    if (result.CoveredDistance > 0)
+                    {
+                        allResults.Add(result);
+                    }
+                }
+                return allResults;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
+        }
+
+
     }
 }

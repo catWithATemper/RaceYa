@@ -15,7 +15,8 @@ namespace RaceYa.Helpers
         Task<List<RaceResult>> Read();
         Task<bool> Delete(RaceResult result, string participantId);
         Task<RaceResult> ReadLatestRaceResult(string userId);
-    }
+        Task<List<RaceResult>> ReadAllResultsForUser(string userId);
+     }
 
     public class FirestoreRaceResult
     {
@@ -49,6 +50,11 @@ namespace RaceYa.Helpers
         public static async Task<RaceResult> ReadLatestRaceResult(string userId)
         {
             return await firestoreRaceResult.ReadLatestRaceResult(userId);
+        }
+
+        public static async Task<List<RaceResult>> ReadAllResultsForUser(string userId)
+        {
+            return await firestoreRaceResult.ReadAllResultsForUser(userId);
         }
     }
 }

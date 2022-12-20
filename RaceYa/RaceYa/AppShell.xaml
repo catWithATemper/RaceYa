@@ -96,6 +96,12 @@
                       Title="Race results"
                       Icon="data.png"/>
     </FlyoutItem>
+    <FlyoutItem Title="Result history">
+        <ShellContent Title="Result history" 
+                     Route="ResultHistoryPage" 
+                     ContentTemplate="{DataTemplate local:ResultHistoryPage}">
+        </ShellContent>
+    </FlyoutItem>
 
     <!-- 
     <FlyoutItem Title="Browse" Icon="icon_feed.png">
