@@ -287,7 +287,10 @@ namespace RaceYa.Models
                 }
 
                 FinalLeaderBoardCalculated = true;
-                
+
+                CalculateObservableFinalLeaderBoard();
+
+                /*
                 ObservableFinalLeaderBoard.Clear();
                 foreach (FinalLeaderBoardItem item in FinalLeaderBoard)
                 {
@@ -296,6 +299,19 @@ namespace RaceYa.Models
                                                                                       item.AverageSpeedKmH,
                                                                                       TimeSpan.FromMilliseconds(item.AveragePaceInMillis)));
                 }
+                */
+            }
+        }
+
+        public void CalculateObservableFinalLeaderBoard()
+        {
+            ObservableFinalLeaderBoard.Clear();
+            foreach (FinalLeaderBoardItem item in FinalLeaderBoard)
+            {
+                ObservableFinalLeaderBoard.Add(new ObservableFinalLeaderBoardItem(Array.IndexOf(FinalLeaderBoard.ToArray(), item) + 1,
+                                                                                  item.Name,
+                                                                                  item.AverageSpeedKmH,
+                                                                                  TimeSpan.FromMilliseconds(item.AveragePaceInMillis)));
             }
         }
     }
