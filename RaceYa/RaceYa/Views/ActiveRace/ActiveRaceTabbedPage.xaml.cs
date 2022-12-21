@@ -125,8 +125,8 @@ namespace RaceYa.Views
             Context.CurrentParticipant.Result.RaceCompleted = true;
             Context.CurrentParticipant.IsCurrentParticipant = false;
 
-            //Context.LatestResult = Context.CurrentParticipant.Result;
-            //Context.LatestRace = await FirestoreRace.ReadRaceById(Context.LatestResult.RaceId);
+            Context.LatestResult = Context.CurrentParticipant.Result;
+            Context.LatestRace = Context.CurrentRace;
 
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
             await Navigation.PopModalAsync();
@@ -171,8 +171,8 @@ namespace RaceYa.Views
 
             await SaveUpdatedData();
 
-            Context.LatestResult = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Context.CurrentParticipant.Id);
-            Context.LatestRace = await FirestoreRace.ReadRaceById(Context.CurrentParticipant.Result.RaceId);
+            //Context.LatestResult = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Context.CurrentParticipant.Id);
+            //Context.LatestRace = await FirestoreRace.ReadRaceById(Context.CurrentParticipant.Result.RaceId);
 
             if (TextToSpeechService != null)
             {
