@@ -18,12 +18,13 @@
                                          Spacing="5">
                                 <StackLayout Orientation="Horizontal"
                                              VerticalOptions="Center"
-                                             HorizontalOptions="EndAndExpand"
+                                             HorizontalOptions="FillAndExpand"
                                              Spacing="10">
                                     <Label Text="{Binding CoveredDistanceInKm, StringFormat='{0:F2} km'}"
                                            FontSize="28"
                                            FontAttributes="Bold, italic"
-                                           VerticalOptions="Center"/>
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Start"/>
                                     <StackLayout Spacing="5"
                                                 Padding="5"
                                                 VerticalOptions="Center" >
