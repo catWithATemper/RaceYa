@@ -14,9 +14,10 @@ namespace RaceYa.Views
         {
             InitializeComponent();
 
-            leaderBoardView.ItemsSource = Context.CurrentRace.ObservableFinalLeaderBoard;
-
-
+            if (Context.LatestRace != null)
+            {
+                leaderBoardView.ItemsSource = Context.LatestRace.ObservableFinalLeaderBoard;
+            }
         }
     }
 }

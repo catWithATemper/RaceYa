@@ -28,13 +28,13 @@ namespace RaceYa.Views
 
             List<RaceResult> results = await FirestoreRaceResult.ReadAllResultsForUser(Context.CurrentUser.Id);
 
-            resultsListView.ItemsSource = results;
-                
+            resultsListView.ItemsSource = results;               
         }
 
         private async void detailsButton_Clicked(object sender, EventArgs e)
         {
             Context.LatestResult = (RaceResult)((Button)sender).CommandParameter;
+            Context.LatestRace = await FirestoreRace.ReadRaceById(Context.LatestResult.RaceId);
 
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
         }

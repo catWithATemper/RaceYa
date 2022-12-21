@@ -10,14 +10,18 @@ namespace RaceYa.Views
     {
         public static GlobalContext Context = GlobalContext.Instance();
 
-        //public static Participant CurrentParticipant = Service.CurrentRace.CurrentParticipant;
+        //TODO: pace not shown when content is loaded from db
+
         public RaceResultDataPage()
         {
             InitializeComponent();
 
-            raceDataLayout.BindingContext = Context.CurrentRace;
+            if (Context.LatestRace != null)
+            {
+                raceDataLayout.BindingContext = Context.LatestRace;
+            }
 
-            if (Context.CurrentParticipant != null && Context.CurrentParticipant.Result != null)
+            if (Context.LatestResult != null)
             {
                 personalResultLayout.BindingContext = Context.LatestResult;
             }

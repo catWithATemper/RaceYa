@@ -6,9 +6,6 @@ namespace RaceYa.Models
 {
     public class Participant
     {
-        //TODO: participantId is saved as null in firestore. Covered distance si in km while 
-        // evaluated distance is in meters
-
         [Id]
         public string Id { get; set; }
 
@@ -33,14 +30,9 @@ namespace RaceYa.Models
 
         public Participant()
         {
-            /*
-            Result = new RaceResult(this);
-            Race.Participants.Add(this);
-            Race.LeaderBoard.Add(this, 0);
-            */
+
         }
 
-        //Call empty constructor from this constructor
         public Participant(User user, Race race, string userId, string raceId)
         {
             User = user;
@@ -48,16 +40,11 @@ namespace RaceYa.Models
 
             UserId = userId;
             RaceId = raceId;
-
-            //Result = new RaceResult(this);
-            //Race.Participants.Add(this);
-            //Race.LeaderBoard.Add(this, 0);
         }
 
         public void AddToParticipantsList(Race race)
         {
             race.Participants.Add(this);
-            //race.LeaderBoard.Add(this, 0);
         }
 
         public void AssignRaceResult(RaceResult result)

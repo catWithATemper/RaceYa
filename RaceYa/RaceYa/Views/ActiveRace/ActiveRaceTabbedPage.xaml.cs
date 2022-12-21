@@ -35,8 +35,6 @@ namespace RaceYa.Views
 
             MessagingCenter.Subscribe<ActiveRaceDataPage>(this, "Quit race", (sender) =>
             {
-                //Context.CurrentRace.CalculateFinalLeaderBoardSet();
-                //Context.CurrentRace.CalculateFinalLeaderBoard();
                 if (TextToSpeechService != null)
                 {
                     TextToSpeechService.StopTextToSpeech();
@@ -44,8 +42,6 @@ namespace RaceYa.Views
             });
             MessagingCenter.Subscribe<ActiveRaceLeaderboardPage>(this, "Quit race", (sender) =>
             {
-                //Context.CurrentRace.CalculateFinalLeaderBoardSet();
-                //Context.CurrentRace.CalculateFinalLeaderBoard();
                 if (TextToSpeechService != null)
                 {
                     TextToSpeechService.StopTextToSpeech();
@@ -127,13 +123,11 @@ namespace RaceYa.Views
             }
 
             Context.CurrentParticipant.Result.RaceCompleted = true;
-
-            Context.LatestResult = Context.CurrentParticipant.Result;
-            Context.LatestResult = Context.CurrentParticipantResult;
-
             Context.CurrentParticipant.IsCurrentParticipant = false;
 
-            //reset binding context for landing page
+            Context.LatestResult = Context.CurrentParticipant.Result;
+            Context.LatestRace = await FirestoreRace.ReadRaceById(Context.LatestResult.RaceId);
+
             await Shell.Current.GoToAsync("//RaceResultTabbedPage");
             await Navigation.PopModalAsync();
         }
@@ -164,9 +158,6 @@ namespace RaceYa.Views
 
                     RaceResultGPX resultGPX = new RaceResultGPX();
                     resultGPX.Track.TrackSegment = participant.Result.TrackSegment;
-
-                    //not  necessary
-                    //await FirestoreRaceResultGPX.Add(resultGPX, participant.Id, participant.Result.Id);
                 }
             }
         }

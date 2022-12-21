@@ -27,6 +27,8 @@ namespace RaceYa.Models
 
         public RaceResult LatestResult { get; set; }
 
+        public Race LatestRace { get; set; }
+
         public async Task LoadRaceData(Race race)
         {
             List<User> users = await FirestoreUser.Read();
@@ -57,6 +59,7 @@ namespace RaceYa.Models
                 CurrentParticipant.AssignUser(CurrentUser);
 
                 CurrentParticipantResult = new RaceResult(CurrentParticipant);
+                CurrentParticipantResult.AssignRaceId(CurrentRace.Id);
 
                 CurrentParticipantResult.RaceParticipant = CurrentParticipant;
                 CurrentParticipant.Result = CurrentParticipantResult;
@@ -81,7 +84,6 @@ namespace RaceYa.Models
                         break;
                     }
                 }
-
                 CurrentRace.CurrentParticipant = CurrentParticipant;
                 CurrentParticipant.IsCurrentParticipant = true;
             }

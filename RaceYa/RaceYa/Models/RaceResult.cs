@@ -10,13 +10,14 @@ namespace RaceYa.Models
 {
     public class RaceResult : INotifyPropertyChanged
     {
-        //TODO: Covered distance (meters) equals 0 when results are read from database
-
         [Id]
         public string Id { get; set; }
 
         [MapTo("participantId")]
         public string ParticipantId { get; set; }
+
+        [MapTo("raceId")]
+        public string RaceId { get; set; }
 
         [Ignored]
         public Participant RaceParticipant;
@@ -369,8 +370,7 @@ namespace RaceYa.Models
 
         public RaceResult()
         {
-            TrackSegment = new TrackSegment();
-            
+            TrackSegment = new TrackSegment();  
         }
 
         public RaceResult(Participant participant)
@@ -382,7 +382,7 @@ namespace RaceYa.Models
             AverageSpeed = 0;
             AveragePace = new TimeSpan(0, 0, 0);
             AveragePaceString = "00:00";
-            //RemainingDistance = participant.Race.RouteLength / 1000; //Commented because of empty participant constructor
+
             RaceTimes = new SortedDictionary<TimeSpan, double>();
             CurrentRaceTime = new KeyValuePair<TimeSpan, double>(new TimeSpan(0), 0);
             RaceTimeIndex = 0;
@@ -397,13 +397,17 @@ namespace RaceYa.Models
             Accuracy = 0;
 
             GPXRequired = false;
-            TrackSegment = new TrackSegment();
-            
+            TrackSegment = new TrackSegment();     
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void AssignRaceId(string raceId)
+        {
+            RaceId = raceId;
         }
 
         public void SetCurrentLocation(Location newReading)

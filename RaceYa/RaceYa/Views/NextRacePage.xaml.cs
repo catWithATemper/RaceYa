@@ -15,7 +15,6 @@ namespace RaceYa.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 
-    //[QueryProperty(nameof(NextRaceId), "raceId")]
     public partial class NextRacePage : ContentPage
     {
         /*
