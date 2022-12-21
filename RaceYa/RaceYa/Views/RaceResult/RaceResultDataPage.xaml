@@ -31,7 +31,7 @@
                            HorizontalTextAlignment="End"/>
                     <Label Grid.Column="1"
                            FontSize="18"
-                           Text="{Binding Participants.Count}"/>
+                           Text="{Binding FinalLeaderBoard.Count}"/>
                 </Grid>
                 <Grid ColumnDefinitions="*,*"
                       HorizontalOptions="Center">
@@ -108,8 +108,16 @@
                            HorizontalOptions="End"
                            HorizontalTextAlignment="End"/>
                     <Label Grid.Column="1"
-                           FontSize="18"
-                           Text="{Binding AveragePaceString, StringFormat='{0} min/km'}"/>
+                           FontSize="18">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{Binding AveragePace.Minutes}" FontSize="18"/>
+                                <Span Text=":" FontSize="18"/>
+                                <Span Text="{Binding AveragePace.Seconds}" FontSize="18"/>
+                                <Span Text=" min/km" FontSize="18"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                 </Grid>
                 <Grid ColumnDefinitions="*,*"
                       HorizontalOptions="Center">

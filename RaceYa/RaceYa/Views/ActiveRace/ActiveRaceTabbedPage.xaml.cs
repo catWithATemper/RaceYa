@@ -171,9 +171,6 @@ namespace RaceYa.Views
 
             await SaveUpdatedData();
 
-            //Context.LatestResult = await FirestoreRaceResult.ReadRaceRaesultByParticipantId(Context.CurrentParticipant.Id);
-            //Context.LatestRace = await FirestoreRace.ReadRaceById(Context.CurrentParticipant.Result.RaceId);
-
             if (TextToSpeechService != null)
             {
                 TextToSpeechService.StopTextToSpeech();

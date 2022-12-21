@@ -35,6 +35,7 @@ namespace RaceYa.Views
                     Context.UserIsAuthenticated = true;
 
                     Context.LatestResult = await FirestoreRaceResult.ReadLatestRaceResult(Context.CurrentUser.Id);
+                    Context.LatestRace = await FirestoreRace.ReadRaceById(Context.LatestResult.RaceId);
 
                     await Shell.Current.GoToAsync("//MainPage");
                 }

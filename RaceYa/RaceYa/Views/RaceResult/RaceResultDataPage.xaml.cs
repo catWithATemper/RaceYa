@@ -15,6 +15,11 @@ namespace RaceYa.Views
         public RaceResultDataPage()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
 
             if (Context.LatestRace != null)
             {
@@ -26,5 +31,7 @@ namespace RaceYa.Views
                 personalResultLayout.BindingContext = Context.LatestResult;
             }
         }
+
+
     }
 }

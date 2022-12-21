@@ -13,6 +13,11 @@ namespace RaceYa.Views
         public RaceResultLeaderBoard()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
 
             if (Context.LatestRace != null)
             {
