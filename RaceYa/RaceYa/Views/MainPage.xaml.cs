@@ -13,6 +13,8 @@ namespace RaceYa.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : ContentPage
     {
+        //TODO: Remove dependency servic and try directly calling firestore from the helper classes.
+   
         public static DBQuickStartService DBQuickStart = DBQuickStartService.Instance();
 
         public static GlobalContext Context = GlobalContext.Instance();

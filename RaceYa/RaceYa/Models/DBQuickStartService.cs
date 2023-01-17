@@ -38,7 +38,7 @@ namespace RaceYa.Models
 
             Race currentRace = new Race(0.2,
                                    DateTime.Parse("2022-12-11T00:00:00"),
-                                   DateTime.Parse("2022-12-17T00:00:00"),
+                                   DateTime.Parse("2022-12-266T00:00:00"),
                                    "Test run");
             currentRace.UserId = "gj34J8kMNbIouWftxhgM";
             await FirestoreRace.Add(currentRace);
