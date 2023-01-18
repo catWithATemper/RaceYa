@@ -54,12 +54,12 @@
                                HorizontalTextAlignment="Start">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="PACE " 
+                                    <Span Text="DISTANCE" 
                                           FontAttributes="Bold, italic" 
                                           FontSize="18"/>
                                     <Span FontAttributes="Bold" 
                                           FontSize="16"
-                                          Text="(min/km)"/>
+                                          Text="(km)"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
@@ -109,16 +109,12 @@
                                        VerticalOptions="EndAndExpand">
                                 </Label>
                                 <Label Grid.Column="3"
+                                       Text="{Binding CoveredDistanceInKm, StringFormat='{0:F2}'}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Start"
                                        VerticalOptions="EndAndExpand">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding AveragePace.Minutes}" FontSize="18" FontAttributes="Bold"/>
-                                            <Span Text=":" FontSize="18" FontAttributes="Bold"/>
-                                            <Span Text="{Binding AveragePace.Seconds}" FontSize="18" FontAttributes="Bold"/>
-                                        </FormattedString>
-                                    </Label.FormattedText>
                                 </Label>
                                 <BoxView Grid.Row="1"
                                          Grid.ColumnSpan="4"
