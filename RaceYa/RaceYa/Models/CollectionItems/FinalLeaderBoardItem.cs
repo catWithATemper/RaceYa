@@ -80,18 +80,18 @@ namespace RaceYa.Models.CollectionItems
         }
 
         [Ignored]
-        private double coveredDistanceInKm;
+        private double evaluatedDistanceInKm;
 
-        [MapTo("coveredDistanceInKm")]
-        public double CoveredDistanceInKm
+        [MapTo("evaluatedDistanceInKm")]
+        public double EvaluatedDistanceInKm
         {
             get
             {
-                return coveredDistanceInKm;
+                return evaluatedDistanceInKm;
             }
             set
             {
-                coveredDistanceInKm = value;
+                evaluatedDistanceInKm = value;
                 NotifyPropertyChanged();
             }
         }
@@ -100,13 +100,13 @@ namespace RaceYa.Models.CollectionItems
         {
         }
 
-        public FinalLeaderBoardItem(string participantId, string name, double averageSpeedKmH, double averagePaceInMillis, double coveredDistanceInKm)
+        public FinalLeaderBoardItem(string participantId, string name, double averageSpeedKmH, double averagePaceInMillis, double evaluatedDistanceInKm)
         {
             ParticipantId = participantId;
             Name = name;
             AverageSpeedKmH = averageSpeedKmH;
             AveragePaceInMillis = averagePaceInMillis;
-            CoveredDistanceInKm = coveredDistanceInKm;
+            EvaluatedDistanceInKm = evaluatedDistanceInKm;
         }
 
 

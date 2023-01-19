@@ -66,28 +66,28 @@ namespace RaceYa.Models
             }
         }
 
-        private double coveredDistanceInKm;
+        private double evaluatedDistanceInKm;
 
-        public double CoveredDistanceInKm
+        public double EvaluatedDistanceInKm
         {
             get
             {
-                return coveredDistanceInKm;
+                return evaluatedDistanceInKm;
             }
             set
             {
-                coveredDistanceInKm = value;
+                evaluatedDistanceInKm = value;
                 NotifyPropertyChanged();
             }
         }
 
-        public ObservableFinalLeaderBoardItem(int rank, string name, double averageSpeedKmH, TimeSpan averagePace, double coveredDistanceInKm)
+        public ObservableFinalLeaderBoardItem(int rank, string name, double averageSpeedKmH, TimeSpan averagePace, double evaluatedDistanceInKm)
         {
             Rank = rank;
             Name = name;
             AverageSpeedKmH = averageSpeedKmH;
             AveragePace = averagePace;
-            CoveredDistanceInKm = coveredDistanceInKm;
+            EvaluatedDistanceInKm = evaluatedDistanceInKm;
         }
 
 

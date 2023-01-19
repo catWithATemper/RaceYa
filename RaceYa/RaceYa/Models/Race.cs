@@ -282,7 +282,7 @@ namespace RaceYa.Models
                                                                   participant.User.Name,
                                                                   participant.Result.AverageSpeedKmH,
                                                                   participant.Result.AveragePaceInMillis,
-                                                                  participant.Result.CoveredDistanceInKm));
+                                                                  participant.Result.EvaluatedDistanceInMeters / 1000));
          
                     participant.Result.LeaderBoardRank = Array.IndexOf(FinalLeaderBoardSet.ToArray(), participant) + 1;
                 }
@@ -313,7 +313,7 @@ namespace RaceYa.Models
                                                                                   item.Name,
                                                                                   item.AverageSpeedKmH,
                                                                                   TimeSpan.FromMilliseconds(item.AveragePaceInMillis),
-                                                                                  item.CoveredDistanceInKm));
+                                                                                  item.EvaluatedDistanceInKm));
             }
         }
     }
