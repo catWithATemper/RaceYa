@@ -11,7 +11,7 @@
                     <Grid BackgroundColor="Lavender">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="4.2*" />
+                            <ColumnDefinition Width="4.4*" />
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="3*" />
                         </Grid.ColumnDefinitions>
@@ -51,10 +51,10 @@
                         <Label Grid.Column="3"        
                                VerticalTextAlignment="Center"
                                VerticalOptions="EndAndExpand"
-                               HorizontalTextAlignment="Start">
+                               HorizontalTextAlignment="Start"> 
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="DISTANCE" 
+                                    <Span Text="DISTANCE " 
                                           FontAttributes="Bold, italic" 
                                           FontSize="18"/>
                                     <Span FontAttributes="Bold" 
@@ -76,7 +76,7 @@
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="4.4*" />
                                     <ColumnDefinition Width="2*" />
                                     <ColumnDefinition Width="3*" />
                                 </Grid.ColumnDefinitions>
